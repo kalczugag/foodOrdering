@@ -1,6 +1,15 @@
 const passport = require("passport");
+const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
+const requireLogin = require("../middlewares/requireLogin");
+
+const User = mongoose.model("users");
 
 module.exports = (app) => {
+    app.get("/dashboard", requireLogin, (req, res) => {
+        res.send("dashboard");
+    });
+
     app.get(
         "/auth/google",
         passport.authenticate("google", {
@@ -12,7 +21,7 @@ module.exports = (app) => {
         "/auth/google/callback",
         passport.authenticate("google"),
         (req, res) => {
-            res.redirect("/surveys");
+            res.redirect("/");
         }
     );
 
@@ -24,12 +33,4 @@ module.exports = (app) => {
     app.get("/api/current_user", (req, res) => {
         res.send(req.user);
     });
-
-    app.post(
-        "/login",
-        passport.authenticate("local", { failureRedirect: "/login" }),
-        (req, res) => {
-            res.redirect("/");
-        }
-    );
 };
