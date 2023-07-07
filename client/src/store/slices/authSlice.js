@@ -1,0 +1,16 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchUser } from "../thunks/fetchUser";
+
+const authSlice = createSlice({
+    name: "auth",
+    initialState: {
+        data: null,
+    },
+    extraReducers(builder) {
+        builder.addCase(fetchUser.fulfilled, (state, action) => {
+            state.data = action.payload;
+        });
+    },
+});
+
+export const authReducer = authSlice.reducer;

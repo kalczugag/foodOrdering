@@ -4,7 +4,11 @@ const colors = require("tailwindcss/colors");
 module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
-        extend: {},
+        extend: {
+            spacing: {
+                "screen-fit": "calc(100vh - 80px)",
+            },
+        },
         colors: {
             "red-main": "#d3401f",
             transparent: "transparent",
@@ -12,6 +16,7 @@ module.exports = {
             black: colors.black,
             white: colors.white,
             gray: colors.slate,
+            blue: colors.blue,
             green: colors.emerald,
             purple: colors.violet,
             yellow: colors.amber,
