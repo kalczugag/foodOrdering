@@ -31,7 +31,7 @@ const Header = () => {
     return (
         <div className="fixed left-0 right-0 top-0 z-50 flex flex-row justify-between text-white bg-red-main p-4 max-h-20 md:px-8">
             <div className="flex flex-row items-center space-x-3 flex-1">
-                <AiOutlinePhone className="text-5xl bg-white text-red-main p-1 rounded-full" />
+                <AiOutlinePhone className="hidden text-5xl bg-white text-red-main p-1 rounded-full xl:block" />
                 <div className="flex flex-col">
                     <p className="text-xs">ORDER NOW</p>
                     <p className="font-bold">012 345 678</p>

@@ -11,7 +11,7 @@ const HomeMain = () => {
             <div className="flex flex-col text-3xl font-bold mt-2 md:mr-32 md:mt-0">
                 <div className="flex flex-col items-center mb-6">
                     <p>HOT & SPICY</p>
-                    <h1 className="text-9xl">PIZZA</h1>
+                    <h1 className="text-8xl md:text-9xl">PIZZA</h1>
                     <div className="pt-4 w-12 border-b-4 border-white" />
                 </div>
                 <div className="flex flex-col items-center text-4xl">
@@ -22,7 +22,7 @@ const HomeMain = () => {
                     <p className="text-xl pt-1">{process.env.NODE_ENV}</p>
                 </div>
             </div>
-            <div>
+            <div className="pb-16 sm:pb-0">
                 <img src={require("../../utils/images/1.png")} alt="pizza" />
             </div>
             <div className="hidden xl:flex xl:justify-end">

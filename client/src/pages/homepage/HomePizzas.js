@@ -55,9 +55,15 @@ const HomePizzas = () => {
 
     const renderedFeaturedPizzas = config.map((pizza) => {
         return (
-            <a href="/" className="flex flex-col items-center space-y-1">
-                <img src={pizza.src} alt={pizza.label} />
-                <p className="text-red-500">{pizza.label}</p>
+            <a
+                key={pizza.label}
+                href="/"
+                className="flex flex-col items-center space-y-1"
+            >
+                <img className="md:w-3/4" src={pizza.src} alt={pizza.label} />
+                <p className="text-red-500 text-xl border-b border-white hover:border-red-main">
+                    {pizza.label}
+                </p>
                 <p className="font-bold">{pizza.price}</p>
                 <p>{pizza.description}</p>
             </a>
@@ -65,9 +71,9 @@ const HomePizzas = () => {
     });
 
     return (
-        <div className="relative container flex flex-col items-center mx-auto min-h-screen mt-16 px-6 md:px-0">
-            {data.admin && (
-                <button className="absolute -top-8 -left-20 rounded-xl bg-blue-500 text-white p-2">
+        <div className="relative container flex flex-col items-center mx-auto min-h-screen mt-16 px-6 md:px-10">
+            {data && data.admin && (
+                <button className="hidden absolute -top-8 left-0 rounded-xl bg-blue-500 text-white p-2 md:block">
                     Add pizza
                 </button>
             )}
