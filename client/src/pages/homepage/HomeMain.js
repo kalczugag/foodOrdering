@@ -22,7 +22,7 @@ const HomeMain = () => {
                     <p className="text-xl pt-1">{process.env.NODE_ENV}</p>
                 </div>
             </div>
-            <div className="pb-16 sm:pb-0">
+            <div className="w-1/2 md:w-full">
                 <img src={require("../../utils/images/1.png")} alt="pizza" />
             </div>
             <div className="hidden xl:flex xl:justify-end">

@@ -3,13 +3,13 @@ import { useEffect } from "react";
 import { useThunk } from "./hooks/use-thunk";
 import { fetchUser } from "./store";
 import Header from "./components/Header";
-import Home from "./pages/homepage/Home";
-import Blog from "./pages/Blog";
-import Contact from "./pages/Contact";
-import Events from "./pages/Events";
-import Menu from "./pages/Menu";
-import Products from "./pages/Products";
-import Cart from "./pages/Cart";
+import HomePage from "./pages/homepage/HomePage";
+import BlogPage from "./pages/BlogPage";
+import ContactPage from "./pages/ContactPage";
+import EventsPage from "./pages/EventsPage";
+import MenuPage from "./pages/MenuPage";
+import ProductsPage from "./pages/ProductsPage";
+import CartPage from "./pages/CartPage";
 
 const App = () => {
     const [doFetchUser] = useThunk(fetchUser);
@@ -23,13 +23,13 @@ const App = () => {
             <Header />
             <div className="mt-20">
                 <Routes>
-                    <Route index element={<Home />} />
-                    <Route path="/products" element={<Products />} />
-                    <Route path="/events" element={<Events />} />
-                    <Route path="/menu" element={<Menu />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/cart" element={<Cart />} />
+                    <Route index element={<HomePage />} />
+                    <Route path="/products" element={<ProductsPage />} />
+                    <Route path="/events" element={<EventsPage />} />
+                    <Route path="/menu" element={<MenuPage />} />
+                    <Route path="/blog" element={<BlogPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/cart" element={<CartPage />} />
                 </Routes>
             </div>
         </div>

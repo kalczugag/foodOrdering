@@ -1,5 +1,6 @@
-import { AiOutlinePhone, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlinePhone } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import Cart from "./Cart";
 
 const Header = () => {
     const config = [
@@ -29,8 +30,8 @@ const Header = () => {
     });
 
     return (
-        <div className="fixed left-0 right-0 top-0 z-50 flex flex-row justify-between text-white bg-red-main p-4 max-h-20 md:px-8">
-            <div className="flex flex-row items-center space-x-3 flex-1">
+        <div className="fixed left-0 right-0 top-0 z-50 flex flex-row justify-between text-white bg-red-main p-4 h-20 md:px-8">
+            <div className="flex flex-row items-center flex-1 md:space-x-3">
                 <AiOutlinePhone className="hidden text-5xl bg-white text-red-main p-1 rounded-full xl:block" />
                 <div className="flex flex-col">
                     <p className="text-xs">ORDER NOW</p>
@@ -41,9 +42,7 @@ const Header = () => {
                 {renderedLinks}
             </div>
             <div className="flex items-center justify-end flex-1">
-                <Link to="/cart">
-                    <AiOutlineShoppingCart className="text-3xl" />
-                </Link>
+                <Cart />
             </div>
         </div>
     );

@@ -39,7 +39,7 @@ const HomeFooter = () => {
     });
 
     return (
-        <div className="flex flex-row h-screen-fit bg-gray-main mt-16 text-white">
+        <div className="flex flex-row bg-gray-main mt-16 text-white md:h-screen-fit">
             <div className="hidden md:block">
                 <img
                     className="h-screen-fit object-cover"
@@ -47,14 +47,14 @@ const HomeFooter = () => {
                     alt="bg"
                 />
             </div>
-            <div className="flex flex-col justify-between p-20 md:flex-row">
+            <div className="flex flex-col justify-between p-20 md:flex-row md:space-x-4 xl:space-x-0">
                 <div className="text-center pb-10 md:w-1/4 md:pb-0 md:text-start">
                     <h2 className="text-4xl font-bold">
                         OH YES, WE DID. THE LAMA PIZZA, WELL BAKED SLICE OF
                         PIZZA
                     </h2>
                 </div>
-                <div className="flex flex-row justify-evenly flex-1">
+                <div className="flex flex-row justify-evenly flex-1 sm:space-x-7 md:space-x-4 xl:space-x-0">
                     <div>
                         <h3 className="text-xl font-bold text-yellow-500">
                             FIND OUR RESTAURANTS
