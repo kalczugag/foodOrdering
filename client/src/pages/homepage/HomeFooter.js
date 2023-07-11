@@ -26,17 +26,19 @@ const HomeFooter = () => {
         },
     ];
 
-    const renderedAddresses = config.map(({ address, city, postal, phone }) => {
-        return (
-            <div className="text-lg mt-4">
-                <p>{address}.</p>
-                <p>
-                    {city}, {postal}
-                </p>
-                <p>{phone}</p>
-            </div>
-        );
-    });
+    const renderedAddresses = config.map(
+        ({ address, city, postal, phone }, index) => {
+            return (
+                <div key={index} className="text-lg mt-4">
+                    <p>{address}.</p>
+                    <p>
+                        {city}, {postal}
+                    </p>
+                    <p>{phone}</p>
+                </div>
+            );
+        }
+    );
 
     return (
         <div className="flex flex-row bg-gray-main mt-16 text-white md:h-screen-fit">

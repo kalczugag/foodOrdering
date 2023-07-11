@@ -1,6 +1,6 @@
 import { AiOutlinePhone } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import Cart from "./Cart";
+import CartIcon from "./CartIcon";
 
 const Header = () => {
     const config = [
@@ -42,7 +42,7 @@ const Header = () => {
                 {renderedLinks}
             </div>
             <div className="flex items-center justify-end flex-1">
-                <Cart />
+                <CartIcon />
             </div>
         </div>
     );

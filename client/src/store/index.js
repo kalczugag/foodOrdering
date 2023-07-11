@@ -9,4 +9,5 @@ export const store = configureStore({
     },
 });
 
+export * from "./slices/cartSlice";
 export * from "./thunks/fetchUser";

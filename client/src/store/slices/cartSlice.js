@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//item model: { product: img, name: string, extras: [string], price: string, count: number }
+//item model: { image: img, name: string, extras: [string], price: number, count: {type: number, dufault: 1} }
 const cartSlice = createSlice({
     name: "cart",
     initialState: {
         items: [],
         itemsCount: 0,
+        discount: 0, //in fraction (fe.: 0.2)
+        subtotal: 0,
         totalPrice: 0,
     },
     reducers: {
@@ -22,6 +24,7 @@ const cartSlice = createSlice({
                 state.items.push({ ...newItem, count: 1 });
                 state.totalPrice += newItem.price;
             }
+            state.subtotal = state.totalPrice;
             state.itemsCount += action.payload.count;
         },
 
@@ -41,6 +44,8 @@ const cartSlice = createSlice({
                 (total, item) => total + item.count,
                 0
             );
+
+            state.subtotal = state.totalPrice;
         },
 
         changeItemsAmount(state, action) {
@@ -57,10 +62,16 @@ const cartSlice = createSlice({
                 state.itemsCount += amount;
                 state.totalPrice += item.price * amount;
             }
+
+            state.subtotal = state.totalPrice;
         },
+    },
+
+    AddDiscount(state, action) {
+        state.totalPrice = state.totalPrice * state.discount;
     },
 });
 
 export const cartReducer = cartSlice.reducer;
-export const { addToCart, removeFromCart, changeItemsAmount } =
+export const { addToCart, removeFromCart, changeItemsAmount, AddDiscount } =
     cartSlice.actions;

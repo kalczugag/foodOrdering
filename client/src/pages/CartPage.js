@@ -4,13 +4,14 @@ import CartList from "../components/CartList";
 import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
-    const { items, totalPrice } = useSelector((state) => state.cart);
+    const data = useSelector((state) => state.cart);
 
     return (
         <div className="flex flex-col">
-            <div></div>
-            <CartList items={items} />
-            <CartTotal totalPrice={totalPrice} />
+            <div className="flex flex-row p-14 px-16 justify-between">
+                <CartList data={data} />
+                <CartTotal data={data} />
+            </div>
             <HomeFooter />
         </div>
     );
