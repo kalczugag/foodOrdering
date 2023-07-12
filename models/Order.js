@@ -1,12 +1,9 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const OrderSchema = new mongoose.Schema(
     {
-        customer: {
-            type: String,
-            required: true,
-            maxlength: 60,
-        },
+        _user: { type: Schema.Types.ObjectId, ref: "User" },
         address: {
             type: String,
             required: true,
@@ -20,10 +17,7 @@ const OrderSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
-        method: {
-            type: Number,
-            required: true,
-        },
+        products: [],
     },
     { timestamps: true }
 );

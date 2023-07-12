@@ -10,6 +10,7 @@ import EventsPage from "./pages/EventsPage";
 import MenuPage from "./pages/MenuPage";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const App = () => {
     const [doFetchUser] = useThunk(fetchUser);
@@ -30,6 +31,7 @@ const App = () => {
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/cart" element={<CartPage />} />
+                    <Route path="/cart/checkout" element={<CheckoutPage />} />
                 </Routes>
             </div>
         </div>

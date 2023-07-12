@@ -32,10 +32,14 @@ const CartList = ({ data: { items, totalPrice, itemsCount } }) => {
         return data.name;
     };
 
+    const cartNotEmpty = <Table config={config} data={items} keyFn={keyFn} />;
+
+    const cartEmpty = (
+        <div className="text-center text-xl font-bold">Your cart is empty.</div>
+    );
+
     return (
-        <div>
-            <Table config={config} data={items} keyFn={keyFn} />
-        </div>
+        <div className="flex-1">{itemsCount ? cartNotEmpty : cartEmpty}</div>
     );
 };
 
