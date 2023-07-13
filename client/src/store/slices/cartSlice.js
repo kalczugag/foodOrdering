@@ -18,14 +18,14 @@ const cartSlice = createSlice({
             );
 
             if (existingItem) {
-                existingItem.count += 1;
+                existingItem.quantity += 1;
                 state.totalPrice += newItem.price;
             } else {
-                state.items.push({ ...newItem, count: 1 });
+                state.items.push({ ...newItem, quantity: 1 });
                 state.totalPrice += newItem.price;
             }
             state.subtotal = state.totalPrice;
-            state.itemsCount += action.payload.count;
+            state.itemsCount += action.payload.quantity;
         },
 
         removeFromCart(state, action) {
@@ -37,11 +37,11 @@ const cartSlice = createSlice({
                 (item) => item.id !== action.payload.id
             );
             state.totalPrice -= removedItems.reduce(
-                (total, item) => total + item.price * item.count,
+                (total, item) => total + item.price * item.quantity,
                 0
             );
             state.itemsCount -= removedItems.reduce(
-                (total, item) => total + item.count,
+                (total, item) => total + item.quantity,
                 0
             );
 
@@ -57,8 +57,8 @@ const cartSlice = createSlice({
                     return;
                 }
 
-                const newCount = item.count + amount;
-                item.count = newCount > 0 ? newCount : 0;
+                const newCount = item.quantity + amount;
+                item.quantity = newCount > 0 ? newCount : 0;
                 state.itemsCount += amount;
                 state.totalPrice += item.price * amount;
             }

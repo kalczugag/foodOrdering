@@ -1,5 +1,9 @@
 const CheckoutPage = () => {
-    return <div>chc</div>;
+    return (
+        <div>
+            <button>checkout</button>
+        </div>
+    );
 };
 
 export default CheckoutPage;

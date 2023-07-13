@@ -20,7 +20,7 @@ const CartList = ({ data: { items, totalPrice, itemsCount } }) => {
         },
         {
             label: "Quantity",
-            render: (item) => item.count,
+            render: (item) => item.quantity,
         },
         {
             label: "Total",

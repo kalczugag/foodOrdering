@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const OrderSchema = new mongoose.Schema(
+const orderSchema = new Schema(
     {
         _user: { type: Schema.Types.ObjectId, ref: "User" },
         address: {
@@ -22,4 +22,4 @@ const OrderSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-mongoose.model("orders", OrderSchema);
+mongoose.model("orders", orderSchema);

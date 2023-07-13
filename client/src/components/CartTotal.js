@@ -1,24 +1,18 @@
-import { Link } from "react-router-dom";
+import { handlePayment } from "../store";
+import { useThunk } from "../hooks/use-thunk";
 
 const CartTotal = ({
     data: { totalPrice, subtotal, discount, itemsCount },
 }) => {
+    const [doHandlePayment] = useThunk(handlePayment);
+
     const handleCheckoutClick = () => {
-        if (itemsCount) {
-        }
+        doHandlePayment([
+            { id: 1, quantity: 3 },
+            { id: 2, quantity: 1 },
+        ]);
         //open delivery details form
         //proceed to stripe payment
-
-        console.log({
-            title: "pizza",
-            desc: "desc",
-            img: "img",
-            price: 10,
-            extraOptions: [
-                { text: "cheese", price: 1 },
-                { text: "chorrizo", price: 2 },
-            ],
-        });
     };
 
     return (
@@ -29,13 +23,12 @@ const CartTotal = ({
                 <p>Discount: ${(discount * 100).toFixed(2)}</p>
                 <p>Total: ${totalPrice}</p>
             </div>
-            <Link
+            <button
                 onClick={handleCheckoutClick}
-                to={itemsCount ? "checkout" : ""}
                 className="bg-white p-2 px-14 text-red-main font-bold hover:bg-gray-100"
             >
                 CHECKOUT NOW
-            </Link>
+            </button>
         </div>
     );
 };
