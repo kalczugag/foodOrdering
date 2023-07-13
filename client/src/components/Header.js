@@ -1,8 +1,13 @@
 import { AiOutlinePhone } from "react-icons/ai";
+import { GoPerson } from "react-icons/go";
+import { FiLogOut } from "react-icons/fi";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CartIcon from "./CartIcon";
 
 const Header = () => {
+    const user = useSelector((state) => state.auth.data);
+
     const config = [
         { label: "Homepage", name: "" },
         { label: "Products", name: "products" },
@@ -29,6 +34,17 @@ const Header = () => {
         );
     });
 
+    const userHeaderOptions = (
+        <>
+            <Link to="/profile">
+                <GoPerson />
+            </Link>
+            <a href="/api/logout">
+                <FiLogOut />
+            </a>
+        </>
+    );
+
     return (
         <div className="fixed left-0 right-0 top-0 z-50 flex flex-row justify-between text-white bg-red-main p-4 h-20 md:px-8">
             <div className="flex flex-row items-center flex-1 md:space-x-3">
@@ -41,8 +57,17 @@ const Header = () => {
             <div className="hidden flex-row items-center justify-between space-x-6 md:flex">
                 {renderedLinks}
             </div>
-            <div className="flex items-center justify-end flex-1">
+            <div className="flex items-center justify-end flex-1 text-3xl  space-x-5">
                 <CartIcon />
+                {!user && (
+                    <a
+                        href="/auth/google"
+                        className="text-2xl border p-2 px-4 hover:bg-red-500"
+                    >
+                        login
+                    </a>
+                )}
+                {user && userHeaderOptions}
             </div>
         </div>
     );

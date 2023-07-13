@@ -7,7 +7,7 @@ const Cart = () => {
 
     return (
         <Link to="/cart" className="relative">
-            <AiOutlineShoppingCart className="text-3xl" />
+            <AiOutlineShoppingCart />
             {itemsCount === 0 ? (
                 ""
             ) : (

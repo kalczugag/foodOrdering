@@ -8,17 +8,17 @@ module.exports = (app) => {
     app.post("/api/stripe", async (req, res) => {
         const session = await stripe.checkout.sessions.create({
             mode: "payment",
-            line_items: req.body.products.map((item) => {
-                const product = Products.findOne(item.id);
+            line_items: req.body.items.map((item) => {
+                const storeItem = Products.findOne(item.id);
                 return {
                     price_data: {
                         currency: "usd",
                         product_data: {
-                            name: product.title,
+                            name: storeItem.title,
                         },
-                        unit_amount: product.price,
+                        unit_amount: storeItem.price,
                     },
-                    quantity: item.quantity,
+                    quantity: storeItem.quantity,
                 };
             }),
             success_url: `${keys.redirectDomain}?success=true`,

@@ -1,8 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useThunk } from "./hooks/use-thunk";
 import { fetchUser } from "./store";
 import Header from "./components/Header";
+import HomeFooter from "./pages/homepage/HomeFooter";
 import HomePage from "./pages/homepage/HomePage";
 import BlogPage from "./pages/BlogPage";
 import ContactPage from "./pages/ContactPage";
@@ -11,9 +12,13 @@ import MenuPage from "./pages/MenuPage";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import ProfilePage from "./pages/ProfilePage";
+import DashboardAdmin from "./pages/admin/DashboardAdmin";
+import AdminLogin from "./pages/admin/AdminLogin";
 
 const App = () => {
     const [doFetchUser] = useThunk(fetchUser);
+    const location = useLocation();
 
     useEffect(() => {
         doFetchUser();
@@ -32,8 +37,15 @@ const App = () => {
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/cart/checkout" element={<CheckoutPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/admin" element={<AdminLogin />} />
+                    <Route
+                        path="/admin/dashboard"
+                        element={<DashboardAdmin />}
+                    ></Route>
                 </Routes>
             </div>
+            {!location.pathname.startsWith("/admin") ? <HomeFooter /> : ""}
         </div>
     );
 };

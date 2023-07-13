@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import HomeFooter from "./homepage/HomeFooter";
 import CartList from "../components/CartList";
 import CartTotal from "../components/CartTotal";
 
@@ -12,7 +11,6 @@ const Cart = () => {
                 <CartList data={data} />
                 <CartTotal data={data} />
             </div>
-            <HomeFooter />
         </div>
     );
 };
