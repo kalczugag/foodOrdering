@@ -1,0 +1,21 @@
+input {
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 4px;
+    padding: 6px;
+    width: 250px;
+}
+
+Form > div {
+    position: relative;
+}
+
+span {
+    position: absolute;
+    top: 5px;
+    right: 4px;
+    color: red;
+}
+
+.color {
+    background-color: #02787a;
+}
