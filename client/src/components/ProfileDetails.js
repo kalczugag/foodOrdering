@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { useUser } from "../hooks/use-user";
 
 const ProfileDetails = () => {
-    const { email, name } = useSelector((state) => state.auth.data);
+    const { email, name } = useUser();
 
     const config = [
         { label: "First Name", value: name },
@@ -15,7 +15,7 @@ const ProfileDetails = () => {
 
     const renderedInfo = config.map(({ label, value }, index) => {
         return (
-            <div key={index} className="flex flex-row justify-between">
+            <div key={index} className="flex flex-row justify-between text-lg">
                 <div className="font-bold">{label}:</div>
                 <div>{value}</div>
             </div>

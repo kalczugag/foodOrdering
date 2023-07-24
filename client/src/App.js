@@ -17,6 +17,7 @@ import ProfileDetails from "./components/ProfileDetails";
 import ProfilePayments from "./components/ProfilePayments";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import AdminLogin from "./pages/admin/AdminLogin";
+import ProductDetails from "./pages/ProductDetails";
 
 const App = () => {
     const [doFetchUser] = useThunk(fetchUser);
@@ -43,11 +44,12 @@ const App = () => {
                         <Route path="details" element={<ProfileDetails />} />
                         <Route path="history" element={<ProfilePayments />} />
                     </Route>
-                    <Route path="/admin" element={<AdminLogin />} />
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/admin" element={<DashboardAdmin />}></Route>
                     <Route
-                        path="/admin/dashboard"
-                        element={<DashboardAdmin />}
-                    ></Route>
+                        path="/products/:productId"
+                        element={<ProductDetails />}
+                    />
                 </Routes>
             </div>
             {!location.pathname.startsWith("/admin") ? <HomeFooter /> : ""}

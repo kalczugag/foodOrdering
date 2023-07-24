@@ -1,12 +1,12 @@
 import { AiOutlinePhone } from "react-icons/ai";
 import { GoPerson } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useUser } from "../hooks/use-user";
 import { Link } from "react-router-dom";
 import CartIcon from "./CartIcon";
 
 const Header = () => {
-    const user = useSelector((state) => state.auth.data);
+    const user = useUser();
 
     const config = [
         { label: "Homepage", name: "" },
@@ -47,9 +47,9 @@ const Header = () => {
 
     return (
         <div className="fixed left-0 right-0 top-0 z-50 flex flex-row justify-between text-white bg-red-main p-4 h-20 md:px-8">
-            <div className="flex flex-row items-center flex-1 md:space-x-3">
-                <AiOutlinePhone className="hidden text-5xl bg-white text-red-main p-1 rounded-full xl:block" />
-                <div className="flex flex-col">
+            <div className="flex flex-row items-center flex-1 space-x-3">
+                <AiOutlinePhone className="text-5xl bg-white text-red-main p-1 rounded-full sm:block md:hidden xl:block" />
+                <div className="flex-col sm:block md:hidden xl:block">
                     <p className="text-xs">ORDER NOW</p>
                     <p className="font-bold">012 345 678</p>
                 </div>

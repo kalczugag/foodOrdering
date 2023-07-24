@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 const requireAdmin = require("../middlewares/requireAdmin");
 
-const Product = mongoose.model("products");
+const Order = mongoose.model("orders");
 
 module.exports = (app) => {
-    app.get("/api/products", async (req, res) => {
-        const products = await Product.find({});
+    app.get("/api/orders", async (req, res) => {
+        const orders = await Order.find({});
 
-        res.send(products);
+        res.send(orders);
     });
 
-    app.post("/api/products", requireLogin, requireAdmin, async (req, res) => {
+    app.post("/api/orders", requireLogin, requireAdmin, async (req, res) => {
         const { title, desc, img, price, extraOptions } = req.body;
 
-        const product = new Product({
+        const order = new Order({
             title,
             desc,
             img,
@@ -23,7 +23,7 @@ module.exports = (app) => {
         });
 
         try {
-            await product.save();
+            await order.save();
         } catch (err) {
             res.status(422).send(err);
         }

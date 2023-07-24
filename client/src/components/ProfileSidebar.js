@@ -1,10 +1,12 @@
 import { useLocation, Link } from "react-router-dom";
-import { MdPayment } from "react-icons/md";
+import { MdPayment, MdAdminPanelSettings } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { FiLogOut } from "react-icons/fi";
+import { useUser } from "../hooks/use-user";
 
 const ProfileSidebar = () => {
     const location = useLocation();
+    const user = useUser();
 
     const links = [
         {
@@ -30,22 +32,31 @@ const ProfileSidebar = () => {
                 className={`flex flex-row items-center text-xl space-x-2 p-3 cursor-pointer hover:bg-gray-100 ${activeClass}`}
             >
                 {icon}
-                <div>{label}</div>
+                <div className="hidden md:block">{label}</div>
             </Link>
         );
     });
 
-    console.log(location.pathname);
+    const admin = user && user.admin;
 
     return (
         <div className="flex flex-col border space-y-2">
             {renderedLinks}
+            {admin && (
+                <Link
+                    to="/admin"
+                    className="flex flex-row items-center text-xl space-x-2 p-3 cursor-pointer hover:bg-gray-100"
+                >
+                    <MdAdminPanelSettings />
+                    <div className="hidden md:block">Admin</div>
+                </Link>
+            )}
             <a
                 href="/api/logout"
                 className="flex flex-row items-center text-xl space-x-2 p-3 cursor-pointer hover:bg-gray-100"
             >
                 <FiLogOut />
-                <div>Logout</div>
+                <div className="hidden md:block">Logout</div>
             </a>
         </div>
     );

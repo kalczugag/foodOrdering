@@ -1,20 +1,7 @@
 const passport = require("passport");
-const requireLogin = require("../middlewares/requireLogin");
 const requireAdmin = require("../middlewares/requireAdmin");
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-
-const User = mongoose.model("users");
 
 module.exports = (app) => {
-    app.get("/admin", requireAdmin, (req, res) => {
-        res.redirect(301, "/admin/dashboard");
-    });
-
-    app.get("/admin/dashboard", requireAdmin, (req, res) => {
-        res.send({});
-    });
-
     app.get(
         "/auth/google",
         passport.authenticate("google", {
@@ -39,25 +26,7 @@ module.exports = (app) => {
         res.send(req.user);
     });
 
-    app.post("/api/admin", async (req, res) => {
-        const { username, password } = req.body;
-        const user = await User.findOne({ username, admin: true }).select({
-            googleId: false,
-            name: false,
-            email: false,
-            city: false,
-            address: false,
-            postalCode: false,
-            phone: false,
-            DateCreated: false,
-        });
-
-        bcrypt.compare(password, user.password, (err, result) => {
-            if (result) {
-                res.redirect("/admin/dashboard");
-            } else {
-                res.status(400).send({ message: "Wrong password" });
-            }
-        });
+    app.post("/api/admin", requireAdmin, (req, res) => {
+        res.redirect("/admin");
     });
 };

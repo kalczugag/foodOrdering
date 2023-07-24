@@ -2,12 +2,19 @@ import "../../utils/styles/adminLogin.css";
 import { Form, Field } from "react-final-form";
 import { adminLogin } from "../../store";
 import { useThunk } from "../../hooks/use-thunk";
+import { useUser } from "../../hooks/use-user";
 
 const AdminLogin = () => {
     const [doLoginAdmin] = useThunk(adminLogin);
+    const user = useUser();
+    console.log(user);
 
     const onSubmit = (e) => {
-        doLoginAdmin(e);
+        if (user && user.admin) {
+            window.location.href = "/admin";
+        } else {
+            doLoginAdmin(e);
+        }
     };
 
     const required = (value) => (value ? undefined : "Required");
@@ -55,7 +62,7 @@ const AdminLogin = () => {
                             className="color p-2 text-white w-full rounded"
                             type="submit"
                         >
-                            Submit
+                            Login
                         </button>
                     </form>
                 )}

@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { useUser } from "../../hooks/use-user";
 
 const HomePizzas = () => {
-    const { data } = useSelector((state) => state.auth);
+    const user = useUser();
 
     const config = [
         {
@@ -72,7 +72,7 @@ const HomePizzas = () => {
 
     return (
         <div className="relative container flex flex-col items-center mx-auto min-h-screen mt-16 px-6 md:px-10">
-            {data && data.admin && (
+            {user && user.admin && (
                 <button className="hidden absolute -top-8 left-0 rounded-xl bg-blue-500 text-white p-2 md:block">
                     Add pizza
                 </button>
