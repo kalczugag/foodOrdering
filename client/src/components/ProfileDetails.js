@@ -15,7 +15,7 @@ const ProfileDetails = () => {
 
     const renderedInfo = config.map(({ label, value }, index) => {
         return (
-            <div key={index} className="flex flex-row justify-between text-lg">
+            <div key={index} className="flex flex-row justify-between">
                 <div className="font-bold">{label}:</div>
                 <div>{value}</div>
             </div>

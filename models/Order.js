@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const productSchema = require("./Product");
 const { Schema } = mongoose;
 
 const orderSchema = new Schema(
@@ -17,7 +18,7 @@ const orderSchema = new Schema(
             type: Number,
             default: 0,
         },
-        products: [],
+        products: [productSchema],
     },
     { timestamps: true }
 );

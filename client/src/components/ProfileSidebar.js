@@ -11,7 +11,7 @@ const ProfileSidebar = () => {
     const links = [
         {
             label: "Personal Details",
-            path: "/profile/details",
+            path: "/profile",
             icon: <ImProfile />,
         },
         {
@@ -29,7 +29,7 @@ const ProfileSidebar = () => {
             <Link
                 to={path}
                 key={path}
-                className={`flex flex-row items-center text-xl space-x-2 p-3 cursor-pointer hover:bg-gray-100 ${activeClass}`}
+                className={`flex flex-row items-center space-x-2 p-3 cursor-pointer hover:bg-gray-100 ${activeClass}`}
             >
                 {icon}
                 <div className="hidden md:block">{label}</div>
@@ -45,7 +45,7 @@ const ProfileSidebar = () => {
             {admin && (
                 <Link
                     to="/admin"
-                    className="flex flex-row items-center text-xl space-x-2 p-3 cursor-pointer hover:bg-gray-100"
+                    className="flex flex-row items-center space-x-2 p-3 cursor-pointer hover:bg-gray-100"
                 >
                     <MdAdminPanelSettings />
                     <div className="hidden md:block">Admin</div>
@@ -53,7 +53,7 @@ const ProfileSidebar = () => {
             )}
             <a
                 href="/api/logout"
-                className="flex flex-row items-center text-xl space-x-2 p-3 cursor-pointer hover:bg-gray-100"
+                className="flex flex-row items-center space-x-2 p-3 cursor-pointer hover:bg-gray-100"
             >
                 <FiLogOut />
                 <div className="hidden md:block">Logout</div>

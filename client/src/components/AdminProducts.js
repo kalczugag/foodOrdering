@@ -1,7 +1,7 @@
 import SortableTable from "./SortableTable";
 import { useSelector } from "react-redux";
 
-const AdminProducts = () => {
+const AdminProducts = ({ action }) => {
     const data = useSelector((state) => state.products.data) || [];
 
     const config = [
@@ -41,7 +41,12 @@ const AdminProducts = () => {
         <div className="flex flex-col space-y-4">
             <div className="flex flex-row items-end space-x-4">
                 <h1 className="text-3xl font-bold">Products</h1>
-                <button className="text-red-main font-bold">Add New</button>
+                <button
+                    className="text-red-main font-bold"
+                    onClick={() => action()}
+                >
+                    Add New
+                </button>
             </div>
             <div>
                 <SortableTable data={data} config={config} keyFn={keyFn} />

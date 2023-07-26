@@ -1,0 +1,38 @@
+label {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+input[type="file"] {
+    border: none;
+    padding: 0;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgb(201, 201, 201);
+    border-radius: 0;
+    outline: none;
+    padding: 0;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-bottom: 1px solid rgb(105, 105, 105);
+}
+
+textarea {
+    border: 1px solid rgb(201, 201, 201);
+    outline: none;
+}
+
+textarea:focus {
+    border: 1px solid rgb(105, 105, 105);
+}
+
+.button-colors {
+    border: 2px solid #02787a;
+    color: #02787a;
+}

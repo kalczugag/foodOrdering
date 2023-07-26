@@ -3,57 +3,58 @@ import { useUser } from "../../hooks/use-user";
 const HomePizzas = () => {
     const user = useUser();
 
-    const config = [
+    const data = [
         {
             label: "Sicilian",
             price: "$14",
             description: "description",
-            src: require("../../utils/images/pizza.png"),
+            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
         },
         {
             label: "Neapolitan",
             price: "$18",
             description: "description",
-            src: require("../../utils/images/pizza.png"),
+            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
         },
         {
             label: "Chicago",
             price: "$18",
             description: "description",
-            src: require("../../utils/images/pizza.png"),
+            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
         },
         {
             label: "California",
             price: "$15",
             description: "description",
-            src: require("../../utils/images/pizza.png"),
+            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
         },
         {
             label: "Detroit",
             price: "$16",
-            src: require("../../utils/images/pizza.png"),
+            description: "description",
+            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
         },
         {
             label: "St. Louis",
             price: "$13",
             description: "description",
-            src: require("../../utils/images/pizza.png"),
+            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
         },
         {
             label: "Carloza",
             price: "$15",
             description: "description",
-            src: require("../../utils/images/pizza.png"),
+            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
         },
         {
             label: "Aegean",
             price: "$18",
             description: "description",
-            src: require("../../utils/images/pizza.png"),
+            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
         },
     ];
 
-    const renderedFeaturedPizzas = config.map((pizza) => {
+    const renderedFeaturedPizzas = data.map((pizza) => {
         return (
             <a
                 key={pizza.label}

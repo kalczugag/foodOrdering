@@ -12,14 +12,14 @@ module.exports = (app) => {
     });
 
     app.post("/api/orders", requireLogin, requireAdmin, async (req, res) => {
-        const { title, desc, img, price, extraOptions } = req.body;
+        const { _user, address, total, status, products } = req.body;
 
         const order = new Order({
-            title,
-            desc,
-            img,
-            price,
-            extraOptions,
+            _user,
+            address,
+            total,
+            status,
+            products,
         });
 
         try {
