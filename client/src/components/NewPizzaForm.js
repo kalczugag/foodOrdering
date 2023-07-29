@@ -1,45 +1,27 @@
 import "../utils/styles/pizzaForm.css";
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import { Form, Field } from "react-final-form";
-import NewPizzaReview from "./NewPizzaReview";
+import { useThunk } from "../hooks/use-thunk";
+import { addProduct } from "../store";
 import Modal from "./Modal";
-
-const InitialFields = ({ identifier }) => (
-    <>
-        <Field
-            type="text"
-            component="input"
-            placeholder="Item"
-            name={`exItem_${identifier}`}
-        />
-        <Field
-            type="number"
-            component="input"
-            placeholder="Price"
-            name={`exPrice_${identifier}`}
-        />
-    </>
-);
+import NewPizzaReview from "./NewPizzaReview";
 
 const NewPizzaForm = ({ action }) => {
+    const [formValues, setFormValues] = useState({});
     const [showReview, setShowReview] = useState(false);
-    const [extras, setExtras] = useState([
-        [<InitialFields key={0} identifier={0} />],
-    ]);
 
-    const addNewExtra = () => {
-        setExtras((prevExtras) => [
-            ...prevExtras,
-            <div></div>,
-            <InitialFields
-                key={prevExtras.length}
-                identifier={prevExtras.length}
-            />,
-        ]);
+    const [doAddProduct] = useThunk(addProduct);
+
+    const onSubmit = (values) => {
+        setFormValues(values);
+        setShowReview(true);
     };
 
-    const onSubmit = (e) => {
-        console.log(e);
+    const handleFinalSubmit = () => {
+        doAddProduct(formValues);
+        action();
+        setShowReview(false);
+        setFormValues({});
     };
 
     // const required = (value) => (value ? undefined : "Required");
@@ -57,8 +39,9 @@ const NewPizzaForm = ({ action }) => {
             {!showReview ? (
                 <Form
                     onSubmit={onSubmit}
-                    render={({ handleSubmit }) => (
+                    render={({ handleSubmit, form: { getState } }) => (
                         <form
+                            id="myForm"
                             onSubmit={handleSubmit}
                             className="flex flex-col space-y-4"
                         >
@@ -108,31 +91,24 @@ const NewPizzaForm = ({ action }) => {
                                         type="number"
                                         component="input"
                                         placeholder="Large"
-                                        name="LargePrice"
+                                        name="largePrice"
                                     />
                                 </div>
                             </div>
-                            <div className="flex flex-col">
+                            <div className="flex flex-col space-y-1">
                                 <label>Extras</label>
-                                <div className="grid grid-cols-3 gap-4">
-                                    {extras.map((extra, index) => (
-                                        <Fragment key={index}>{extra}</Fragment>
-                                    ))}
-                                    <button
-                                        type="button"
-                                        onClick={addNewExtra}
-                                        className="button-colors w-full rounded"
-                                    >
-                                        Add
-                                    </button>
-                                </div>
+                                <Field
+                                    name="extras"
+                                    component="textarea"
+                                    placeholder="temporary extras field"
+                                />
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <div></div>
                                 <div></div>
                                 <button
+                                    onClick={() => onSubmit(getState().values)}
                                     type="button"
-                                    onClick={() => setShowReview(true)}
                                     className="color text-white rounded p-1 mt-4"
                                 >
                                     Next
@@ -142,7 +118,11 @@ const NewPizzaForm = ({ action }) => {
                     )}
                 />
             ) : (
-                <NewPizzaReview setReview={setShowReview} />
+                <NewPizzaReview
+                    formValues={formValues}
+                    onEdit={() => setShowReview(false)}
+                    finalSubmit={handleFinalSubmit}
+                />
             )}
         </Modal>
     );

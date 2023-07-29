@@ -7,7 +7,7 @@ import AdminProducts from "../../components/AdminProducts";
 import NewPizzaForm from "../../components/NewPizzaForm";
 
 const DashboardAdmin = () => {
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     const user = useUser();
 
@@ -32,7 +32,7 @@ const DashboardAdmin = () => {
     return (
         <div>
             {user && user.admin ? (
-                <div className="flex flex-col p-10 justify-between space-y-12 md:space-y-0 md:flex-row md:p-14">
+                <div className="flex flex-col p-10 justify-between space-y-12 xl:space-y-0 xl:flex-row xl:p-14">
                     <AdminProducts action={handleOpenModal} />
                     <AdminOrders />
                 </div>

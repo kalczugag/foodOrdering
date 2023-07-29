@@ -18,16 +18,11 @@ const productSchema = new Schema(
             required: true,
         },
         price: {
-            type: Number,
+            type: [Number],
             required: true,
         },
         extraOptions: {
-            type: [
-                {
-                    text: { type: String, required: true },
-                    price: { type: Number, required: true },
-                },
-            ],
+            type: [],
         },
     },
     { timestamps: true }

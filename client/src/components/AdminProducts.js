@@ -7,11 +7,13 @@ const AdminProducts = ({ action }) => {
     const config = [
         {
             label: "Image",
-            render: (item) => item.image,
+            render: (item) => (
+                <img src={item.img} alt={item.title} className="w-16" />
+            ),
         },
         {
             label: "Id",
-            render: (item) => item.Id,
+            render: (item) => item._id,
         },
         {
             label: "Title",
@@ -19,7 +21,13 @@ const AdminProducts = ({ action }) => {
         },
         {
             label: "Price",
-            render: (item) => item.price,
+            render: (item) => (
+                <div className="flex flex-col">
+                    <p>Small: {item.price[0]}</p>
+                    <p>Medium: {item.price[1]}</p>
+                    <p>Large: {item.price[2]}</p>
+                </div>
+            ),
             sortValue: (item) => item.price,
         },
         {
