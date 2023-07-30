@@ -28,14 +28,14 @@ const AdminProducts = ({ action }) => {
                     <p>Large: {item.price[2]}</p>
                 </div>
             ),
-            sortValue: (item) => item.price,
+            sortValue: (item) => item.price[0],
         },
         {
             label: "Action",
             render: () => (
-                <div>
-                    <button className="color">Edit</button>
-                    <button>Delete</button>
+                <div className="space-x-2 text-white">
+                    <button className="color p-1 rounded">Edit</button>
+                    <button className="bg-red-main p-1 rounded">Delete</button>
                 </div>
             ),
         },

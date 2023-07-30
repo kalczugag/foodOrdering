@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useThunk } from "./hooks/use-thunk";
-import { fetchUser } from "./store";
+import { fetchUser, fetchProducts } from "./store";
 import Header from "./components/Header";
 import HomeFooter from "./pages/homepage/HomeFooter";
 import HomePage from "./pages/homepage/HomePage";
@@ -21,11 +21,14 @@ import ProductDetails from "./pages/ProductDetails";
 
 const App = () => {
     const [doFetchUser] = useThunk(fetchUser);
+    const [doFetchProducts] = useThunk(fetchProducts);
     const location = useLocation();
 
     useEffect(() => {
         doFetchUser();
-    }, [doFetchUser]);
+        doFetchProducts();
+        window.scrollTo(0, 0);
+    }, [doFetchUser, doFetchProducts]);
 
     return (
         <div>

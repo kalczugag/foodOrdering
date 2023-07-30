@@ -1,73 +1,28 @@
+import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/use-user";
+import { useSelector } from "react-redux";
 
 const HomePizzas = () => {
     const user = useUser();
 
-    const data = [
-        {
-            label: "Sicilian",
-            price: "$14",
-            description: "description",
-            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
-        },
-        {
-            label: "Neapolitan",
-            price: "$18",
-            description: "description",
-            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
-        },
-        {
-            label: "Chicago",
-            price: "$18",
-            description: "description",
-            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
-        },
-        {
-            label: "California",
-            price: "$15",
-            description: "description",
-            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
-        },
-        {
-            label: "Detroit",
-            price: "$16",
-            description: "description",
-            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
-        },
-        {
-            label: "St. Louis",
-            price: "$13",
-            description: "description",
-            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
-        },
-        {
-            label: "Carloza",
-            price: "$15",
-            description: "description",
-            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
-        },
-        {
-            label: "Aegean",
-            price: "$18",
-            description: "description",
-            src: "https://storage.cloud.google.com/adsfadf231/pizza.png",
-        },
-    ];
+    const data = useSelector((state) => state.products.data) || [];
 
     const renderedFeaturedPizzas = data.map((pizza) => {
         return (
-            <a
-                key={pizza.label}
-                href="/"
+            <Link
+                key={pizza.title}
+                to={`/products/${pizza._id}`}
                 className="flex flex-col items-center space-y-1"
             >
-                <img className="md:w-3/4" src={pizza.src} alt={pizza.label} />
+                <img className="md:w-3/4" src={pizza.img} alt={pizza.title} />
                 <p className="text-red-500 text-xl border-b border-white hover:border-red-main">
-                    {pizza.label}
+                    {pizza.title}
                 </p>
-                <p className="font-bold">{pizza.price}</p>
-                <p>{pizza.description}</p>
-            </a>
+                <p className="font-bold">
+                    ${pizza.price[0]} - ${pizza.price[2]}
+                </p>
+                <p>{pizza.desc}</p>
+            </Link>
         );
     });
 
