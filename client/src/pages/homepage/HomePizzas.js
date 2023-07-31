@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
-import { useUser } from "../../hooks/use-user";
 import { useSelector } from "react-redux";
 
 const HomePizzas = () => {
-    const user = useUser();
-
     const data = useSelector((state) => state.products.data) || [];
 
     const renderedFeaturedPizzas = data.map((pizza) => {
@@ -28,11 +25,6 @@ const HomePizzas = () => {
 
     return (
         <div className="relative container flex flex-col items-center mx-auto min-h-screen mt-16 px-6 md:px-10">
-            {user && user.admin && (
-                <button className="hidden absolute -top-8 left-0 rounded-xl bg-blue-500 text-white p-2 md:block">
-                    Add pizza
-                </button>
-            )}
             <h1 className="text-3xl font-bold mb-10 md:text-4xl">
                 THE BEST PIZZA IN TOWN
             </h1>

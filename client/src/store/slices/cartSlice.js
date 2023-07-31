@@ -25,7 +25,7 @@ const cartSlice = createSlice({
                 state.totalPrice += newItem.price;
             }
             state.subtotal = state.totalPrice;
-            state.itemsCount += action.payload.quantity;
+            state.itemsCount += Number(action.payload.quantity);
         },
 
         removeFromCart(state, action) {

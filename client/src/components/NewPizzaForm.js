@@ -49,45 +49,54 @@ const NewPizzaForm = ({ action }) => {
                                 Add a new Pizza
                             </h1>
                             <div>
-                                <label>Choose an Image URI</label>
+                                <label className="field-label">
+                                    Choose an Image URI
+                                </label>
                                 <Field
+                                    className="input-initial"
                                     type="text"
                                     component="input"
                                     name="imageURI"
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <label>Title</label>
+                                <label className="field-label">Title</label>
                                 <Field
+                                    className="input-initial"
                                     type="text"
                                     component="input"
                                     name="title"
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <label>Description</label>
+                                <label className="field-label">
+                                    Description
+                                </label>
                                 <Field
                                     component="textarea"
                                     name="desc"
-                                    className="border"
+                                    className="border area-inital"
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <label>Prices</label>
+                                <label className="field-label">Prices</label>
                                 <div className="flex flex-row justify-between space-x-8">
                                     <Field
+                                        className="input-initial"
                                         type="number"
                                         component="input"
                                         placeholder="Small"
                                         name="smallPrice"
                                     />
                                     <Field
+                                        className="input-initial"
                                         type="number"
                                         component="input"
                                         placeholder="Medium"
                                         name="mediumPrice"
                                     />
                                     <Field
+                                        className="input-initial"
                                         type="number"
                                         component="input"
                                         placeholder="Large"
@@ -96,11 +105,12 @@ const NewPizzaForm = ({ action }) => {
                                 </div>
                             </div>
                             <div className="flex flex-col space-y-1">
-                                <label>Extras</label>
+                                <label className="field-label">Extras</label>
                                 <Field
                                     name="extras"
                                     component="textarea"
                                     placeholder="temporary extras field"
+                                    className="area-inital"
                                 />
                             </div>
                             <div className="grid grid-cols-3 gap-4">

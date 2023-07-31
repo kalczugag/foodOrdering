@@ -6,11 +6,9 @@ const Cart = () => {
     const data = useSelector((state) => state.cart);
 
     return (
-        <div className="flex flex-col">
-            <div className="flex flex-row p-14 px-16 justify-between">
-                <CartList data={data} />
-                <CartTotal data={data} />
-            </div>
+        <div className="flex flex-col p-14 px-16 justify-between space-y-6 md:space-y-0 md:flex-row">
+            <CartList data={data} />
+            <CartTotal data={data} />
         </div>
     );
 };
