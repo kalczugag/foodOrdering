@@ -7,25 +7,30 @@ const cartSlice = createSlice({
         items: [],
         itemsCount: 0,
         discount: 0, //in fraction (fe.: 0.2)
+        discountCode: "",
         subtotal: 0,
         totalPrice: 0,
     },
     reducers: {
         addToCart(state, action) {
             const newItem = action.payload;
+            console.log(newItem);
             const existingItem = state.items.find(
                 (item) => item.id === newItem.id
             );
 
             if (existingItem) {
-                existingItem.quantity += 1;
-                state.totalPrice += newItem.price;
+                existingItem.quantity += action.payload.quantity;
+                state.totalPrice += newItem.price * action.payload.quantity;
             } else {
-                state.items.push({ ...newItem, quantity: 1 });
-                state.totalPrice += newItem.price;
+                state.items.push({
+                    ...newItem,
+                    quantity: action.payload.quantity,
+                });
+                state.totalPrice += newItem.price * action.payload.quantity;
             }
             state.subtotal = state.totalPrice;
-            state.itemsCount += Number(action.payload.quantity);
+            state.itemsCount += action.payload.quantity;
         },
 
         removeFromCart(state, action) {
@@ -48,30 +53,22 @@ const cartSlice = createSlice({
             state.subtotal = state.totalPrice;
         },
 
-        changeItemsAmount(state, action) {
-            const { id, amount } = action.payload;
-            const item = state.items.find((item) => item.id === id);
-
-            if (item) {
-                if (amount === -1 && item.count === 1) {
-                    return;
-                }
-
-                const newCount = item.quantity + amount;
-                item.quantity = newCount > 0 ? newCount : 0;
-                state.itemsCount += amount;
-                state.totalPrice += item.price * amount;
-            }
-
-            state.subtotal = state.totalPrice;
+        addDiscount(state, action) {
+            state.discount = action.payload;
+            state.totalPrice -= state.totalPrice * state.discount;
         },
-    },
 
-    AddDiscount(state, action) {
-        state.totalPrice = state.totalPrice * state.discount;
+        changeDiscountCode(state, action) {
+            state.discountCode = action.payload;
+        },
     },
 });
 
 export const cartReducer = cartSlice.reducer;
-export const { addToCart, removeFromCart, changeItemsAmount, AddDiscount } =
-    cartSlice.actions;
+export const {
+    addToCart,
+    removeFromCart,
+    changeItemsAmount,
+    addDiscount,
+    changeDiscountCode,
+} = cartSlice.actions;

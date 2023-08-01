@@ -35,7 +35,7 @@ const ProductDetails = ({ data }) => {
             addToCart({
                 ...thisProduct,
                 price: price[showPrice],
-                quantity: count,
+                quantity: Number(count),
             })
         );
     };
@@ -45,7 +45,7 @@ const ProductDetails = ({ data }) => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center p-10 md:h-screen-fit md:space-x-24 md:flex-row">
+        <div className="flex flex-col justify-center items-center p-10 md:space-x-24 md:flex-row">
             <div className="flex-1 flex justify-end">
                 <img className="w-96 h-96" src={img} alt={title} />
             </div>

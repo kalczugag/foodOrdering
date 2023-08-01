@@ -6,9 +6,9 @@ const HomePizzas = () => {
 
     const renderedFeaturedPizzas = data.map((pizza) => {
         return (
-            <Link
+            <a
                 key={pizza.title}
-                to={`/products/${pizza._id}`}
+                href={`/products/${pizza._id}`}
                 className="flex flex-col items-center space-y-1"
             >
                 <img className="md:w-3/4" src={pizza.img} alt={pizza.title} />
@@ -19,7 +19,7 @@ const HomePizzas = () => {
                     ${pizza.price[0]} - ${pizza.price[2]}
                 </p>
                 <p>{pizza.desc}</p>
-            </Link>
+            </a>
         );
     });
 
