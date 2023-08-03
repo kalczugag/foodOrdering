@@ -2,30 +2,38 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handlePayment, changeDiscountCode } from "../store";
 import { useThunk } from "../hooks/use-thunk";
+import { GoSync } from "react-icons/go";
 
 const CartTotal = () => {
     const dispatch = useDispatch();
     const [showDiscountInput, setShowDiscountInput] = useState(false);
-    const [doHandlePayment] = useThunk(handlePayment);
+    const [doHandlePayment, paymentLoading] = useThunk(handlePayment);
 
-    const { totalPrice, subtotal, discount, discountCode, itemsCount } =
+    const { items, totalPrice, subtotal, discount, discountCode, itemsCount } =
         useSelector((state) => state.cart);
 
     const handleCheckoutClick = () => {
-        doHandlePayment([
-            { id: 1, quantity: 3 },
-            { id: 2, quantity: 1 },
-        ]);
-        //open delivery details form
-        //proceed to stripe payment
+        if (itemsCount > 0) {
+            doHandlePayment(items);
+            //open delivery details form
+            //proceed to stripe payment
+        }
     };
 
-    const handleDiscountClick = () => {
+    const handleDiscountShow = () => {
+        dispatch(changeDiscountCode(""));
         setShowDiscountInput(!showDiscountInput);
     };
 
     const handleChangeCode = (event) => {
         dispatch(changeDiscountCode(event.target.value));
+    };
+
+    const handleApplyDiscountCode = () => {
+        //do something with code
+
+        dispatch(changeDiscountCode(""));
+        setShowDiscountInput(false);
     };
 
     let shownDiscount = discount * subtotal;
@@ -45,14 +53,22 @@ const CartTotal = () => {
                 CHECKOUT NOW
             </button>
             {showDiscountInput ? (
-                <input
-                    type="text"
-                    value={discountCode}
-                    onChange={handleChangeCode}
-                />
+                <div className="flex flex-col space-y-2 pt-2">
+                    <input
+                        type="text"
+                        value={discountCode}
+                        onChange={handleChangeCode}
+                        placeholder="Discount Code"
+                        className="w-full text-black"
+                    />
+                    <div className="flex flex-row justify-between text-white">
+                        <button onClick={handleDiscountShow}>Cancel</button>
+                        <button onClick={handleApplyDiscountCode}>Apply</button>
+                    </div>
+                </div>
             ) : (
-                <button onClick={handleDiscountClick} className="text-sm">
-                    I have a discount code
+                <button onClick={handleDiscountShow} className="text-sm">
+                    {paymentLoading ? <GoSync /> : "I have a discount code"}
                 </button>
             )}
         </div>

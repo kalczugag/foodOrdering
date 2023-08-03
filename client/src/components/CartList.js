@@ -3,7 +3,7 @@ import { removeFromCart } from "../store";
 import Table from "./Table";
 import { ImCross } from "react-icons/im";
 
-const CartList = ({ data: { items, totalPrice, itemsCount } }) => {
+const CartList = ({ data: { items, itemsCount } }) => {
     const dispatch = useDispatch();
     const config = [
         {
@@ -30,7 +30,9 @@ const CartList = ({ data: { items, totalPrice, itemsCount } }) => {
         },
         {
             label: "Total",
-            render: () => <div className="font-bold">${totalPrice}</div>,
+            render: (item) => (
+                <div className="font-bold">${item.price * item.quantity}</div>
+            ),
         },
         {
             label: "Actions",
