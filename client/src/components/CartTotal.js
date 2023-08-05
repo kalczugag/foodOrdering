@@ -50,7 +50,11 @@ const CartTotal = () => {
                 onClick={handleCheckoutClick}
                 className="bg-white p-2 px-14 text-red-main font-bold hover:bg-gray-100"
             >
-                CHECKOUT NOW
+                {paymentLoading ? (
+                    <GoSync className="w-full h-full" />
+                ) : (
+                    <div>CHECKOUT NOW</div>
+                )}
             </button>
             {showDiscountInput ? (
                 <div className="flex flex-col space-y-2 pt-2">
@@ -68,7 +72,7 @@ const CartTotal = () => {
                 </div>
             ) : (
                 <button onClick={handleDiscountShow} className="text-sm">
-                    {paymentLoading ? <GoSync /> : "I have a discount code"}
+                    I have a discount code
                 </button>
             )}
         </div>

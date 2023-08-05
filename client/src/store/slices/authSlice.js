@@ -8,6 +8,7 @@ const authSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(fetchUser.fulfilled, (state, action) => {
+            console.log(action.payload);
             state.data = action.payload || false;
         });
     },

@@ -6,8 +6,6 @@ const Products = mongoose.model("products");
 
 module.exports = (app) => {
     app.post("/api/stripe", async (req, res) => {
-        console.log(req.body);
-
         // Assuming req.body is an array of objects, each representing a product
         const lineItems = await Promise.all(
             req.body.map(async (item) => {

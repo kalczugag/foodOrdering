@@ -1,22 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../store";
-import { useThunk } from "../hooks/use-thunk";
-import { fetchProducts } from "../store";
 
 const ProductDetails = ({ data }) => {
     const dispatch = useDispatch();
     const { productId } = useParams();
     const [showPrice, setShowPrice] = useState(0);
     const [count, setCount] = useState(1);
-    const [doFetchProducts] = useThunk(fetchProducts);
-
-    useEffect(() => {
-        if (!data) {
-            doFetchProducts();
-        }
-    }, [doFetchProducts, data]);
 
     // Memoize the result of finding the product object by _id
     const thisProduct = useMemo(

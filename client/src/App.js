@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useThunk } from "./hooks/use-thunk";
-import { fetchUser, fetchProducts } from "./store";
+import { fetchUser, fetchProducts, fetchCart } from "./store";
 import Header from "./components/Header";
 import HomeFooter from "./pages/homepage/HomeFooter";
 import HomePage from "./pages/homepage/HomePage";
@@ -22,13 +22,24 @@ import ProductDetailsWrapper from "./pages/ProductDetails";
 const App = () => {
     const [doFetchUser] = useThunk(fetchUser);
     const [doFetchProducts] = useThunk(fetchProducts);
+    const [doFetchCart] = useThunk(fetchCart);
+
     const location = useLocation();
 
     useEffect(() => {
-        doFetchUser();
-        doFetchProducts();
-        window.scrollTo(0, 0);
-    }, [doFetchUser, doFetchProducts]);
+        const fetchData = async () => {
+            await doFetchUser();
+            doFetchCart();
+            if (
+                location.pathname === "/" ||
+                location.pathname.startsWith("/products")
+            ) {
+                doFetchProducts();
+            }
+        };
+
+        fetchData();
+    }, [doFetchUser, doFetchProducts, doFetchCart, location.pathname]);
 
     return (
         <div>

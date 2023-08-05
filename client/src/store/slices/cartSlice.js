@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchCart } from "../thunks/fetchCart";
 
 //item model: { image: img, name: string, extras: [string], price: number, count: {type: number, dufault: 1} }
 const cartSlice = createSlice({
@@ -60,6 +61,18 @@ const cartSlice = createSlice({
         changeDiscountCode(state, action) {
             state.discountCode = action.payload;
         },
+    },
+    extraReducers(builder) {
+        builder.addCase(fetchCart.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(fetchCart.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(fetchCart.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error;
+        });
     },
 });
 
