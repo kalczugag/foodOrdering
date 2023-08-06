@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const bodyParser = require("body-parser");
@@ -8,19 +7,13 @@ const keys = require("./config/keys");
 require("./models/User");
 require("./models/Product");
 require("./models/Order");
+require("./models/Cart");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
 
 const app = express();
 
-app.use(
-    cors({
-        origin: keys.redirectDomain,
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        credentials: true,
-    })
-);
 app.use(bodyParser.json());
 app.use(
     cookieSession({
@@ -35,7 +28,7 @@ require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
 require("./routes/productsRoutes")(app);
 require("./routes/ordersRoutes")(app);
-// require("./routes/cartRoutes")(app);
+require("./routes/cartRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));

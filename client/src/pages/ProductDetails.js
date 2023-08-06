@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../store";
+import { useThunk } from "../hooks/use-thunk";
+import { addToCart, addProductToCart } from "../store";
 
 const ProductDetails = ({ data }) => {
     const dispatch = useDispatch();
     const { productId } = useParams();
     const [showPrice, setShowPrice] = useState(0);
     const [count, setCount] = useState(1);
+    const [doUpdateCart] = useThunk(addProductToCart);
 
     // Memoize the result of finding the product object by _id
     const thisProduct = useMemo(
@@ -29,6 +31,11 @@ const ProductDetails = ({ data }) => {
                 quantity: Number(count),
             })
         );
+        doUpdateCart({
+            ...thisProduct,
+            price: price[showPrice],
+            quantity: Number(count),
+        });
     };
 
     const handleChangeCount = (event) => {

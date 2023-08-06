@@ -6,7 +6,7 @@ const Cart = mongoose.model("cart");
 module.exports = (app) => {
     app.get("/api/cart", requireLogin, async (req, res) => {
         try {
-            const cart = await Cart.findOne({ _user: req.body._id });
+            const cart = await Cart.findOne({ _user: req.user._id });
 
             if (cart) {
                 res.send(cart);
@@ -18,5 +18,19 @@ module.exports = (app) => {
         }
     });
 
-    app.post("/api/cart", requireLogin, (req, res) => {});
+    app.post("/api/cart", requireLogin, async (req, res) => {
+        try {
+            const updatedCart = await Cart.findOneAndUpdate(
+                { _user: req.user._id },
+                { $push: { products: req.body } },
+                { new: true }
+            );
+
+            res.status(200).send(updatedCart);
+        } catch (error) {
+            res.status(500).send({
+                error: "An error occurred while updating the cart.",
+            });
+        }
+    });
 };
