@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const HomePizzas = () => {
     const data = useSelector((state) => state.products.data) || [];
 
     const renderedFeaturedPizzas = data.map((pizza) => {
         return (
-            <a
+            <Link
                 key={pizza.title}
-                href={`/products/${pizza._id}`}
+                to={`/products/${pizza._id}`}
                 className="flex flex-col items-center space-y-1"
             >
                 <img className="md:w-3/4" src={pizza.img} alt={pizza.title} />
@@ -18,7 +19,7 @@ const HomePizzas = () => {
                     ${pizza.price[0]} - ${pizza.price[2]}
                 </p>
                 <p>{pizza.desc}</p>
-            </a>
+            </Link>
         );
     });
 

@@ -57,7 +57,7 @@ const Header = () => {
             <div className="hidden flex-row items-center justify-between space-x-6 md:flex">
                 {renderedLinks}
             </div>
-            <div className="flex items-center justify-end flex-1 text-3xl  space-x-5">
+            <div className="flex items-center justify-end flex-1 text-3xl space-x-5 md:ml-4">
                 <CartIcon />
                 {!user && (
                     <a

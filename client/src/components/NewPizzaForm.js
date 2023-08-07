@@ -24,7 +24,7 @@ const NewPizzaForm = ({ action }) => {
         setFormValues({});
     };
 
-    // const required = (value) => (value ? undefined : "Required");
+    const required = (value) => (value ? undefined : "Required");
 
     const actionBar = (
         <div className="mt-6">
@@ -57,6 +57,7 @@ const NewPizzaForm = ({ action }) => {
                                     type="text"
                                     component="input"
                                     name="imageURI"
+                                    validate={required}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -66,6 +67,7 @@ const NewPizzaForm = ({ action }) => {
                                     type="text"
                                     component="input"
                                     name="title"
+                                    validate={required}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -76,6 +78,7 @@ const NewPizzaForm = ({ action }) => {
                                     component="textarea"
                                     name="desc"
                                     className="border area-inital"
+                                    validate={required}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -87,6 +90,7 @@ const NewPizzaForm = ({ action }) => {
                                         component="input"
                                         placeholder="Small"
                                         name="smallPrice"
+                                        validate={required}
                                     />
                                     <Field
                                         className="input-initial"
@@ -94,6 +98,7 @@ const NewPizzaForm = ({ action }) => {
                                         component="input"
                                         placeholder="Medium"
                                         name="mediumPrice"
+                                        validate={required}
                                     />
                                     <Field
                                         className="input-initial"
@@ -101,6 +106,7 @@ const NewPizzaForm = ({ action }) => {
                                         component="input"
                                         placeholder="Large"
                                         name="largePrice"
+                                        validate={required}
                                     />
                                 </div>
                             </div>
@@ -120,6 +126,7 @@ const NewPizzaForm = ({ action }) => {
                                     onClick={() => onSubmit(getState().values)}
                                     type="button"
                                     className="color text-white rounded p-1 mt-4"
+                                    disabled={getState().invalid}
                                 >
                                     Next
                                 </button>

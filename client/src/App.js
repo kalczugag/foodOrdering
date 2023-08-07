@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useThunk } from "./hooks/use-thunk";
+import { useSelector } from "react-redux";
 import { fetchUser, fetchProducts, fetchCart } from "./store";
 import Header from "./components/Header";
 import HomeFooter from "./pages/homepage/HomeFooter";
@@ -19,30 +20,38 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import AdminLogin from "./pages/admin/AdminLogin";
 import ProductDetailsWrapper from "./pages/ProductDetails";
 
+const ScrollToTopOnRouteChange = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+};
+
 const App = () => {
     const [doFetchUser] = useThunk(fetchUser);
     const [doFetchProducts] = useThunk(fetchProducts);
     const [doFetchCart] = useThunk(fetchCart);
 
-    const location = useLocation();
+    const { pathname } = useLocation();
 
     useEffect(() => {
         const fetchData = async () => {
             await doFetchUser();
             doFetchCart();
-            if (
-                location.pathname === "/" ||
-                location.pathname.startsWith("/products")
-            ) {
+            if (pathname === "/" || pathname.startsWith("/products")) {
                 doFetchProducts();
             }
         };
 
         fetchData();
-    }, [doFetchUser, doFetchProducts, doFetchCart, location.pathname]);
+    }, [doFetchUser, doFetchProducts, doFetchCart, pathname]);
 
     return (
         <div>
+            <ScrollToTopOnRouteChange />
             <Header />
             <div className="mt-20">
                 <Routes>
@@ -66,7 +75,7 @@ const App = () => {
                     />
                 </Routes>
             </div>
-            {!location.pathname.startsWith("/admin") ? <HomeFooter /> : ""}
+            {!pathname.startsWith("/admin") ? <HomeFooter /> : ""}
         </div>
     );
 };

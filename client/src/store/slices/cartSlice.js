@@ -69,7 +69,26 @@ const cartSlice = createSlice({
         });
         builder.addCase(fetchCart.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.items = action.payload.products;
+            const productsData = action.payload.products;
+
+            productsData.forEach((newItem) => {
+                const existingItem = state.items.find(
+                    (item) => item._id === newItem._id
+                );
+
+                if (existingItem) {
+                    existingItem.quantity += newItem.quantity;
+                } else {
+                    state.items.push({
+                        ...newItem,
+                        price: newItem.price[0],
+                        quantity: newItem.quantity,
+                    });
+                }
+                state.totalPrice += newItem.price * newItem.quantity;
+                state.subtotal = state.totalPrice;
+                state.itemsCount += newItem.quantity;
+            });
         });
         builder.addCase(fetchCart.rejected, (state, action) => {
             state.isLoading = false;
