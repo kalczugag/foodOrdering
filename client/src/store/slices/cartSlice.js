@@ -73,15 +73,19 @@ const cartSlice = createSlice({
 
             productsData.forEach((newItem) => {
                 const existingItem = state.items.find(
-                    (item) => item._id === newItem._id
+                    (item) =>
+                        item._id === newItem._id && item.size === newItem.size
                 );
 
                 if (existingItem) {
                     existingItem.quantity += newItem.quantity;
                 } else {
                     state.items.push({
-                        ...newItem,
-                        price: newItem.price[0],
+                        _id: newItem._id,
+                        title: newItem.title,
+                        img: newItem.img,
+                        size: newItem.size,
+                        price: newItem.price,
                         quantity: newItem.quantity,
                     });
                 }

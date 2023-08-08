@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const productSchema = require("./Product");
+const cartItemSchema = require("./CartItem");
 const { Schema } = mongoose;
 
 const cartSchema = new Schema(
     {
         _user: { type: Schema.Types.ObjectId, ref: "User" },
-        products: [productSchema],
+        products: [cartItemSchema],
     },
     { timestamps: true }
 );

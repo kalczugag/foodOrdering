@@ -29,6 +29,11 @@ const CartList = ({ data: { items, itemsCount } }) => {
             render: (item) => item.quantity,
         },
         {
+            label: "Size",
+            render: (item) => item.size,
+        },
+
+        {
             label: "Total",
             render: (item) => (
                 <div className="font-bold">${item.price * item.quantity}</div>

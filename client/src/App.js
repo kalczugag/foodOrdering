@@ -1,8 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useThunk } from "./hooks/use-thunk";
-import { useSelector } from "react-redux";
-import { fetchUser, fetchProducts, fetchCart } from "./store";
+import { fetchProducts } from "./store";
 import Header from "./components/Header";
 import HomeFooter from "./pages/homepage/HomeFooter";
 import HomePage from "./pages/homepage/HomePage";
@@ -31,23 +30,18 @@ const ScrollToTopOnRouteChange = () => {
 };
 
 const App = () => {
-    const [doFetchUser] = useThunk(fetchUser);
     const [doFetchProducts] = useThunk(fetchProducts);
-    const [doFetchCart] = useThunk(fetchCart);
 
-    const { pathname } = useLocation();
+    const location = useLocation();
 
     useEffect(() => {
-        const fetchData = async () => {
-            await doFetchUser();
-            doFetchCart();
-            if (pathname === "/" || pathname.startsWith("/products")) {
-                doFetchProducts();
-            }
-        };
-
-        fetchData();
-    }, [doFetchUser, doFetchProducts, doFetchCart, pathname]);
+        if (
+            location.pathname === "/" ||
+            location.pathname.startsWith("/products")
+        ) {
+            doFetchProducts();
+        }
+    }, [doFetchProducts, location.pathname]);
 
     return (
         <div>
@@ -75,7 +69,7 @@ const App = () => {
                     />
                 </Routes>
             </div>
-            {!pathname.startsWith("/admin") ? <HomeFooter /> : ""}
+            {!location.pathname.startsWith("/admin") ? <HomeFooter /> : ""}
         </div>
     );
 };

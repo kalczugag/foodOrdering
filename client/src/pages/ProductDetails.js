@@ -21,20 +21,24 @@ const ProductDetails = ({ data }) => {
     if (!thisProduct) {
         return <div>Loading...</div>;
     }
-    const { price, desc, img, title } = thisProduct;
 
+    const productSizes = ["Small", "Medium", "Large"];
+    const { price, desc, img, title } = thisProduct;
     const handleAddToCart = () => {
         dispatch(
             addToCart({
                 ...thisProduct,
                 price: price[showPrice],
                 quantity: Number(count),
+                size: productSizes[showPrice],
             })
         );
+
         doUpdateCart({
             ...thisProduct,
             price: price[showPrice],
             quantity: Number(count),
+            size: productSizes[showPrice],
         });
     };
 

@@ -3,10 +3,23 @@ import { GoPerson } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
 import { useUser } from "../hooks/use-user";
 import { Link } from "react-router-dom";
+import { useThunk } from "../hooks/use-thunk";
+import { fetchCart, fetchUser } from "../store";
 import CartIcon from "./CartIcon";
+import { useEffect } from "react";
 
 const Header = () => {
     const user = useUser();
+    const [doFetchCart] = useThunk(fetchCart);
+    const [doFetchUser] = useThunk(fetchUser);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await doFetchUser();
+            doFetchCart();
+        };
+        fetchData();
+    }, [doFetchCart, doFetchUser]);
 
     const config = [
         { label: "Homepage", name: "" },
