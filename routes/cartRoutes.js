@@ -93,4 +93,23 @@ module.exports = (app) => {
             }
         }
     });
+
+    app.delete("/api/cart", async (req, res) => {
+        try {
+            const cartId = req.body.cartId; // Assuming you have a cart _id
+            const productIdToDelete = req.body.productId; // Assuming you have a product _id
+
+            const updatedCart = await Cart.findOneAndUpdate(
+                { _id: cartId },
+                { $pull: { products: { _id: productIdToDelete } } },
+                { new: true }
+            );
+
+            if (!updatedCart) {
+                return res.status(404).send({ message: "Cart not found" });
+            }
+        } catch (error) {
+            return res.status(500).send({ message: "Internal server error" });
+        }
+    });
 };

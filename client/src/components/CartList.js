@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useThunk } from "../hooks/use-thunk";
 import { removeFromCart } from "../store";
-import Table from "./Table";
 import { ImCross } from "react-icons/im";
+import Table from "./Table";
 
 const CartList = ({ data: { items, itemsCount } }) => {
-    const dispatch = useDispatch();
+    const [doRemoveFromCart] = useThunk(removeFromCart);
+
     const config = [
         {
             label: "Product",
@@ -50,7 +51,7 @@ const CartList = ({ data: { items, itemsCount } }) => {
     ];
 
     const handleRemoveFromCart = (item) => {
-        dispatch(removeFromCart(item));
+        doRemoveFromCart(item);
     };
 
     const keyFn = (data) => {

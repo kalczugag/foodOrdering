@@ -21,4 +21,5 @@ export * from "./thunks/fetchProducts";
 export * from "./thunks/addProduct";
 export * from "./thunks/fetchOrders";
 export * from "./thunks/fetchCart";
-export * from "./thunks/addProductToCart";
+export * from "./thunks/addToCart";
+export * from "./thunks/removeFromCart";
