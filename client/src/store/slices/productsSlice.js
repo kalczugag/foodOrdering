@@ -5,8 +5,8 @@ import { addProduct } from "../thunks/addProduct";
 const productsSlice = createSlice({
     name: "products",
     initialState: {
+        data: [],
         isLoading: false,
-        data: null,
         error: null,
     },
     extraReducers(builder) {

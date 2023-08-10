@@ -10,6 +10,31 @@ const ProductDetails = ({ data }) => {
     const [count, setCount] = useState(1);
     const [doUpdateCart] = useThunk(addToCart);
 
+    const sizes = [
+        { label: "Small", className: "w-10 h-10" },
+        { label: "Medium", className: "w-12 h-12" },
+        { label: "Large", className: "w-14 h-14" },
+    ];
+
+    const renderedSizes = sizes.map((size, index) => {
+        return (
+            <button
+                key={index}
+                className="relative"
+                onClick={() => setShowPrice(index)}
+            >
+                <img
+                    className={size.className}
+                    src={require("../utils/images/size.png")}
+                    alt="size"
+                />
+                <div className="absolute top-0 -right-8 color text-white text-sm rounded-xl px-2">
+                    {size.label}
+                </div>
+            </button>
+        );
+    });
+
     // Memoize the result of finding the product object by _id
     const thisProduct = useMemo(
         () => data.find((prod) => prod._id === productId),
@@ -39,7 +64,11 @@ const ProductDetails = ({ data }) => {
     return (
         <div className="flex flex-col justify-center items-center p-10 md:space-x-24 md:flex-row">
             <div className="flex-1 flex justify-end">
-                <img className="w-96 h-96" src={img} alt={title} />
+                <img
+                    className="w-96 h-96 object-contain"
+                    src={img}
+                    alt={title}
+                />
             </div>
             <div className="flex flex-col flex-1 space-y-4">
                 <h3 className="text-xl text-red-main underline-offset-4 underline">
@@ -49,45 +78,7 @@ const ProductDetails = ({ data }) => {
                 <div>
                     <div className="font-bold">Choose the size</div>
                     <div className="flex flex-row space-x-12 mt-2">
-                        <button
-                            className="relative"
-                            onClick={() => setShowPrice(0)}
-                        >
-                            <img
-                                className="w-10 h-10"
-                                src={require("../utils/images/size.png")}
-                                alt="size"
-                            />
-                            <div className="absolute top-0 -right-8 color text-white text-sm rounded-xl px-2">
-                                Small
-                            </div>
-                        </button>
-                        <button
-                            className="relative"
-                            onClick={() => setShowPrice(1)}
-                        >
-                            <img
-                                className="w-12 h-12"
-                                src={require("../utils/images/size.png")}
-                                alt="size"
-                            />
-                            <div className="absolute top-0 -right-8 color text-white text-sm rounded-xl px-2">
-                                Medium
-                            </div>
-                        </button>
-                        <button
-                            className="relative"
-                            onClick={() => setShowPrice(2)}
-                        >
-                            <img
-                                className="w-14 h-14"
-                                src={require("../utils/images/size.png")}
-                                alt="size"
-                            />
-                            <div className="absolute top-0 -right-8 color text-white text-sm rounded-xl px-2">
-                                Large
-                            </div>
-                        </button>
+                        {renderedSizes}
                     </div>
                 </div>
                 <div className="font-bold">Choose additional ingredients</div>

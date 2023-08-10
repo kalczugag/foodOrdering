@@ -4,7 +4,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useUser } from "../hooks/use-user";
 import { Link } from "react-router-dom";
 import { useThunk } from "../hooks/use-thunk";
-import { fetchCart, fetchUser } from "../store";
+import { fetchCart, fetchUser, fetchProducts } from "../store";
 import CartIcon from "./CartIcon";
 import { useEffect } from "react";
 
@@ -12,14 +12,16 @@ const Header = () => {
     const user = useUser();
     const [doFetchCart] = useThunk(fetchCart);
     const [doFetchUser] = useThunk(fetchUser);
+    const [doFetchProducts] = useThunk(fetchProducts);
 
     useEffect(() => {
         const fetchData = async () => {
             await doFetchUser();
+            doFetchProducts();
             doFetchCart();
         };
         fetchData();
-    }, [doFetchCart, doFetchUser]);
+    }, [doFetchCart, doFetchUser, doFetchProducts]);
 
     const config = [
         { label: "Homepage", name: "" },

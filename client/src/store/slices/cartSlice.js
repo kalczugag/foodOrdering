@@ -42,19 +42,17 @@ const cartSlice = createSlice({
                     existingItem.quantity += newItem.quantity;
                 } else {
                     state.items.push({
-                        _id: newItem._id,
-                        title: newItem.title,
-                        img: newItem.img,
-                        size: newItem.size,
-                        price: newItem.price,
-                        quantity: newItem.quantity,
+                        ...newItem,
                     });
                 }
+
                 state.totalPrice += newItem.price * newItem.quantity;
-                state.subtotal = state.totalPrice;
                 state.itemsCount += newItem.quantity;
             });
+
+            state.subtotal = state.totalPrice;
         });
+
         builder.addCase(fetchCart.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error;
@@ -64,12 +62,29 @@ const cartSlice = createSlice({
             state.isLoading = true;
         });
         builder.addCase(addToCart.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.items = action.payload.products;
-            state.itemsCount = 0;
-            action.payload.products.forEach((item) => {
-                state.itemsCount += item.quantity;
-            });
+            const products = action.payload.products;
+            const updatedItems = products.map((item) => ({
+                ...item,
+                totalPrice: item.price * item.quantity,
+            }));
+
+            const totalPrice = updatedItems.reduce(
+                (total, item) => total + item.totalPrice,
+                0
+            );
+            const itemsCount = updatedItems.reduce(
+                (count, item) => count + item.quantity,
+                0
+            );
+
+            return {
+                ...state,
+                isLoading: false,
+                items: updatedItems,
+                itemsCount,
+                totalPrice,
+                subtotal: totalPrice,
+            };
         });
         builder.addCase(addToCart.rejected, (state, action) => {
             state.isLoading = false;
@@ -93,5 +108,4 @@ const cartSlice = createSlice({
 });
 
 export const cartReducer = cartSlice.reducer;
-export const { changeItemsAmount, addDiscount, changeDiscountCode } =
-    cartSlice.actions;
+export const { addDiscount, changeDiscountCode } = cartSlice.actions;

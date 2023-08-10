@@ -1,7 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { useThunk } from "./hooks/use-thunk";
-import { fetchProducts } from "./store";
 import Header from "./components/Header";
 import HomeFooter from "./pages/homepage/HomeFooter";
 import HomePage from "./pages/homepage/HomePage";
@@ -30,18 +28,7 @@ const ScrollToTopOnRouteChange = () => {
 };
 
 const App = () => {
-    const [doFetchProducts] = useThunk(fetchProducts);
-
     const location = useLocation();
-
-    useEffect(() => {
-        if (
-            location.pathname === "/" ||
-            location.pathname.startsWith("/products")
-        ) {
-            doFetchProducts();
-        }
-    }, [doFetchProducts, location.pathname]);
 
     return (
         <div>

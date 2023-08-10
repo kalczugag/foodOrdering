@@ -1,5 +1,6 @@
 const requireLogin = require("../middlewares/requireLogin");
 const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
 const Cart = mongoose.model("cart");
 
@@ -95,21 +96,22 @@ module.exports = (app) => {
     });
 
     app.delete("/api/cart", async (req, res) => {
-        try {
-            const cartId = req.body.cartId; // Assuming you have a cart _id
-            const productIdToDelete = req.body.productId; // Assuming you have a product _id
+        const userCartId = req.user._id;
+        const productToRemove = req.body._id;
+        console.log(req.body);
 
+        try {
             const updatedCart = await Cart.findOneAndUpdate(
-                { _id: cartId },
-                { $pull: { products: { _id: productIdToDelete } } },
-                { new: true }
+                { _user: userCartId },
+                { $pull: { products: { _id: productToRemove } } },
+                { safe: true, multi: false }
             );
 
-            if (!updatedCart) {
-                return res.status(404).send({ message: "Cart not found" });
-            }
+            res.status(200).send(updatedCart);
         } catch (error) {
-            return res.status(500).send({ message: "Internal server error" });
+            res.status(500).send({
+                error: "An error occurred while updating the cart.",
+            });
         }
     });
 };
