@@ -5,6 +5,9 @@ const HomePizzas = () => {
     const data = useSelector((state) => state.products.data) || [];
 
     const renderedFeaturedPizzas = data.map((pizza) => {
+        const minPrice = pizza.price && pizza.price[0];
+        const maxPrice = pizza.price && pizza.price[2];
+
         return (
             <Link
                 key={pizza.title}
@@ -15,9 +18,11 @@ const HomePizzas = () => {
                 <p className="text-red-500 text-xl border-b border-white hover:border-red-main">
                     {pizza.title}
                 </p>
-                <p className="font-bold">
-                    ${pizza.price[0]} - ${pizza.price[2]}
-                </p>
+                {minPrice !== undefined && maxPrice !== undefined && (
+                    <p className="font-bold">
+                        ${minPrice} - ${maxPrice}
+                    </p>
+                )}
                 <p>{pizza.desc}</p>
             </Link>
         );

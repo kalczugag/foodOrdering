@@ -95,10 +95,28 @@ const cartSlice = createSlice({
             state.isLoading = true;
         });
         builder.addCase(removeFromCart.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.items = state.items.filter((item) => {
+            const updatedItems = state.items.filter((item) => {
                 return item._id !== action.payload._id;
             });
+
+            const totalPrice = updatedItems.reduce(
+                (total, item) => total + item.totalPrice,
+                0
+            );
+
+            const itemsCount = updatedItems.reduce(
+                (count, item) => count + item.quantity,
+                0
+            );
+
+            return {
+                ...state,
+                isLoading: false,
+                items: updatedItems,
+                itemsCount,
+                totalPrice,
+                subtotal: totalPrice,
+            };
         });
         builder.addCase(removeFromCart.rejected, (state, action) => {
             state.isLoading = false;

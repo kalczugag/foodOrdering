@@ -95,7 +95,7 @@ module.exports = (app) => {
         }
     });
 
-    app.delete("/api/cart", async (req, res) => {
+    app.post("/api/cart/remove", async (req, res) => {
         const userCartId = req.user._id;
         const productToRemove = req.body._id;
         console.log(req.body);

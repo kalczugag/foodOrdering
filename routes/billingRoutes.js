@@ -6,34 +6,34 @@ const Products = mongoose.model("products");
 
 module.exports = (app) => {
     app.post("/api/stripe", async (req, res) => {
-        // Assuming req.body is an array of objects, each representing a product
-        const lineItems = await Promise.all(
-            req.body.map(async (item) => {
-                const storeItem = await Products.findById(item._id);
-
-                // Convert price to cents (multiply by 100)
-                const unitAmount = item.price * 100;
-
-                return {
-                    price_data: {
-                        currency: "usd",
-                        product_data: {
-                            name: storeItem.title,
+        try {
+            const lineItems = await Promise.all(
+                req.body.map(async (item) => {
+                    const storeItem = await Products.findById(item._id);
+                    return {
+                        price_data: {
+                            currency: "usd",
+                            product_data: {
+                                name: storeItem.title,
+                            },
+                            unit_amount: item.price * 100,
                         },
-                        unit_amount: unitAmount,
-                    },
-                    quantity: item.quantity,
-                };
-            })
-        );
+                        quantity: item.quantity,
+                    };
+                })
+            );
 
-        const session = await stripe.checkout.sessions.create({
-            mode: "payment",
-            line_items: lineItems,
-            success_url: `${keys.redirectDomain}?success=true`,
-            cancel_url: `${keys.redirectDomain}?canceled=true`,
-        });
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ["card"],
+                mode: "payment",
+                line_items: lineItems, // Use the resolved array of line items
+                success_url: `${keys.redirectDomain}?success=true`,
+                cancel_url: `${keys.redirectDomain}?canceled=true`,
+            });
 
-        res.redirect(303, session.url);
+            return res.redirect(303, session.url);
+        } catch (err) {
+            res.status(500).send({ error: err.message });
+        }
     });
 };
