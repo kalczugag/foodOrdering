@@ -31,7 +31,8 @@ module.exports = (app) => {
                 cancel_url: `${keys.redirectDomain}?canceled=true`,
             });
 
-            return res.redirect(303, session.url);
+            console.log(session);
+            return res.status(200).send(session.url);
         } catch (err) {
             res.status(500).send({ error: err.message });
         }

@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { addToCart } from "../store";
+import PizzaSizeButton from "../components/PizzaSizeButton";
 
 const ProductDetails = ({ data }) => {
     const { productId } = useParams();
@@ -18,20 +19,13 @@ const ProductDetails = ({ data }) => {
 
     const renderedSizes = sizes.map((size, index) => {
         return (
-            <button
-                key={index}
-                className="relative"
-                onClick={() => setShowPrice(index)}
-            >
-                <img
-                    className={size.className}
-                    src={require("../utils/images/size.png")}
-                    alt="size"
-                />
-                <div className="absolute top-0 -right-8 color text-white text-sm rounded-xl px-2">
-                    {size.label}
-                </div>
-            </button>
+            <PizzaSizeButton
+                key={size.label}
+                size={size}
+                index={index}
+                priceFn={setShowPrice}
+                currentIndex={showPrice}
+            />
         );
     });
 
@@ -55,6 +49,9 @@ const ProductDetails = ({ data }) => {
             quantity: Number(count),
             size: productSizes[showPrice],
         });
+
+        setShowPrice(0);
+        setCount(1);
     };
 
     const handleChangeCount = (event) => {

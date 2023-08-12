@@ -51,7 +51,7 @@ const CartTotal = () => {
                 className="bg-white p-2 px-14 text-red-main font-bold hover:bg-gray-100"
             >
                 {paymentLoading ? (
-                    <GoSync className="w-full h-full" />
+                    <GoSync className="w-full h-full animate-spin" />
                 ) : (
                     <div>CHECKOUT NOW</div>
                 )}
@@ -65,7 +65,7 @@ const CartTotal = () => {
                         placeholder="Discount Code"
                         className="w-full text-black"
                     />
-                    <div className="flex flex-row justify-between text-white">
+                    <div className="flex flex-row justify-between text-white text-sm">
                         <button onClick={handleDiscountShow}>Cancel</button>
                         <button onClick={handleApplyDiscountCode}>Apply</button>
                     </div>

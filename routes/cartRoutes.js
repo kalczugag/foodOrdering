@@ -98,12 +98,15 @@ module.exports = (app) => {
     app.post("/api/cart/remove", async (req, res) => {
         const userCartId = req.user._id;
         const productToRemove = req.body._id;
-        console.log(req.body);
 
         try {
             const updatedCart = await Cart.findOneAndUpdate(
                 { _user: userCartId },
-                { $pull: { products: { _id: productToRemove } } },
+                {
+                    $pull: {
+                        products: { _id: productToRemove, size: req.body.size },
+                    },
+                },
                 { safe: true, multi: false }
             );
 
