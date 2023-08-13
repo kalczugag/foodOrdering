@@ -18,6 +18,7 @@ const NewPizzaForm = ({ action }) => {
     };
 
     const handleFinalSubmit = () => {
+        console.log(formValues);
         doAddProduct(formValues);
         action();
         setShowReview(false);

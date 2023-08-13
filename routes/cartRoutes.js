@@ -1,6 +1,5 @@
 const requireLogin = require("../middlewares/requireLogin");
 const mongoose = require("mongoose");
-const ObjectId = mongoose.Types.ObjectId;
 
 const Cart = mongoose.model("cart");
 
@@ -95,7 +94,7 @@ module.exports = (app) => {
         }
     });
 
-    app.post("/api/cart/remove", async (req, res) => {
+    app.post("/api/cart/remove", requireLogin, async (req, res) => {
         const userCartId = req.user._id;
         const productToRemove = req.body._id;
 

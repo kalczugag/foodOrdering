@@ -9,5 +9,6 @@ export const addProduct = createAsyncThunk("products/add", async (prod) => {
         price: [prod.smallPrice, prod.mediumPrice, prod.largePrice],
     });
 
+    console.log(response.data);
     return response.data;
 });

@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
 import CartList from "../components/CartList";
 import CartTotal from "../components/CartTotal";
+import { useTitle } from "../hooks/use-title";
 
 const Cart = () => {
+    useTitle("Cart");
     const data = useSelector((state) => state.cart);
 
     return (

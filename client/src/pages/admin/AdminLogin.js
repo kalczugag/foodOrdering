@@ -3,8 +3,10 @@ import { Form, Field } from "react-final-form";
 import { adminLogin } from "../../store";
 import { useThunk } from "../../hooks/use-thunk";
 import { useUser } from "../../hooks/use-user";
+import { useTitle } from "../../hooks/use-title";
 
 const AdminLogin = () => {
+    useTitle("Admin login");
     const [doLoginAdmin] = useThunk(adminLogin);
     const user = useUser();
     console.log(user);

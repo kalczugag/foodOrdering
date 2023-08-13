@@ -4,12 +4,26 @@ import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { addToCart } from "../store";
 import PizzaSizeButton from "../components/PizzaSizeButton";
+import { useTitle } from "../hooks/use-title";
 
 const ProductDetails = ({ data }) => {
     const { productId } = useParams();
     const [showPrice, setShowPrice] = useState(0);
     const [count, setCount] = useState(1);
     const [doUpdateCart] = useThunk(addToCart);
+
+    // Memoize the result of finding the product object by _id
+    const thisProduct = useMemo(
+        () => data.find((prod) => prod._id === productId),
+        [data, productId]
+    );
+
+    useTitle(thisProduct?.title + "Pizza");
+
+    // Make sure thisProduct exists before accessing its properties
+    if (!thisProduct) {
+        return <div>Loading...</div>;
+    }
 
     const sizes = [
         { label: "Small", className: "w-10 h-10" },
@@ -28,17 +42,6 @@ const ProductDetails = ({ data }) => {
             />
         );
     });
-
-    // Memoize the result of finding the product object by _id
-    const thisProduct = useMemo(
-        () => data.find((prod) => prod._id === productId),
-        [data, productId]
-    );
-
-    // Make sure thisProduct exists before accessing its properties
-    if (!thisProduct) {
-        return <div>Loading...</div>;
-    }
 
     const productSizes = ["Small", "Medium", "Large"];
     const { price, desc, img, title } = thisProduct;

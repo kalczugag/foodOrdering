@@ -1,25 +1,14 @@
-import { useEffect, useState } from "react";
-import { fetchProducts, fetchOrders } from "../../store";
-import { useThunk } from "../../hooks/use-thunk";
+import { useState } from "react";
 import { useUser } from "../../hooks/use-user";
 import AdminOrders from "../../components/AdminOrders";
 import AdminProducts from "../../components/AdminProducts";
 import NewPizzaForm from "../../components/NewPizzaForm";
+import { useTitle } from "../../hooks/use-title";
 
 const DashboardAdmin = () => {
     const [showModal, setShowModal] = useState(false);
-
     const user = useUser();
-
-    const [doFetchProducts] = useThunk(fetchProducts);
-    const [doFetchOrders] = useThunk(fetchOrders);
-
-    useEffect(() => {
-        if (user && user.admin) {
-            doFetchProducts();
-            doFetchOrders();
-        }
-    }, [doFetchProducts, doFetchOrders, user]);
+    useTitle("Admin dashboard");
 
     const handleOpenModal = () => {
         setShowModal(true);

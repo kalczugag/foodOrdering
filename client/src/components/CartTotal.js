@@ -13,10 +13,8 @@ const CartTotal = () => {
         useSelector((state) => state.cart);
 
     const handleCheckoutClick = () => {
-        if (itemsCount > 0) {
+        if (itemsCount > 0 && items) {
             doHandlePayment(items);
-            //open delivery details form
-            //proceed to stripe payment
         }
     };
 
@@ -30,8 +28,6 @@ const CartTotal = () => {
     };
 
     const handleApplyDiscountCode = () => {
-        //do something with code
-
         dispatch(changeDiscountCode(""));
         setShowDiscountInput(false);
     };

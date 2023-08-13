@@ -1,7 +1,9 @@
+import { useTitle } from "../hooks/use-title";
 import { useUser } from "../hooks/use-user";
 
 const ProfileDetails = () => {
     const { email, name } = useUser();
+    useTitle("Details - Profile");
 
     const config = [
         { label: "First Name", value: name },

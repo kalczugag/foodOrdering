@@ -1,8 +1,11 @@
 import SortableTable from "./SortableTable";
 import { useSelector } from "react-redux";
+import { useThunk } from "../hooks/use-thunk";
+import { removeProduct } from "../store";
 
 const AdminProducts = ({ action }) => {
     const data = useSelector((state) => state.products.data) || [];
+    const [doRemoveProduct] = useThunk(removeProduct);
 
     const config = [
         {
@@ -32,14 +35,23 @@ const AdminProducts = ({ action }) => {
         },
         {
             label: "Action",
-            render: () => (
+            render: (item) => (
                 <div className="space-x-2 text-white">
                     <button className="color p-1 rounded">Edit</button>
-                    <button className="bg-red-main p-1 rounded">Delete</button>
+                    <button
+                        onClick={() => handleRemoveProduct(item)}
+                        className="bg-red-main p-1 rounded"
+                    >
+                        Delete
+                    </button>
                 </div>
             ),
         },
     ];
+
+    const handleRemoveProduct = (item) => {
+        doRemoveProduct(item);
+    };
 
     const keyFn = (data) => {
         return data.id;

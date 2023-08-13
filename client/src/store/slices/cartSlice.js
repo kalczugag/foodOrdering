@@ -96,7 +96,10 @@ const cartSlice = createSlice({
         });
         builder.addCase(removeFromCart.fulfilled, (state, action) => {
             const updatedItems = state.items.filter((item) => {
-                return item._id !== action.payload._id; //add size check
+                return (
+                    item._id.toString() !== action.payload._id.toString() ||
+                    item.size !== action.payload.size
+                );
             });
 
             const totalPrice = updatedItems.reduce(
