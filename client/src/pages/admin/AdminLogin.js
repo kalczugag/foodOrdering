@@ -9,7 +9,6 @@ const AdminLogin = () => {
     useTitle("Admin login");
     const [doLoginAdmin] = useThunk(adminLogin);
     const user = useUser();
-    console.log(user);
 
     const onSubmit = (e) => {
         if (user && user.admin) {
@@ -41,7 +40,9 @@ const AdminLogin = () => {
                                         placeholder="username"
                                     />
                                     {meta.error && meta.touched && (
-                                        <span>{meta.error}</span>
+                                        <span className="span-initial">
+                                            {meta.error}
+                                        </span>
                                     )}
                                 </div>
                             )}
@@ -55,7 +56,9 @@ const AdminLogin = () => {
                                         placeholder="password"
                                     />
                                     {meta.error && meta.touched && (
-                                        <span>{meta.error}</span>
+                                        <span className="span-initial">
+                                            {meta.error}
+                                        </span>
                                     )}
                                 </div>
                             )}

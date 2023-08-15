@@ -6,7 +6,7 @@ import { addProduct } from "../store";
 import Modal from "./Modal";
 import NewPizzaReview from "./NewPizzaReview";
 
-const NewPizzaForm = ({ action }) => {
+const NewPizzaForm = ({ onClose }) => {
     const [formValues, setFormValues] = useState({});
     const [showReview, setShowReview] = useState(false);
 
@@ -18,25 +18,16 @@ const NewPizzaForm = ({ action }) => {
     };
 
     const handleFinalSubmit = () => {
-        console.log(formValues);
         doAddProduct(formValues);
-        action();
+        onClose();
         setShowReview(false);
         setFormValues({});
     };
 
     const required = (value) => (value ? undefined : "Required");
 
-    const actionBar = (
-        <div className="mt-6">
-            <button type="submit" className="color text-white p-1 px-6 rounded">
-                Create
-            </button>
-        </div>
-    );
-
     return (
-        <Modal onClose={action} actionBar={actionBar}>
+        <Modal onClose={onClose}>
             {!showReview ? (
                 <Form
                     onSubmit={onSubmit}
@@ -120,13 +111,13 @@ const NewPizzaForm = ({ action }) => {
                                     className="area-inital"
                                 />
                             </div>
-                            <div className="grid grid-cols-3 gap-4">
+                            <div className="flex justify-end">
                                 <div></div>
                                 <div></div>
                                 <button
                                     onClick={() => onSubmit(getState().values)}
                                     type="button"
-                                    className="color text-white rounded p-1 mt-4"
+                                    className="color text-white rounded p-1 px-6 mt-4"
                                     disabled={getState().invalid}
                                 >
                                     Next

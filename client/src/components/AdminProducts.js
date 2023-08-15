@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { removeProduct } from "../store";
 
-const AdminProducts = ({ action }) => {
+const AdminProducts = ({ onOpen, onEdit }) => {
     const data = useSelector((state) => state.products.data) || [];
     const [doRemoveProduct] = useThunk(removeProduct);
 
@@ -37,7 +37,12 @@ const AdminProducts = ({ action }) => {
             label: "Action",
             render: (item) => (
                 <div className="space-x-2 text-white">
-                    <button className="color p-1 rounded">Edit</button>
+                    <button
+                        onClick={() => onEdit(item)}
+                        className="color p-1 rounded"
+                    >
+                        Edit
+                    </button>
                     <button
                         onClick={() => handleRemoveProduct(item)}
                         className="bg-red-main p-1 rounded"
@@ -63,7 +68,7 @@ const AdminProducts = ({ action }) => {
                 <h1 className="text-3xl font-bold">Products</h1>
                 <button
                     className="text-red-main font-bold"
-                    onClick={() => action()}
+                    onClick={() => onOpen()}
                 >
                     Add New
                 </button>

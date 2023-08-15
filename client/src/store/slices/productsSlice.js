@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchProducts } from "../thunks/fetchProducts";
 import { addProduct } from "../thunks/addProduct";
 import { removeProduct } from "../thunks/removeProduct";
+import { editProduct } from "../thunks/editProduct";
 
 const productsSlice = createSlice({
     name: "products",
@@ -31,6 +32,34 @@ const productsSlice = createSlice({
             state.data.push(action.payload);
         });
         builder.addCase(addProduct.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error;
+        });
+
+        builder.addCase(editProduct.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(editProduct.fulfilled, (state, action) => {
+            state.isLoading = false;
+            const editedProduct = action.payload;
+
+            const index = state.data.findIndex(
+                (item) => item._id === editedProduct._id
+            );
+
+            if (index !== -1) {
+                state.data[index] = {
+                    ...state.data[index],
+                    title: editedProduct.title,
+                    desc: editedProduct.desc,
+                    img: editedProduct.img,
+                    price: editedProduct.price,
+                    extraOptions: editedProduct.extraOptions,
+                };
+            }
+        });
+
+        builder.addCase(editProduct.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error;
         });

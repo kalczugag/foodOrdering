@@ -22,8 +22,8 @@ module.exports = (app) => {
         });
 
         try {
-            await product.save();
-            res.status(200).send(product);
+            const newProduct = await product.save();
+            res.status(200).send(newProduct);
         } catch (err) {
             res.status(422).send(err);
         }
@@ -35,6 +35,25 @@ module.exports = (app) => {
         try {
             const updatedProducts = await Product.findByIdAndRemove(
                 productToRemove
+            );
+
+            res.status(200).send(updatedProducts);
+        } catch (err) {
+            res.status(500).send({ error: err.message });
+        }
+    });
+
+    app.put("/api/products", requireAdmin, async (req, res) => {
+        const productToUpdate = req.body._id;
+        const { title, desc, img, price, extraOptions } = req.body;
+
+        try {
+            const updatedProducts = await Product.findByIdAndUpdate(
+                productToUpdate,
+                {
+                    $set: { title, desc, img, price, extraOptions },
+                },
+                { new: true }
             );
 
             res.status(200).send(updatedProducts);

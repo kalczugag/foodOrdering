@@ -16,6 +16,7 @@ import ProfilePayments from "./components/ProfilePayments";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import AdminLogin from "./pages/admin/AdminLogin";
 import ProductDetailsWrapper from "./pages/ProductDetails";
+import OrderPage from "./pages/OrderPage";
 
 const ScrollToTopOnRouteChange = () => {
     const { pathname } = useLocation();
@@ -54,6 +55,7 @@ const App = () => {
                         path="/products/:productId"
                         element={<ProductDetailsWrapper />}
                     />
+                    <Route path="/orders/:orderId" element={<OrderPage />} />
                 </Routes>
             </div>
             {!location.pathname.startsWith("/admin") ? <HomeFooter /> : ""}

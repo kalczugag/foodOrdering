@@ -24,30 +24,53 @@ const Header = () => {
     }, [doFetchCart, doFetchUser, doFetchProducts]);
 
     const config = [
-        { label: "Homepage", name: "" },
-        { label: "Products", name: "products" },
-        { label: "Menu", name: "menu" },
+        { label: "Homepage", name: "home", scrollTo: 0 },
+        {
+            label: "Products",
+            name: "products",
+            scrollTo: window.innerHeight - 74,
+        },
+        { label: "Menu", name: "menu", scrollTo: window.innerHeight - 74 },
         {
             label: <img src={require("../utils/images/logo.png")} alt="logo" />,
             name: "",
             className: "w-28",
+            scrollTo: 0,
         },
-        { label: "Events", name: "events" },
-        { label: "Blog", name: "blog" },
-        { label: "Contact", name: "contact" },
+        {
+            label: "Events",
+            name: "events",
+            scrollTo: document.body.scrollHeight,
+        },
+        { label: "Blog", name: "blog", scrollTo: document.body.scrollHeight },
+        {
+            label: "Contact",
+            name: "contact",
+            scrollTo: document.body.scrollHeight,
+        },
     ];
 
-    const renderedLinks = config.map(({ label, name, className }, index) => {
-        return (
-            <Link
-                key={index}
-                to={`/${name}`}
-                className={`hover:text-gray-100 ${className}`}
-            >
-                {label}
-            </Link>
-        );
-    });
+    const renderedLinks = config.map(
+        ({ label, name, className, scrollTo }, index) => {
+            const handleScrollTo = (targetHeight) => {
+                window.scrollTo({
+                    top: targetHeight,
+                    behavior: "smooth",
+                });
+            };
+
+            return (
+                <a
+                    key={index}
+                    href={name === "" ? "/" : "#"}
+                    onClick={() => handleScrollTo(scrollTo)}
+                    className={`hover:text-gray-100 ${className}`}
+                >
+                    {label}
+                </a>
+            );
+        }
+    );
 
     const userHeaderOptions = (
         <>

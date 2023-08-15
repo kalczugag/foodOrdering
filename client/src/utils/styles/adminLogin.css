@@ -9,7 +9,7 @@ Form > div {
     position: relative;
 }
 
-span {
+.span-initial {
     position: absolute;
     top: 7px;
     right: 4px;
