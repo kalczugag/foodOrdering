@@ -6,7 +6,7 @@ const billingSlice = createSlice({
     initialState: {},
     extraReducers(builder) {
         builder.addCase(handlePayment.fulfilled, (state, action) => {
-            window.location.href = action.payload;
+            window.location.href = action.payload.url;
         });
     },
 });

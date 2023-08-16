@@ -1,3 +1,4 @@
+import "react-loading-skeleton/dist/skeleton.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "./components/Header";

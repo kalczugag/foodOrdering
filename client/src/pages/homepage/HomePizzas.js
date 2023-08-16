@@ -1,31 +1,11 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import MainProductItem from "../../components/MainProductsItem";
 
 const HomePizzas = () => {
     const data = useSelector((state) => state.products.data) || [];
 
     const renderedFeaturedPizzas = data.map((pizza) => {
-        const minPrice = pizza.price && pizza.price[0];
-        const maxPrice = pizza.price && pizza.price[2];
-
-        return (
-            <Link
-                key={pizza.title}
-                to={`/products/${pizza._id}`}
-                className="flex flex-col items-center space-y-1"
-            >
-                <img className="md:w-3/4" src={pizza.img} alt={pizza.title} />
-                <p className="text-red-500 text-xl border-b border-white hover:border-red-main">
-                    {pizza.title}
-                </p>
-                {minPrice !== undefined && maxPrice !== undefined && (
-                    <p className="font-bold">
-                        ${minPrice} - ${maxPrice}
-                    </p>
-                )}
-                <p>{pizza.desc}</p>
-            </Link>
-        );
+        return <MainProductItem key={pizza._id} data={pizza} />;
     });
 
     return (
