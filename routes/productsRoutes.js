@@ -5,9 +5,13 @@ const Product = mongoose.model("products");
 
 module.exports = (app) => {
     app.get("/api/products", async (req, res) => {
-        const products = await Product.find({});
+        try {
+            const products = await Product.find({});
 
-        res.send(products);
+            res.send(products);
+        } catch (err) {
+            res.send(err);
+        }
     });
 
     app.post("/api/products", requireAdmin, async (req, res) => {

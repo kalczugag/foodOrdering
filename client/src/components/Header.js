@@ -24,7 +24,7 @@ const Header = () => {
     }, [doFetchCart, doFetchUser, doFetchProducts]);
 
     const config = [
-        { label: "Homepage", name: "home", scrollTo: 0 },
+        { label: "Homepage", name: "", scrollTo: 0 },
         {
             label: "Products",
             name: "products",
@@ -52,22 +52,22 @@ const Header = () => {
 
     const renderedLinks = config.map(
         ({ label, name, className, scrollTo }, index) => {
-            const handleScrollTo = (targetHeight) => {
-                window.scrollTo({
-                    top: targetHeight,
-                    behavior: "smooth",
-                });
-            };
+            // const handleScrollTo = (targetHeight) => {
+            //     window.scrollTo({
+            //         top: targetHeight,
+            //         behavior: "smooth",
+            //     });
+            // };
 
             return (
-                <a
+                <Link
                     key={index}
-                    href={name === "" ? "/" : "#"}
-                    onClick={() => handleScrollTo(scrollTo)}
+                    to={name}
+                    // onClick={() => handleScrollTo(scrollTo)}
                     className={`hover:text-gray-100 ${className}`}
                 >
                     {label}
-                </a>
+                </Link>
             );
         }
     );

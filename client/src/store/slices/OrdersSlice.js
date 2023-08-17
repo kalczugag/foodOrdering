@@ -4,8 +4,8 @@ import { fetchOrders } from "../thunks/fetchOrders";
 const OrdersSlice = createSlice({
     name: "orders",
     initialState: {
+        data: [],
         isLoading: false,
-        data: null,
         error: null,
     },
     extraReducers(builder) {

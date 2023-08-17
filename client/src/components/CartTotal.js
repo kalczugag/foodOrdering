@@ -45,6 +45,7 @@ const CartTotal = () => {
             <button
                 onClick={handleCheckoutClick}
                 className="bg-white p-2 px-14 text-red-main font-bold hover:bg-gray-100"
+                disabled={paymentLoading}
             >
                 {paymentLoading ? (
                     <GoSync className="w-full h-full animate-spin" />
