@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import SortableTable from "./SortableTable";
 
 const AdminOrders = () => {
@@ -6,8 +7,15 @@ const AdminOrders = () => {
 
     const config = [
         {
-            label: "Id",
-            render: (item) => item.id,
+            label: "Order",
+            render: (item) => (
+                <Link
+                    to={`/orders/${item._id}`}
+                    className="border-b hover:border-gray-main"
+                >
+                    View order
+                </Link>
+            ),
         },
         {
             label: "Customer",
@@ -15,7 +23,7 @@ const AdminOrders = () => {
         },
         {
             label: "Total",
-            render: (item) => item.total,
+            render: (item) => `$${item.total / 100}`,
             sortValue: (item) => item.total,
         },
         {
@@ -24,7 +32,7 @@ const AdminOrders = () => {
         },
         {
             label: "Action",
-            render: () => <button>Net Stage</button>,
+            render: () => <button>Next Stage</button>,
         },
     ];
 

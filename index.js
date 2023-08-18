@@ -20,6 +20,7 @@ app.use(
         origin: keys.redirectDomain,
     })
 );
+app.use("/api/webhook", express.raw({ type: "application/json" }));
 app.use(bodyParser.json());
 app.use(
     cookieSession({

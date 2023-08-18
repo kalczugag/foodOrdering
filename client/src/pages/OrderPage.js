@@ -1,5 +1,9 @@
+import { useParams } from "react-router-dom";
+
 const OrderPage = () => {
-    return <div>Order</div>;
+    const { orderId } = useParams();
+
+    return <div>{orderId}</div>;
 };
 
 export default OrderPage;

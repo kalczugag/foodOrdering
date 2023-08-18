@@ -2,6 +2,7 @@ import SortableTable from "./SortableTable";
 import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { removeProduct } from "../store";
+import { Link } from "react-router-dom";
 
 const AdminProducts = ({ onOpen, onEdit }) => {
     const data = useSelector((state) => state.products.data) || [];
@@ -16,7 +17,14 @@ const AdminProducts = ({ onOpen, onEdit }) => {
         },
         {
             label: "Id",
-            render: (item) => item._id,
+            render: (item) => (
+                <Link
+                    to={`/products/${item._id}`}
+                    className="border-b hover:border-gray-main"
+                >
+                    {item._id}
+                </Link>
+            ),
         },
         {
             label: "Title",

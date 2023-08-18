@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
-const productSchema = require("./Product");
+const cartItemSchema = require("./CartItem");
 const { Schema } = mongoose;
 
 const orderSchema = new Schema(
     {
         _user: { type: Schema.Types.ObjectId, ref: "User" },
+        _paymentId: { type: String, required: true },
         address: {
             type: String,
-            required: true,
+            required: false,
             maxlength: 200,
         },
         total: {
@@ -15,10 +16,10 @@ const orderSchema = new Schema(
             required: true,
         },
         status: {
-            type: Number,
+            type: String,
             default: 0,
         },
-        products: [productSchema],
+        products: [cartItemSchema],
     },
     { timestamps: true }
 );
