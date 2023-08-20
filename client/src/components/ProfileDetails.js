@@ -27,7 +27,7 @@ const ProfileDetails = () => {
     return (
         <div>
             <div className="flex flex-row space-x-6 justify-between">
-                <h1 className="text-3xl">Welcome, {name}</h1>
+                <h1 className="text-3xl font-bold">Welcome, {name}</h1>
                 <button>Edit</button>
             </div>
             <div className="flex flex-col space-y-2 mt-6">{renderedInfo}</div>

@@ -28,7 +28,9 @@ const AdminOrders = () => {
         },
         {
             label: "Status",
-            render: (item) => item.status,
+            render: (item) => (
+                <div className="text-green-main">{item.status}</div>
+            ),
         },
         {
             label: "Action",

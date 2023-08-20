@@ -84,8 +84,6 @@ module.exports = (app) => {
                 console.log(err.message);
                 res.status(400).send({ success: false });
             }
-
-            // console.log(event.data.object);
         }
     );
 };

@@ -46,4 +46,14 @@ module.exports = (app) => {
             res.status(422).send(err);
         }
     });
+
+    app.delete("/api/orders", requireAdmin, async (req, res) => {
+        const userId = req.user._id;
+        const orderToRemove = req.body._id;
+
+        try {
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    });
 };
