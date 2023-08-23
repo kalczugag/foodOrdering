@@ -1,0 +1,31 @@
+.field-label {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.input-initial {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgb(201, 201, 201);
+    border-radius: 0;
+    outline: none;
+    padding: 0;
+}
+
+.input-initial:focus {
+    border-bottom: 1px solid rgb(105, 105, 105);
+}
+
+.area-inital {
+    border: 1px solid rgb(201, 201, 201);
+    outline: none;
+}
+
+.area-inital:focus {
+    border: 1px solid rgb(105, 105, 105);
+}
+
+.button-colors {
+    border: 2px solid #02787a;
+    color: #02787a;
+}
