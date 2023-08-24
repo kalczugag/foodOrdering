@@ -21,6 +21,7 @@ export * from "./slices/cartSlice";
 export * from "./thunks/fetchUser";
 export * from "./thunks/handlePayment";
 export * from "./thunks/adminLogin";
+export * from "./thunks/fetchOneProduct";
 export * from "./thunks/fetchProducts";
 export * from "./thunks/addProduct";
 export * from "./thunks/removeProduct";

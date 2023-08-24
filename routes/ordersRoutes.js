@@ -52,17 +52,26 @@ module.exports = (app) => {
         const { status } = req.body;
 
         try {
-            const updatedOrders = await Order.findByIdAndUpdate(
+            // Validate status value here if necessary
+
+            const updatedOrder = await Order.findByIdAndUpdate(
                 orderToUpdate,
                 {
                     $set: { status },
                 },
                 { new: true }
-            );
+            ).select("-sensitiveField"); // Exclude sensitive fields from the response
 
-            res.status(200).send(updatedOrders);
+            if (!updatedOrder) {
+                return res.status(404).send({ error: "Order not found" });
+            }
+
+            res.status(200).send(updatedOrder);
         } catch (err) {
-            res.status(500).send({ error: err.message });
+            console.error(err); // Log the error for debugging
+            res.status(500).send({
+                error: "An error occurred while updating the order.",
+            });
         }
     });
 

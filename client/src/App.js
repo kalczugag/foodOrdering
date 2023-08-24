@@ -51,7 +51,7 @@ const App = () => {
                         <Route path="history" element={<ProfilePayments />} />
                     </Route>
                     <Route path="/admin/login" element={<AdminLogin />} />
-                    <Route path="/admin" element={<DashboardAdmin />}></Route>
+                    <Route path="/admin" element={<DashboardAdmin />} />
                     <Route
                         path="/products/:productId"
                         element={<ProductDetailsWrapper />}

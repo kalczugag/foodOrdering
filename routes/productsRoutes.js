@@ -5,12 +5,24 @@ const Product = mongoose.model("products");
 
 module.exports = (app) => {
     app.get("/api/products", async (req, res) => {
-        try {
-            const products = await Product.find({});
+        const prodId = req.query._id;
 
-            res.send(products);
-        } catch (err) {
-            res.send(err);
+        if (prodId) {
+            try {
+                const product = await Product.findById(prodId);
+
+                res.status(200).send(product);
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        } else {
+            try {
+                const products = await Product.find({});
+
+                res.status(200).send(products);
+            } catch (err) {
+                res.status(500).send(err);
+            }
         }
     });
 
