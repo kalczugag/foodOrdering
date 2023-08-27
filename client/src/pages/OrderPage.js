@@ -1,10 +1,17 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useTitle } from "../hooks/use-title";
+import { useThunk } from "../hooks/use-thunk";
+import { fetchOrder } from "../store";
 
 const OrderPage = ({ data }) => {
     const { orderId } = useParams();
+    const [doFetchOrder] = useThunk(fetchOrder);
+
+    useEffect(() => {
+        doFetchOrder(orderId);
+    }, [doFetchOrder, orderId]);
 
     const thisOrder = useMemo(
         () => data.find((order) => order._id === orderId),

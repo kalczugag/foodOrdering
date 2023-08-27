@@ -1,12 +1,12 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { AiOutlinePhone } from "react-icons/ai";
 import { GoPerson } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
 import { useUser } from "../hooks/use-user";
-import { Link } from "react-router-dom";
 import { useThunk } from "../hooks/use-thunk";
 import { fetchCart, fetchUser, fetchProducts } from "../store";
 import CartIcon from "./CartIcon";
-import { useEffect } from "react";
 
 const Header = () => {
     const user = useUser();
@@ -24,53 +24,39 @@ const Header = () => {
     }, [doFetchCart, doFetchUser, doFetchProducts]);
 
     const config = [
-        { label: "Homepage", name: "", scrollTo: 0 },
+        { label: "Homepage", name: "" },
         {
             label: "Products",
             name: "products",
-            scrollTo: window.innerHeight - 74,
         },
-        { label: "Menu", name: "menu", scrollTo: window.innerHeight - 74 },
+        { label: "Menu", name: "menu" },
         {
             label: <img src={require("../utils/images/logo.png")} alt="logo" />,
             name: "",
             className: "w-28",
-            scrollTo: 0,
         },
         {
             label: "Events",
             name: "events",
-            scrollTo: document.body.scrollHeight,
         },
-        { label: "Blog", name: "blog", scrollTo: document.body.scrollHeight },
+        { label: "Blog", name: "blog" },
         {
             label: "Contact",
             name: "contact",
-            scrollTo: document.body.scrollHeight,
         },
     ];
 
-    const renderedLinks = config.map(
-        ({ label, name, className, scrollTo }, index) => {
-            // const handleScrollTo = (targetHeight) => {
-            //     window.scrollTo({
-            //         top: targetHeight,
-            //         behavior: "smooth",
-            //     });
-            // };
-
-            return (
-                <Link
-                    key={index}
-                    to={name}
-                    // onClick={() => handleScrollTo(scrollTo)}
-                    className={`hover:text-gray-100 ${className}`}
-                >
-                    {label}
-                </Link>
-            );
-        }
-    );
+    const renderedLinks = config.map(({ label, name, className }, index) => {
+        return (
+            <Link
+                key={index}
+                to={name}
+                className={`hover:text-gray-100 ${className}`}
+            >
+                {label}
+            </Link>
+        );
+    });
 
     const userHeaderOptions = (
         <>

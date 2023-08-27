@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const _ = require("lodash");
+const { Path } = require("path-parser");
+const { URL } = require("url");
 const requireLogin = require("../middlewares/requireLogin");
 const requireAdmin = require("../middlewares/requireAdmin");
 
@@ -26,6 +29,24 @@ module.exports = (app) => {
             res.status(200).send(userOrders);
         } catch (err) {
             res.status(500).send(err);
+        }
+    });
+
+    app.get("/api/orders/:orderId", requireLogin, async (req, res) => {
+        const userId = req.user._id;
+        const orderId = req.params.orderId;
+
+        if (orderId) {
+            try {
+                const userOrder = await Order.findOne({
+                    _user: userId,
+                    _id: orderId,
+                });
+
+                res.status(200).send(userOrder);
+            } catch (err) {
+                res.status(500).send(err);
+            }
         }
     });
 

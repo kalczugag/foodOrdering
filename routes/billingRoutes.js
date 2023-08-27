@@ -57,6 +57,8 @@ module.exports = (app) => {
                     keys.stripeEndpointSecret
                 );
 
+                console.log(event[0]);
+
                 if (event.data.object.payment_status === "paid") {
                     const items = await Cart.findById(userId);
 
