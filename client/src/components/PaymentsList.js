@@ -1,23 +1,6 @@
 import { Link } from "react-router-dom";
-import _ from "lodash";
+import { formatDate } from "../utils/functions/formatDate";
 import SortableTable from "./SortableTable";
-
-const formatDateString = (inputDateString) => {
-    return _.chain(new Date(inputDateString))
-        .thru((date) => ({
-            year: date.getFullYear(),
-            month: String(date.getMonth() + 1).padStart(2, "0"),
-            day: String(date.getDate()).padStart(2, "0"),
-            hours: String(date.getHours()).padStart(2, "0"),
-            minutes: String(date.getMinutes()).padStart(2, "0"),
-            seconds: String(date.getSeconds()).padStart(2, "0"),
-        }))
-        .thru(
-            ({ year, month, day, hours, minutes, seconds }) =>
-                `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
-        )
-        .value();
-};
 
 const PaymentList = ({ data }) => {
     const config = [
@@ -34,7 +17,7 @@ const PaymentList = ({ data }) => {
         },
         {
             label: "Ordered At",
-            render: (item) => formatDateString(item.createdAt),
+            render: (item) => formatDate(item.createdAt),
         },
         {
             label: "Total",

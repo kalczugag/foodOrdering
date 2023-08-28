@@ -2,24 +2,24 @@ import { useState, useEffect } from "react";
 import { useUser } from "../../hooks/use-user";
 import { useTitle } from "../../hooks/use-title";
 import { useThunk } from "../../hooks/use-thunk";
-import { fetchAdminOrders } from "../../store";
 import AdminOrders from "../../components/AdminOrders";
 import AdminProducts from "../../components/AdminProducts";
 import NewPizzaForm from "../../components/NewPizzaForm";
 import EditPizzaForm from "../../components/EditPizzaForm";
+import { fetchOrders } from "../../store";
 
 const DashboardAdmin = () => {
     const [showNewPizzaModal, setShowNewPizzaModal] = useState(false);
     const [showEditPizzaModal, setShowEditPizzaModal] = useState(false);
     const [item, setItem] = useState(null);
 
-    const [doFetchAdminOrders] = useThunk(fetchAdminOrders);
+    const [doFetchAdminOrders] = useThunk(fetchOrders);
 
     const user = useUser();
     useTitle("Admin dashboard");
 
     useEffect(() => {
-        doFetchAdminOrders();
+        doFetchAdminOrders(true);
     }, [doFetchAdminOrders]);
 
     const handleOpenModal = () => {

@@ -3,7 +3,6 @@ import { authReducer } from "./slices/authSlice";
 import { cartReducer } from "./slices/cartSlice";
 import { productsReducer } from "./slices/productsSlice";
 import { ordersReducer } from "./slices/OrdersSlice";
-import { adminOrdersReducer } from "./slices/adminOrdersSlice";
 import { billingReducer } from "./slices/billingSlice";
 
 export const store = configureStore({
@@ -12,7 +11,6 @@ export const store = configureStore({
         cart: cartReducer,
         products: productsReducer,
         orders: ordersReducer,
-        adminOrders: adminOrdersReducer,
         billing: billingReducer,
     },
 });
@@ -27,7 +25,6 @@ export * from "./thunks/addProduct";
 export * from "./thunks/removeProduct";
 export * from "./thunks/editProduct";
 export * from "./thunks/fetchOrders";
-export * from "./thunks/fetchAdminOrders";
 export * from "./thunks/fetchCart";
 export * from "./thunks/addToCart";
 export * from "./thunks/removeFromCart";
