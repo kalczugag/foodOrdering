@@ -17,6 +17,7 @@ export const store = configureStore({
 
 export * from "./slices/cartSlice";
 export * from "./thunks/fetchUser";
+export * from "./thunks/editUser";
 export * from "./thunks/handlePayment";
 export * from "./thunks/adminLogin";
 export * from "./thunks/fetchOneProduct";

@@ -2,11 +2,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handlePayment, changeDiscountCode } from "../store";
 import { useThunk } from "../hooks/use-thunk";
+import { useUser } from "../hooks/use-user";
 import { GoSync } from "react-icons/go";
 
 const CartTotal = () => {
     const dispatch = useDispatch();
+    const user = useUser();
+
     const [showDiscountInput, setShowDiscountInput] = useState(false);
+
     const [doHandlePayment, paymentLoading] = useThunk(handlePayment);
 
     const { items, totalPrice, subtotal, discount, discountCode, itemsCount } =
@@ -17,6 +21,8 @@ const CartTotal = () => {
             doHandlePayment(items);
         }
     };
+
+    console.log(user);
 
     const handleDiscountShow = () => {
         dispatch(changeDiscountCode(""));
