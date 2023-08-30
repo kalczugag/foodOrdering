@@ -1,5 +1,6 @@
 import { CiDeliveryTruck } from "react-icons/ci";
 import { MdOutlineDone, MdOutlinePaid } from "react-icons/md";
+import { formatPostal } from "../utils/functions/formatPostal";
 
 const OrderFooter = ({ data }) => {
     let statusWithIcon;
@@ -41,10 +42,14 @@ const OrderFooter = ({ data }) => {
                     {statusWithIcon}
                 </div>
             </div>
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start space-y-1">
                 <h3 className="text-lg font-semibold">Delivery</h3>
                 <p className="text-sm text-gray-600">Address</p>
-                <div></div>
+                <div>
+                    <p>{data.address?.street}</p>
+                    <p>{data.address?.city}</p>
+                    <p>{formatPostal(data.address?.postal)}</p>
+                </div>
             </div>
         </div>
     );

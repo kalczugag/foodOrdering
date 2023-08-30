@@ -7,11 +7,11 @@ const Products = mongoose.model("products");
 const Cart = mongoose.model("cart");
 const Order = mongoose.model("orders");
 
-let userId;
+let user;
 
 module.exports = (app) => {
     app.post("/api/stripe", async (req, res) => {
-        userId = req.user._id;
+        user = req.user;
 
         try {
             const lineItems = await Promise.all(
@@ -58,21 +58,21 @@ module.exports = (app) => {
                 );
 
                 if (event.data.object.payment_status === "paid") {
-                    const items = await Cart.findOne({ _user: userId });
+                    const cart = await Cart.findOne({ _user: user._id });
 
                     const order = new Order({
-                        _user: userId,
+                        _user: user._id,
                         _paymentId: event.data.object.id,
-                        address: "",
+                        address: user.address,
                         total: event.data.object.amount_total,
                         status: event.data.object.payment_status,
-                        products: items,
+                        products: cart.products,
                     });
 
                     await order.save();
 
                     await Cart.findOneAndUpdate(
-                        { _user: userId },
+                        { _user: user._id },
                         {
                             $set: { products: [] },
                         }

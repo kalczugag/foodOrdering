@@ -10,7 +10,6 @@ const authSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(fetchUser.fulfilled, (state, action) => {
             state.data = action.payload || false;
-            console.log(state.data);
         });
 
         builder.addCase(editUser.pending, (state, action) => {
@@ -20,21 +19,18 @@ const authSlice = createSlice({
             state.isLoading = false;
             const editedUser = action.payload;
 
-            const index = state.data.findIndex(
-                (user) => user._id === editedUser._id
-            );
-
-            if (index !== -1) {
-                state.data[index] = {
-                    ...state.data[index],
-                    username: editedUser.username,
-                    email: editedUser.email,
-                    city: editedUser.city,
-                    street: editedUser.street,
-                    postal: editedUser.postal,
-                    phone: editedUser.phone,
-                };
-            }
+            state.data = {
+                ...state.data,
+                username: editedUser.username,
+                email: editedUser.email,
+                address: {
+                    ...state.data.address,
+                    city: editedUser.address.city,
+                    street: editedUser.address.street,
+                    postal: editedUser.address.postal,
+                },
+                phone: editedUser.phone,
+            };
         });
 
         builder.addCase(editUser.rejected, (state, action) => {

@@ -3,6 +3,7 @@ import { useTitle } from "../hooks/use-title";
 import { useThunk } from "../hooks/use-thunk";
 import { useUser } from "../hooks/use-user";
 import { editUser } from "../store";
+import { formatPostal } from "../utils/functions/formatPostal";
 import ProfileEditForm from "./ProfileEditForm";
 
 const ProfileDetails = () => {
@@ -20,19 +21,19 @@ const ProfileDetails = () => {
         {
             label: "City*",
             name: "city",
-            initialValue: user.address?.city || "",
+            initialValue: user.address ? user.address.city : "",
         },
         {
             label: "Street*",
             name: "street",
-            initialValue: user.address || "",
+            initialValue: user.address ? user.address.street : "",
         },
         {
             label: "Postal Code*",
             name: "postal",
-            initialValue: user.address || "",
+            initialValue: user.address ? user.address.postal : "",
         },
-        { label: "Phone Number", name: "phone", initialValue: "" },
+        { label: "Phone Number", name: "phone", initialValue: user.phone },
     ];
 
     const handleEditToggle = () => {
@@ -46,10 +47,12 @@ const ProfileDetails = () => {
         setIsEdit(false);
     };
 
-    const renderedInfo = config.map(({ label, initialValue }, index) => (
+    const renderedInfo = config.map(({ label, initialValue, name }, index) => (
         <div key={index} className="flex flex-row justify-between">
             <div className="font-bold">{label}:</div>
-            <div>{initialValue}</div>
+            <div>
+                {name === "postal" ? formatPostal(initialValue) : initialValue}
+            </div>
         </div>
     ));
 

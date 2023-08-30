@@ -11,7 +11,7 @@ const userSchema = new Schema(
         name: String,
         email: String,
         address: addressSchema,
-        phone: String,
+        phone: Number,
     },
     { timestamps: true }
 );
