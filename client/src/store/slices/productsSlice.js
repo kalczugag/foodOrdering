@@ -43,6 +43,8 @@ const productsSlice = createSlice({
             state.isLoading = false;
             const editedProduct = action.payload;
 
+            console.log(editedProduct);
+
             const index = state.data.findIndex(
                 (item) => item._id === editedProduct._id
             );
@@ -53,6 +55,7 @@ const productsSlice = createSlice({
                     title: editedProduct.title,
                     desc: editedProduct.desc,
                     img: editedProduct.img,
+                    blurhash: editProduct.blurhash,
                     price: editedProduct.price,
                     extraOptions: editedProduct.extraOptions,
                 };

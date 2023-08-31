@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import BlurImage from "./BlurImage";
 
 const MainProductItem = ({ data }) => {
     const minPrice = data.price && data.price[0];
@@ -10,7 +11,8 @@ const MainProductItem = ({ data }) => {
             to={`/products/${data._id}`}
             className="flex flex-col items-center space-y-1"
         >
-            <img className="md:w-3/4" src={data.img} alt={data.title} />
+            <BlurImage data={data} width={200} height={200} />
+
             <p className="text-red-500 text-xl border-b border-white hover:border-red-main">
                 {data.title}
             </p>

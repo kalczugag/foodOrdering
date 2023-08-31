@@ -12,6 +12,8 @@ const AdminOrders = () => {
     const [statusIndex, setStatusIndex] = useState(0);
     const data = useSelector((state) => state.orders.data) || [];
 
+    console.log(data);
+
     const handleStatusChange = (item) => {
         if (statusIndex >= 0 && statusIndex < 2) {
             setStatusIndex(statusIndex + 1);

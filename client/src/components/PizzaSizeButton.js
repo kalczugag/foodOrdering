@@ -5,7 +5,7 @@ const PizzaSizeButton = ({ size, index, priceFn, currentIndex }) => {
         <button key={index} className="relative" onClick={() => priceFn(index)}>
             <img
                 className={size.className}
-                src={require("../utils/images/size.png")}
+                src="https://storage.cloud.google.com/adsfadf231/size.png"
                 alt="size"
             />
             <div

@@ -17,6 +17,10 @@ const productSchema = new Schema(
             type: String,
             required: true,
         },
+        blurhash: {
+            type: String,
+            required: true,
+        },
         price: {
             type: [Number],
             required: true,

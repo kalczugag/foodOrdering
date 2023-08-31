@@ -1,10 +1,18 @@
+import BlurImage from "../../components/BlurImage";
+
 const HomeMain = () => {
+    const data = {
+        title: "pizza",
+        img: "https://storage.cloud.google.com/adsfadf231/1.png",
+        blurhash: "LHMzR3bu*hi{}rbHV[n%QBr@PSW;",
+    };
+
     return (
         <div className="bg-red-main flex flex-col justify-between items-center px-6 h-screen-fit text-white md:flex-row md:w-full xl:px-0">
             <div className="hidden xl:flex xl:justify-start">
                 <img
                     className="w-1/2 cursor-pointer"
-                    src={require("../../utils/images/arrowl.png")}
+                    src="https://storage.cloud.google.com/adsfadf231/arrowl.png"
                     alt="pizza"
                 />
             </div>
@@ -24,16 +32,13 @@ const HomeMain = () => {
                     </div>
                 </div>
                 <div className="w-1/2 md:w-full">
-                    <img
-                        src={require("../../utils/images/1.png")}
-                        alt="pizza"
-                    />
+                    <BlurImage data={data} width={400} height={400} />
                 </div>
             </div>
             <div className="hidden xl:flex xl:justify-end">
                 <img
                     className="w-1/2 cursor-pointer"
-                    src={require("../../utils/images/arrowr.png")}
+                    src="https://storage.cloud.google.com/adsfadf231/arrowr.png"
                     alt="pizza"
                 />
             </div>

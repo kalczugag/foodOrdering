@@ -52,6 +52,18 @@ const NewPizzaForm = ({ onClose }) => {
                                     validate={required}
                                 />
                             </div>
+                            <div>
+                                <label className="field-label">
+                                    Choose a Blurhash
+                                </label>
+                                <Field
+                                    className="input-initial"
+                                    type="text"
+                                    component="input"
+                                    name="blurhash"
+                                    validate={required}
+                                />
+                            </div>
                             <div className="flex flex-col">
                                 <label className="field-label">Title</label>
                                 <Field

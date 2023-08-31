@@ -18,7 +18,7 @@ const ProductDetails = ({ data }) => {
         [data, productId]
     );
 
-    useTitle(thisProduct?.title + "Pizza");
+    useTitle(thisProduct?.title + " Pizza");
 
     // Make sure thisProduct exists before accessing its properties
     if (!thisProduct) {

@@ -18,6 +18,7 @@ const OrderPage = ({ data }) => {
         doFetchOrder(orderId);
     }, [doFetchOrder, orderId]);
 
+    console.log(data);
     return (
         <>
             {!fetchOrderLoading ? (

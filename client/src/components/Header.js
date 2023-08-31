@@ -31,7 +31,12 @@ const Header = () => {
         },
         { label: "Menu", name: "menu" },
         {
-            label: <img src={require("../utils/images/logo.png")} alt="logo" />,
+            label: (
+                <img
+                    src="https://storage.cloud.google.com/adsfadf231/logo.png"
+                    alt="logo"
+                />
+            ),
             name: "",
             className: "w-28",
         },

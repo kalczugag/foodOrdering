@@ -1,6 +1,4 @@
 const OrderListItem = ({ item }) => {
-    console.log(item);
-
     return (
         <div className="flex flex-row justify-between mb-2 space-x-4">
             <div className="w-16 h-16 rounded border border-gray-300 bg-gray-100">

@@ -1,6 +1,7 @@
 const NewPizzaReview = ({
     formValues: {
         imageURI,
+        blurhash,
         title,
         desc,
         smallPrice,
@@ -16,6 +17,10 @@ const NewPizzaReview = ({
             <div>
                 <label>Image URI</label>
                 <p>{imageURI}</p>
+            </div>
+            <div>
+                <label>Blurhash</label>
+                <p>{blurhash}</p>
             </div>
             <div>
                 <label>Title</label>
