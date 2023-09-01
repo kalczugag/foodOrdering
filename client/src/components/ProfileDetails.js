@@ -77,9 +77,7 @@ const ProfileDetails = () => {
                 )}
             </div>
             <div className="mt-10 text-xs font-semibold ">
-                {!user.address && (
-                    <>You have to set fields with * to make an order</>
-                )}
+                <>You have to set fields with * to place an order</>
             </div>
         </div>
     );

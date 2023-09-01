@@ -8,5 +8,5 @@ export const fetchOrders = createAsyncThunk("orders/fetch", async (isAdmin) => {
         },
     });
 
-    return response.data;
+    return { orders: response.data, admin: isAdmin };
 });

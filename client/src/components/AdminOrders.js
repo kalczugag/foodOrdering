@@ -10,9 +10,7 @@ const status = ["paid", "delivery", "delivered"];
 const AdminOrders = () => {
     const [doStatusChange, isStatusChangeLoading] = useThunk(orderStatusChange);
     const [statusIndex, setStatusIndex] = useState(0);
-    const data = useSelector((state) => state.orders.data) || [];
-
-    console.log(data);
+    const data = useSelector((state) => state.orders.dataAdmin) || [];
 
     const handleStatusChange = (item) => {
         if (statusIndex >= 0 && statusIndex < 2) {
@@ -64,7 +62,7 @@ const AdminOrders = () => {
                     onClick={() => handleStatusChange(item)}
                     disabled={isStatusChangeLoading}
                 >
-                    {isStatusChangeLoading ? "loading..." : "Next Stage"}
+                    Next Stage
                 </button>
             ),
         },

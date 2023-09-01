@@ -17,12 +17,20 @@ const CartTotal = () => {
         useSelector((state) => state.cart);
 
     const handleCheckoutClick = () => {
-        if (itemsCount > 0 && items) {
+        if (
+            itemsCount > 0 &&
+            items &&
+            user.address.city &&
+            user.address.street &&
+            user.address.postal
+        ) {
             doHandlePayment(items);
+        } else {
+            console.error(
+                "You have to set address in your profile to place an order!"
+            );
         }
     };
-
-    console.log(user);
 
     const handleDiscountShow = () => {
         dispatch(changeDiscountCode(""));
@@ -50,11 +58,11 @@ const CartTotal = () => {
             </div>
             <button
                 onClick={handleCheckoutClick}
-                className="bg-white p-2 px-14 text-red-main font-bold hover:bg-gray-100"
+                className="flex justify-center items-center bg-white w-64 h-10 text-red-main font-bold hover:bg-gray-100"
                 disabled={paymentLoading}
             >
                 {paymentLoading ? (
-                    <GoSync className="w-full h-full animate-spin" />
+                    <GoSync className="text-2xl animate-spin" />
                 ) : (
                     <div>CHECKOUT NOW</div>
                 )}

@@ -1,20 +1,10 @@
-import BlurImage from "../../components/BlurImage";
+import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 
 const HomeMain = () => {
-    const data = {
-        title: "pizza",
-        img: "https://storage.cloud.google.com/adsfadf231/1.png",
-        blurhash: "LHMzR3bu*hi{}rbHV[n%QBr@PSW;",
-    };
-
     return (
         <div className="bg-red-main flex flex-col justify-between items-center px-6 h-screen-fit text-white md:flex-row md:w-full xl:px-0">
             <div className="hidden xl:flex xl:justify-start">
-                <img
-                    className="w-1/2 cursor-pointer"
-                    src="https://storage.cloud.google.com/adsfadf231/arrowl.png"
-                    alt="pizza"
-                />
+                <MdOutlineNavigateBefore className="cursor-pointer text-9xl" />
             </div>
             <div className="flex flex-col items-center space-y-8 md:flex-row md:space-y-0">
                 <div className="flex flex-col text-3xl font-bold mt-2 md:mr-32 md:mt-0">
@@ -32,15 +22,14 @@ const HomeMain = () => {
                     </div>
                 </div>
                 <div className="w-1/2 md:w-full">
-                    <BlurImage data={data} width={400} height={400} />
+                    <img
+                        src="https://storage.cloud.google.com/adsfadf231/1.png"
+                        alt="pizza"
+                    />
                 </div>
             </div>
             <div className="hidden xl:flex xl:justify-end">
-                <img
-                    className="w-1/2 cursor-pointer"
-                    src="https://storage.cloud.google.com/adsfadf231/arrowr.png"
-                    alt="pizza"
-                />
+                <MdOutlineNavigateNext className="cursor-pointer text-9xl" />
             </div>
         </div>
     );

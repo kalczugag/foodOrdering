@@ -45,16 +45,16 @@ const AdminProducts = ({ onOpen, onEdit }) => {
         {
             label: "Action",
             render: (item) => (
-                <div className="space-x-2 text-white">
+                <div className="flex flex-col items-center text-white md:space-x-2 md:flex-row">
                     <button
                         onClick={() => onEdit(item)}
-                        className="color p-1 rounded"
+                        className="w-full color p-1 rounded"
                     >
                         Edit
                     </button>
                     <button
                         onClick={() => handleRemoveProduct(item)}
-                        className="bg-red-main p-1 rounded"
+                        className="w-full bg-red-main p-1 rounded"
                     >
                         Delete
                     </button>
