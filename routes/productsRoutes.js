@@ -27,13 +27,12 @@ module.exports = (app) => {
     });
 
     app.post("/api/products", requireAdmin, async (req, res) => {
-        const { title, desc, img, blurhash, price, extraOptions } = req.body;
+        const { title, desc, img, price, extraOptions } = req.body;
 
         const product = new Product({
             title,
             desc,
             img,
-            blurhash,
             price,
             extraOptions,
         });
@@ -62,13 +61,13 @@ module.exports = (app) => {
 
     app.put("/api/products", requireAdmin, async (req, res) => {
         const productToUpdate = req.body._id;
-        const { title, desc, img, blurhash, price, extraOptions } = req.body;
+        const { title, desc, img, price, extraOptions } = req.body;
 
         try {
             const updatedProducts = await Product.findByIdAndUpdate(
                 productToUpdate,
                 {
-                    $set: { title, desc, img, blurhash, price, extraOptions },
+                    $set: { title, desc, img, price, extraOptions },
                 },
                 { new: true }
             );

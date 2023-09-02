@@ -18,6 +18,7 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import AdminLogin from "./pages/admin/AdminLogin";
 import ProductDetailsWrapper from "./pages/ProductDetails";
 import OrderPage from "./pages/OrderPage";
+import InvoiceDocumentWrapper from "./components/InvoiceDocument";
 
 const ScrollToTopOnRouteChange = () => {
     const { pathname } = useLocation();
@@ -35,8 +36,11 @@ const App = () => {
     return (
         <div>
             <ScrollToTopOnRouteChange />
-            <Header />
-            <div className="mt-20">
+            <div
+                className={
+                    location.pathname.startsWith("/invoice") ? "" : "mt-20"
+                }
+            >
                 <Routes>
                     <Route index element={<HomePage />} />
                     <Route path="/products" element={<ProductsPage />} />
@@ -57,9 +61,25 @@ const App = () => {
                         element={<ProductDetailsWrapper />}
                     />
                     <Route path="/orders/:orderId" element={<OrderPage />} />
+                    <Route
+                        path="/invoice/:orderId"
+                        element={<InvoiceDocumentWrapper />}
+                    />
                 </Routes>
             </div>
-            {!location.pathname.startsWith("/admin") ? <HomeFooter /> : ""}
+            {!(
+                location.pathname.startsWith("/admin") ||
+                location.pathname.startsWith("/invoice")
+            ) ? (
+                <>
+                    <HomeFooter />
+                </>
+            ) : null}
+            {!location.pathname.startsWith("/invoice") ? (
+                <>
+                    <Header />
+                </>
+            ) : null}
         </div>
     );
 };

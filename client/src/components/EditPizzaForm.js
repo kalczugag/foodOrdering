@@ -6,7 +6,7 @@ import Modal from "./Modal";
 
 const EditPizzaForm = ({
     onClose,
-    item: { _id, img, blurhash, title, desc, price, extraOptions },
+    item: { _id, img, title, desc, price, extraOptions },
 }) => {
     const [doEditProduct] = useThunk(editProduct);
 
@@ -25,7 +25,6 @@ const EditPizzaForm = ({
                 onSubmit={onSubmit}
                 initialValues={{
                     imageURI: img,
-                    blurhash: blurhash,
                     title: title,
                     desc: desc,
                     smallPrice: price[0],
@@ -55,18 +54,7 @@ const EditPizzaForm = ({
                                 validate={required}
                             />
                         </div>
-                        <div>
-                            <label className="field-label">
-                                Choose a Blurhash
-                            </label>
-                            <Field
-                                className="input-initial"
-                                type="text"
-                                component="input"
-                                name="blurhash"
-                                validate={required}
-                            />
-                        </div>
+
                         <div className="flex flex-col">
                             <label className="field-label">Title</label>
                             <Field

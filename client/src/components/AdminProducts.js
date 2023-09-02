@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { removeProduct } from "../store";
 import { Link } from "react-router-dom";
-import BlurImage from "./BlurImage";
 
 const AdminProducts = ({ onOpen, onEdit }) => {
     const data = useSelector((state) => state.products.data) || [];
@@ -13,7 +12,12 @@ const AdminProducts = ({ onOpen, onEdit }) => {
         {
             label: "Image",
             render: (item) => (
-                <BlurImage data={item} width={100} height={100} />
+                <img
+                    loading="lazy"
+                    src={item.img}
+                    alt={item.title}
+                    className="w-16"
+                />
             ),
         },
         {
