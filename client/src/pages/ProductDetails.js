@@ -5,6 +5,22 @@ import { useThunk } from "../hooks/use-thunk";
 import { addToCart } from "../store";
 import PizzaSizeButton from "../components/PizzaSizeButton";
 import { useTitle } from "../hooks/use-title";
+import Skeleton from "react-loading-skeleton";
+
+const Box = ({ children }) => {
+    return (
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                marginBottom: "0.5rem",
+                width: 250,
+            }}
+        >
+            {children}
+        </div>
+    );
+};
 
 const ProductDetails = ({ data }) => {
     const { productId } = useParams();
@@ -22,7 +38,12 @@ const ProductDetails = ({ data }) => {
 
     // Make sure thisProduct exists before accessing its properties
     if (!thisProduct) {
-        return <div>Loading...</div>;
+        return (
+            <div className="flex flex-col justify-center items-center space-y-4 p-10 md:space-y-0 md:space-x-24 md:flex-row">
+                <Skeleton width={400} height={380} />
+                <Skeleton wrapper={Box} count={5} />
+            </div>
+        );
     }
 
     const sizes = [

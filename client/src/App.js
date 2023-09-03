@@ -16,7 +16,7 @@ import ProfileDetails from "./components/ProfileDetails";
 import ProfilePayments from "./components/ProfilePayments";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import AdminLogin from "./pages/admin/AdminLogin";
-import ProductDetailsWrapper from "./pages/ProductDetails";
+import ProductDetails from "./pages/ProductDetails";
 import OrderPage from "./pages/OrderPage";
 import InvoiceDocumentWrapper from "./components/InvoiceDocument";
 
@@ -58,7 +58,7 @@ const App = () => {
                     <Route path="/admin" element={<DashboardAdmin />} />
                     <Route
                         path="/products/:productId"
-                        element={<ProductDetailsWrapper />}
+                        element={<ProductDetails />}
                     />
                     <Route path="/orders/:orderId" element={<OrderPage />} />
                     <Route
