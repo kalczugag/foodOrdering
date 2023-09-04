@@ -47,16 +47,16 @@ const ProductDetails = ({ data }) => {
     }
 
     const sizes = [
-        { label: "Small", className: "w-10 h-10" },
-        { label: "Medium", className: "w-12 h-12" },
-        { label: "Large", className: "w-14 h-14" },
+        { label: "Small", size: { width: 45, height: 45 } },
+        { label: "Medium", size: { width: 50, height: 50 } },
+        { label: "Large", size: { width: 55, height: 55 } },
     ];
 
     const renderedSizes = sizes.map((size, index) => {
         return (
             <PizzaSizeButton
                 key={size.label}
-                size={size}
+                data={size}
                 index={index}
                 priceFn={setShowPrice}
                 currentIndex={showPrice}

@@ -7,7 +7,7 @@ import { GoSync } from "react-icons/go";
 
 const CartTotal = () => {
     const dispatch = useDispatch();
-    const user = useUser();
+    const { user } = useUser();
 
     const [showDiscountInput, setShowDiscountInput] = useState(false);
 

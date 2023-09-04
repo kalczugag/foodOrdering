@@ -9,7 +9,7 @@ import ProfileEditForm from "./ProfileEditForm";
 const ProfileDetails = () => {
     const [doEditUser] = useThunk(editUser);
 
-    const user = useUser();
+    const { user } = useUser();
     useTitle("Details - Profile");
 
     const [isEdit, setIsEdit] = useState(false);

@@ -1,4 +1,5 @@
 import "react-loading-skeleton/dist/skeleton.css";
+import "./utils/styles/globalStyles.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "./components/Header";
@@ -34,7 +35,7 @@ const App = () => {
     const location = useLocation();
 
     return (
-        <div>
+        <div className="w-screen h-screen">
             <ScrollToTopOnRouteChange />
             <div
                 className={

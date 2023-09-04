@@ -9,7 +9,7 @@ import { fetchCart, fetchUser, fetchProducts } from "../store";
 import CartIcon from "./CartIcon";
 
 const Header = () => {
-    const user = useUser();
+    const { user } = useUser();
     const [doFetchCart] = useThunk(fetchCart);
     const [doFetchUser] = useThunk(fetchUser);
     const [doFetchProducts] = useThunk(fetchProducts);
@@ -125,7 +125,7 @@ const Header = () => {
     );
 
     return (
-        <div className="fixed left-0 right-0 top-0 z-20 flex flex-row justify-between text-white bg-red-main p-4 h-20 md:px-8">
+        <div className="fixed  top-0 w-screen z-20 flex flex-row justify-between text-white bg-red-main p-4 h-20 md:w-full md:px-8">
             <div className="flex flex-row items-center flex-1 space-x-3">
                 <AiOutlinePhone className="text-5xl bg-white text-red-main p-1 rounded-full sm:block md:hidden xl:block" />
                 <div className="flex-col sm:block md:hidden xl:block">

@@ -1,18 +1,23 @@
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 import { useUser } from "../hooks/use-user";
 import { useThunk } from "../hooks/use-thunk";
 import { fetchOrders } from "../store";
 import ProfileSidebar from "../components/ProfileSidebar";
-import { useEffect } from "react";
 
 const ProfilePage = () => {
-    const user = useUser();
+    const { user } = useUser();
 
     const [doFetchOrders] = useThunk(fetchOrders);
 
     useEffect(() => {
         doFetchOrders();
     }, [doFetchOrders]);
+
+    if (user === false) {
+        return <div>You are not logged in!</div>;
+    }
 
     return (
         <div>
@@ -22,8 +27,9 @@ const ProfilePage = () => {
                     <Outlet />
                 </div>
             ) : (
-                <div className="mx-auto mt-14 text-xl">
-                    You are not logged in!
+                <div className="flex flex-row space-x-6 mx-4 mt-24">
+                    <Skeleton height="40vh" width="10vw" />
+                    <Skeleton width="35vw" height={25} count={8} />
                 </div>
             )}
         </div>

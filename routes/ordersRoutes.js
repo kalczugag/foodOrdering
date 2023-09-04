@@ -24,16 +24,12 @@ module.exports = (app) => {
         }
     });
 
-    app.get("/api/orders/:orderId", requireLogin, async (req, res) => {
-        const userId = req.user._id;
+    app.get("/api/orders/:orderId", async (req, res) => {
         const orderId = req.params.orderId;
 
         if (orderId) {
             try {
-                const userOrder = await Order.findOne({
-                    _user: userId,
-                    _id: orderId,
-                });
+                const userOrder = await Order.findById(orderId);
 
                 res.status(200).send(userOrder);
             } catch (err) {
