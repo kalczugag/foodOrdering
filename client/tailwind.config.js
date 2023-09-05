@@ -7,6 +7,7 @@ module.exports = {
         extend: {
             spacing: {
                 "screen-fit": "calc(100vh - 80px)",
+                "screen-plus": "110vh",
             },
         },
         colors: {

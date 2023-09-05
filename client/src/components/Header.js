@@ -6,6 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useUser } from "../hooks/use-user";
 import { useThunk } from "../hooks/use-thunk";
 import { fetchCart, fetchUser, fetchProducts } from "../store";
+import HamburgerMenu from "./HamburgerMenu";
 import CartIcon from "./CartIcon";
 
 const Header = () => {
@@ -118,21 +119,22 @@ const Header = () => {
             <Link to="/profile">
                 <GoPerson />
             </Link>
-            <a href="/api/logout">
+            <a href="/api/logout" className="hidden md:block">
                 <FiLogOut />
             </a>
         </>
     );
 
     return (
-        <div className="fixed  top-0 w-screen z-20 flex flex-row justify-between text-white bg-red-main p-4 h-20 md:w-full md:px-8">
-            <div className="flex flex-row items-center flex-1 space-x-3">
+        <div className="fixed top-0 w-screen z-20 flex flex-row justify-between text-white bg-red-main p-4 h-20 md:w-full md:px-8">
+            <div className=" flex-row items-center flex-1 space-x-3 hidden md:flex">
                 <AiOutlinePhone className="text-5xl bg-white text-red-main p-1 rounded-full sm:block md:hidden xl:block" />
                 <div className="flex-col sm:block md:hidden xl:block">
                     <p className="text-xs">ORDER NOW</p>
                     <p className="font-bold">012 345 678</p>
                 </div>
             </div>
+            <HamburgerMenu />
             <div className="hidden flex-row items-center justify-between space-x-6 md:flex">
                 {renderedLinks}
             </div>

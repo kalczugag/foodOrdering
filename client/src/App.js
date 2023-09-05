@@ -35,7 +35,7 @@ const App = () => {
     const location = useLocation();
 
     return (
-        <div className="w-screen h-screen">
+        <div>
             <ScrollToTopOnRouteChange />
             <div
                 className={

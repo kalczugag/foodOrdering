@@ -11,24 +11,24 @@ const ProfileSidebar = () => {
     const links = [
         {
             label: "Personal Details",
-            path: "/profile",
+            to: "/profile",
             icon: <ImProfile />,
         },
         {
             label: "Payment History",
-            path: "/profile/history",
+            to: "/profile/history",
             icon: <MdPayment />,
         },
     ];
 
-    const renderedLinks = links.map(({ label, path, icon }) => {
-        const isActive = location.pathname === path;
+    const renderedLinks = links.map(({ label, to, icon }) => {
+        const isActive = location.pathname === to;
         const activeClass = isActive ? "bg-gray-200" : "";
 
         return (
             <Link
-                to={path}
-                key={path}
+                to={to}
+                key={to}
                 className={`flex flex-row items-center space-x-2 p-3 cursor-pointer hover:bg-gray-100 ${activeClass}`}
             >
                 {icon}
