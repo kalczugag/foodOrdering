@@ -27,10 +27,9 @@ const Header = () => {
     const config = [
         { label: "Homepage", name: "" },
         {
-            label: "Products",
-            name: "products",
+            label: "Events",
+            name: "events",
         },
-        { label: "Menu", name: "menu" },
         {
             label: (
                 <svg
@@ -90,10 +89,6 @@ const Header = () => {
             ),
             name: "",
             className: "w-28",
-        },
-        {
-            label: "Events",
-            name: "events",
         },
         { label: "Blog", name: "blog" },
         {

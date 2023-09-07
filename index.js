@@ -9,6 +9,7 @@ require("./models/User");
 require("./models/Product");
 require("./models/Order");
 require("./models/Cart");
+require("./models/Event");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
@@ -37,6 +38,7 @@ require("./routes/billingRoutes")(app);
 require("./routes/productsRoutes")(app);
 require("./routes/ordersRoutes")(app);
 require("./routes/cartRoutes")(app);
+require("./routes/eventRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
