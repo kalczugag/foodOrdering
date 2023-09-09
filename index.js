@@ -22,6 +22,7 @@ app.use(
     })
 );
 app.use("/api/webhook", express.raw({ type: "application/json" }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
     cookieSession({
@@ -39,6 +40,7 @@ require("./routes/productsRoutes")(app);
 require("./routes/ordersRoutes")(app);
 require("./routes/cartRoutes")(app);
 require("./routes/eventRoutes")(app);
+require("./routes/img")(app); //only for tests
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
