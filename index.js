@@ -40,7 +40,7 @@ require("./routes/productsRoutes")(app);
 require("./routes/ordersRoutes")(app);
 require("./routes/cartRoutes")(app);
 require("./routes/eventRoutes")(app);
-require("./routes/img")(app); //only for tests
+require("./routes/imageRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));

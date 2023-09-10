@@ -17,11 +17,34 @@ const NewPizzaForm = ({ onClose }) => {
         setShowReview(true);
     };
 
-    const handleFinalSubmit = () => {
-        doAddProduct(formValues);
-        onClose();
-        setShowReview(false);
-        setFormValues({});
+    const handleFinalSubmit = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("image", formValues.image); // Add the image to the FormData
+
+            // Add other form values to FormData (title, desc, prices, extras, etc.)
+            formData.append("title", formValues.title);
+            formData.append("desc", formValues.desc);
+            formData.append("smallPrice", formValues.smallPrice);
+            formData.append("mediumPrice", formValues.mediumPrice);
+            formData.append("largePrice", formValues.largePrice);
+            formData.append("extras", formValues.extras);
+            // Dispatch the addProduct action with the FormData
+            // await doAddProduct(formData);
+
+            console.log(formData, formValues);
+
+            onClose();
+            setShowReview(false);
+            setFormValues({});
+        } catch (error) {
+            console.error("Error adding product:", error);
+        }
+    };
+
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        setFormValues((formValues.image = file));
     };
 
     const required = (value) => (value ? undefined : "Required");
@@ -42,14 +65,15 @@ const NewPizzaForm = ({ onClose }) => {
                             </h1>
                             <div>
                                 <label className="field-label">
-                                    Choose an Image URI
+                                    Choose an Image
                                 </label>
-                                <Field
+                                <input
                                     className="input-initial"
-                                    type="text"
-                                    component="input"
-                                    name="imageURI"
-                                    validate={required}
+                                    type="file"
+                                    name="image"
+                                    onChange={handleImageChange}
+                                    accept="image/*" // Optional: restrict to image files if needed
+                                    required // Optional: add the required attribute if needed
                                 />
                             </div>
 

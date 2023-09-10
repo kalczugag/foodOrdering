@@ -1,39 +1,10 @@
 import { useTitle } from "../hooks/use-title";
 import { useUser } from "../hooks/use-user";
-import { useThunk } from "../hooks/use-thunk";
 import { AiOutlinePlus, AiFillDelete } from "react-icons/ai";
-import { uploadImage } from "../store/thunks/uploadImage";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const Events = () => {
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [inputt, setInputt] = useState(false);
-
     useTitle("Events");
     const { user } = useUser();
-    const [doUploadImage] = useThunk(uploadImage);
-
-    const handleImageUpload = async () => {
-        if (!selectedImage) {
-            alert("Please select an image");
-            return;
-        }
-
-        doUploadImage(selectedImage);
-    };
-
-    const handleImageChange = (event) => {
-        const file = event.target.files[0]; // Get the selected file
-        setSelectedImage(file);
-    };
-
-    const input = (
-        <div>
-            <input type="file" onChange={handleImageChange} />
-            <button onClick={handleImageUpload}>Upload Image</button>
-        </div>
-    );
 
     const events = [
         {
@@ -82,12 +53,8 @@ const Events = () => {
     return (
         <div className="grid grid-cols-4 p-8">
             {renderedEvents}
-            {inputt && input}
             {admin && (
-                <button
-                    onClick={() => setInputt(!inputt)}
-                    className="fixed bottom-2 right-2 flex justify-center items-center w-16 h-16 bg-red-main rounded-full"
-                >
+                <button className="fixed bottom-2 right-2 flex justify-center items-center w-16 h-16 bg-red-main rounded-full">
                     <AiOutlinePlus className="text-white text-4xl" />
                 </button>
             )}

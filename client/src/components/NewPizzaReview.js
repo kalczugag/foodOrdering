@@ -1,6 +1,6 @@
 const NewPizzaReview = ({
     formValues: {
-        imageURI,
+        image,
         title,
         desc,
         smallPrice,
@@ -15,7 +15,7 @@ const NewPizzaReview = ({
         <div className="flex flex-col justify-between space-y-4">
             <div>
                 <label>Image URI</label>
-                <p>{imageURI}</p>
+                <p>{image}</p>
             </div>
             <div>
                 <label>Title</label>

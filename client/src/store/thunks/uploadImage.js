@@ -1,10 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const uploadImage = createAsyncThunk("x/x", async (file) => {
-    const formData = new FormData();
-    formData.append("imgfile", file);
-
+export const uploadImage = createAsyncThunk("image/upload", async (file) => {
     try {
         const formData = new FormData();
         formData.append("imgfile", file);

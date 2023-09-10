@@ -30,6 +30,8 @@ module.exports = (app) => {
     app.post("/api/products", requireAdmin, async (req, res) => {
         const { title, desc, img, price, extraOptions } = req.body;
 
+        console.log(req.body);
+
         const product = new Product({
             title,
             desc,
