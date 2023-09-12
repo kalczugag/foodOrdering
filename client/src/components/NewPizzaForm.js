@@ -8,6 +8,7 @@ import NewPizzaReview from "./NewPizzaReview";
 
 const NewPizzaForm = ({ onClose }) => {
     const [formValues, setFormValues] = useState({});
+    const [imageFile, setImageFile] = useState(null);
     const [showReview, setShowReview] = useState(false);
 
     const [doAddProduct] = useThunk(addProduct);
@@ -19,24 +20,10 @@ const NewPizzaForm = ({ onClose }) => {
 
     const handleFinalSubmit = async () => {
         try {
-            const formData = new FormData();
-            formData.append("image", formValues.image); // Add the image to the FormData
-
-            // Add other form values to FormData (title, desc, prices, extras, etc.)
-            formData.append("title", formValues.title);
-            formData.append("desc", formValues.desc);
-            formData.append("smallPrice", formValues.smallPrice);
-            formData.append("mediumPrice", formValues.mediumPrice);
-            formData.append("largePrice", formValues.largePrice);
-            formData.append("extras", formValues.extras);
-            // Dispatch the addProduct action with the FormData
-            // await doAddProduct(formData);
-
-            console.log(formData, formValues);
-
+            doAddProduct([formValues, imageFile]);
             onClose();
             setShowReview(false);
-            setFormValues({});
+            setFormValues([]);
         } catch (error) {
             console.error("Error adding product:", error);
         }
@@ -44,7 +31,7 @@ const NewPizzaForm = ({ onClose }) => {
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
-        setFormValues((formValues.image = file));
+        setImageFile(file);
     };
 
     const required = (value) => (value ? undefined : "Required");

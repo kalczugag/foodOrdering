@@ -18,33 +18,31 @@ const storage = new Storage({
 const bucket = storage.bucket("adsfadf231");
 
 module.exports = (app) => {
-    app.post(
-        "/api/image/upload",
-        multer.single("imgfile"),
-        async (req, res) => {
-            try {
-                if (req.file) {
-                    const compressedImageBuffer = await sharp(req.file.buffer)
-                        .resize({ width: 200, height: 200 })
-                        .jpeg({ quality: 80 })
-                        .toBuffer();
+    app.post("/api/image", multer.single("imgfile"), async (req, res) => {
+        try {
+            if (req.file) {
+                const compressedImageBuffer = await sharp(req.file.buffer)
+                    .resize({ width: 200, height: 200 })
+                    .jpeg({ quality: 80 })
+                    .toBuffer();
 
-                    const blob = bucket.file(req.file.originalname);
-                    const blobStream = blob.createWriteStream();
+                const blob = bucket.file(req.file.originalname);
+                const blobStream = blob.createWriteStream();
 
-                    blobStream.on("finish", async () => {
-                        const [url] = await blob.getSignedUrl({
-                            action: "read",
-                            expires: "01-01-2030",
-                        });
-
-                        res.status(200).send({ imageUrl: url });
+                blobStream.on("finish", async () => {
+                    const [url] = await blob.getSignedUrl({
+                        action: "read",
+                        expires: "01-01-2030",
                     });
-                    blobStream.end(compressedImageBuffer);
-                }
-            } catch (error) {
-                res.status(500).send(error);
+
+                    res.status(200).send({ imageUrl: url });
+                });
+                blobStream.end(compressedImageBuffer);
             }
+        } catch (error) {
+            res.status(500).send(error);
         }
-    );
+    });
+
+    app.delete("/api/image/", async (req, res) => {});
 };

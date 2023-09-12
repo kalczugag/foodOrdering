@@ -2,22 +2,20 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const addProduct = createAsyncThunk("products/add", async (prod) => {
-    const imageUploadResponse = await axios.post("/api/upload", prod.image, {
-        headers: {
-            "Content-Type": prod.image.type,
-        },
-    });
+    console.log(prod);
 
-    const imageURI = imageUploadResponse.data;
+    const formData = new FormData();
+    formData.append("imgfile", prod[1]);
+
+    const imageUploadResponse = await axios.post("/api/image", formData);
 
     const productData = {
-        title: prod.title,
-        desc: prod.desc,
-        img: imageURI,
-        price: [prod.smallPrice, prod.mediumPrice, prod.largePrice],
+        title: prod[0].title,
+        desc: prod[0].desc,
+        img: imageUploadResponse.data.imageUrl,
+        price: [prod[0].smallPrice, prod[0].mediumPrice, prod[0].largePrice],
     };
 
-    // Step 3: Add the product with the associated image URL
     const response = await axios.post("/api/products", productData);
 
     return response.data;

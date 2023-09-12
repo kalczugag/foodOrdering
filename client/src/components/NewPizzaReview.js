@@ -1,22 +1,10 @@
 const NewPizzaReview = ({
-    formValues: {
-        image,
-        title,
-        desc,
-        smallPrice,
-        mediumPrice,
-        largePrice,
-        extras,
-    },
+    formValues: { title, desc, smallPrice, mediumPrice, largePrice, extras },
     onEdit,
     finalSubmit,
 }) => {
     return (
         <div className="flex flex-col justify-between space-y-4">
-            <div>
-                <label>Image URI</label>
-                <p>{image}</p>
-            </div>
             <div>
                 <label>Title</label>
                 <p>{title}</p>

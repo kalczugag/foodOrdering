@@ -4,7 +4,9 @@ import axios from "axios";
 export const removeProduct = createAsyncThunk(
     "products/remove",
     async (item) => {
-        await axios.post("/api/products/remove", item);
+        await axios
+            .delete(item.img)
+            .then(axios.post("/api/products/remove", item));
 
         return item;
     }
