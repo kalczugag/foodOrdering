@@ -7,7 +7,7 @@ import Modal from "./Modal";
 import NewPizzaReview from "./NewPizzaReview";
 
 const NewPizzaForm = ({ onClose }) => {
-    const [formValues, setFormValues] = useState({});
+    const [formValues, setFormValues] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [showReview, setShowReview] = useState(false);
 
