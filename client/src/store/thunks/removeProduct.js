@@ -4,9 +4,11 @@ import axios from "axios";
 export const removeProduct = createAsyncThunk(
     "products/remove",
     async (item) => {
-        await axios
-            .delete(item.img)
-            .then(axios.post("/api/products/remove", item));
+        if (item.img) {
+            await axios.delete(`/api/image/${encodeURIComponent(item.img)}`); //delete image from google cloud service
+        }
+
+        await axios.post("/api/products/remove", item); //delete all item from db
 
         return item;
     }

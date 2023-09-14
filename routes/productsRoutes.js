@@ -52,11 +52,11 @@ module.exports = (app) => {
         const productToRemove = req.body._id;
 
         try {
-            // const updatedProducts = await Product.findByIdAndRemove(
-            //     productToRemove
-            // );
+            const updatedProducts = await Product.findByIdAndRemove(
+                productToRemove
+            );
 
-            res.status(200).send("123");
+            res.status(200).send(updatedProducts);
         } catch (err) {
             res.status(500).send({ error: err.message });
         }

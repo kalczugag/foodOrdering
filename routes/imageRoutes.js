@@ -2,6 +2,7 @@ const Multer = require("multer");
 const sharp = require("sharp");
 const keys = require("../config/keys");
 const path = require("path");
+const { URL } = require("url");
 const { Storage } = require("@google-cloud/storage");
 
 const multer = Multer({
@@ -44,5 +45,38 @@ module.exports = (app) => {
         }
     });
 
-    app.delete("/api/image/", async (req, res) => {});
+    app.delete("/api/image/:imageUrl", async (req, res) => {
+        const { imageUrl } = req.params;
+
+        if (!imageUrl) {
+            return res.status(400).send("Missing imageUrl parameter");
+        }
+
+        try {
+            const url = new URL(imageUrl);
+            const pathnameParts = url.pathname.split("/");
+            const filename = pathnameParts[pathnameParts.length - 1];
+
+            const [files] = await storage.bucket("adsfadf231").getFiles();
+
+            let matchFile = null;
+            for (const file of files) {
+                if (file.name === filename) {
+                    matchFile = file;
+                    break;
+                }
+            }
+
+            if (matchFile) {
+                await matchFile.delete();
+            }
+
+            res.status(204).send(
+                "Successfull delete from Google Cloud Storage"
+            );
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Internal Server Error");
+        }
+    });
 };
