@@ -16,7 +16,6 @@ module.exports = (app) => {
 
     app.get("/api/products/:productId", async (req, res) => {
         const prodId = req.params.productId;
-        console.log(prodId);
 
         try {
             const product = await Product.findById(prodId);
@@ -29,8 +28,6 @@ module.exports = (app) => {
 
     app.post("/api/products", requireAdmin, async (req, res) => {
         const { title, desc, img, price, extraOptions } = req.body;
-
-        console.log(req.body);
 
         const product = new Product({
             title,

@@ -4,9 +4,9 @@ const { Schema } = mongoose;
 const eventSchema = new Schema({
     title: String,
     date: {
-        day: Number,
+        day: String,
         month: String,
-        year: Number,
+        year: String,
         time: {
             from: String,
             to: String,

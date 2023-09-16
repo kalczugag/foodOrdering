@@ -2,8 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const addProduct = createAsyncThunk("products/add", async (prod) => {
-    console.log(prod);
-
     const formData = new FormData();
     formData.append("imgfile", prod[1]);
 

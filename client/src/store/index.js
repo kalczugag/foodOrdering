@@ -4,6 +4,7 @@ import { cartReducer } from "./slices/cartSlice";
 import { productsReducer } from "./slices/productsSlice";
 import { ordersReducer } from "./slices/OrdersSlice";
 import { billingReducer } from "./slices/billingSlice";
+import { eventsReducer } from "./slices/eventsSlice";
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         products: productsReducer,
         orders: ordersReducer,
         billing: billingReducer,
+        events: eventsReducer,
     },
 });
 
@@ -31,3 +33,5 @@ export * from "./thunks/addToCart";
 export * from "./thunks/removeFromCart";
 export * from "./thunks/orderStatusChange";
 export * from "./thunks/fetchOrder";
+export * from "./thunks/fetchEvents";
+export * from "./thunks/addEvent";

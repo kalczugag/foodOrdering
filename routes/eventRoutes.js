@@ -6,7 +6,7 @@ const Event = mongoose.model("events");
 module.exports = (app) => {
     app.get("/api/events", async (req, res) => {
         try {
-            const events = await Order.find({});
+            const events = await Event.find({});
 
             res.status(200).send(events);
         } catch (err) {
@@ -16,6 +16,7 @@ module.exports = (app) => {
 
     app.post("/api/events", requireAdmin, async (req, res) => {
         const { title, date, img } = req.body;
+        console.log(title, date, img);
 
         const event = new Event({
             title,
