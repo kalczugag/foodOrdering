@@ -11,12 +11,13 @@ import EventsPage from "./pages/EventsPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ProfilePage from "./pages/ProfilePage";
-import ProfileDetails from "./components/ProfileDetails";
-import ProfilePayments from "./components/ProfilePayments";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import AdminLogin from "./pages/admin/AdminLogin";
 import ProductDetails from "./pages/ProductDetails";
 import OrderPage from "./pages/OrderPage";
+import NewPostForm from "./components/NewPostForm";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfilePayments from "./components/ProfilePayments";
 import InvoiceDocumentWrapper from "./components/InvoiceDocument";
 
 const ScrollToTopOnRouteChange = () => {
@@ -62,6 +63,7 @@ const App = () => {
                         path="/invoice/:orderId"
                         element={<InvoiceDocumentWrapper />}
                     />
+                    <Route path="/blog/new" element={<NewPostForm />} />
                 </Routes>
             </div>
             {!(

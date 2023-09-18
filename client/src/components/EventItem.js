@@ -6,9 +6,9 @@ const EventItem = ({ data: { title, date, img } }) => {
             <button className="absolute -top-2 -right-2 z-10 text-2xl bg-white rounded p-1 opacity-80">
                 <FaRegTrashAlt />
             </button>
-            <div className="relative h-40">
+            <div className="relative h-40 bg-gray-200">
                 <img
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     src={img}
                     alt={title}
                     loading="lazy"

@@ -10,6 +10,7 @@ require("./models/Product");
 require("./models/Order");
 require("./models/Cart");
 require("./models/Event");
+require("./models/Post");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
@@ -40,6 +41,7 @@ require("./routes/productsRoutes")(app);
 require("./routes/ordersRoutes")(app);
 require("./routes/cartRoutes")(app);
 require("./routes/eventRoutes")(app);
+require("./routes/blogRoutes")(app);
 require("./routes/imageRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {

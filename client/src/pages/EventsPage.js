@@ -30,17 +30,15 @@ const Events = () => {
     const handleCloseForm = () => {
         setShowNewEventForm(false);
     };
-    console.log(events);
 
     const renderedEvents = events.map((event) => {
         return <EventItem key={event.title} data={event} />;
     });
 
     const admin = user && user.admin;
-
     return (
         <>
-            <div className="grid grid-cols-4 p-8 gap-10">
+            <div className="grid grid-cols-4 p-10 gap-10">
                 {events ? renderedEvents : <div>There are no events</div>}
                 {admin && (
                     <button

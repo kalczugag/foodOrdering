@@ -16,7 +16,6 @@ module.exports = (app) => {
 
     app.post("/api/events", requireAdmin, async (req, res) => {
         const { title, date, img } = req.body;
-        console.log(title, date, img);
 
         const event = new Event({
             title,

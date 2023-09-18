@@ -52,7 +52,16 @@ const NewPizzaForm = ({ onClose }) => {
                             </h1>
                             <div>
                                 <label className="field-label">
-                                    Choose an Image
+                                    Choose an Image (use image{" "}
+                                    <a
+                                        href="https://imagecompressor.com/"
+                                        className="field-label underline text-gray-600 hover:text-gray-500"
+                                        rel="noreferrer"
+                                        target="_blank"
+                                    >
+                                        compressor
+                                    </a>
+                                    )
                                 </label>
                                 <input
                                     className="input-initial"
