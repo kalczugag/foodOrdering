@@ -13,29 +13,24 @@ const Blog = () => {
     const admin = user && user.admin;
 
     return (
-        <>
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="p-10 space-y-12">
-                    <h1 className="text-5xl font-bold">
-                        The Blog
-                        {admin && (
-                            <Link
-                                to="new"
-                                className="ml-3 text-red-main text-xl"
-                            >
-                                Add new
-                            </Link>
-                        )}
-                    </h1>
+        <div className="flex justify-center items-center">
+            <div className="p-10 space-y-12">
+                <h1 className="text-5xl font-bold">
+                    The Blog
+                    {admin && (
+                        <Link to="new" className="ml-3 text-red-main text-xl">
+                            Add new
+                        </Link>
+                    )}
+                </h1>
+                <div className="grid grid-cols-3 gap-x-6 md:gap-8 xl:grid-cols-5">
                     <NewestBlogItem />
-                    <div className="grid grid-cols-3 gap-8 xl:grid-cols-5">
-                        <BlogItem />
-                        <BlogItem />
-                        <BlogItem />
-                    </div>
+                    <BlogItem />
+                    <BlogItem />
+                    <BlogItem />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
