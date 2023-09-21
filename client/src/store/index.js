@@ -5,6 +5,7 @@ import { productsReducer } from "./slices/productsSlice";
 import { ordersReducer } from "./slices/OrdersSlice";
 import { billingReducer } from "./slices/billingSlice";
 import { eventsReducer } from "./slices/eventsSlice";
+import { blogReducer } from "./slices/blogSlice";
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         orders: ordersReducer,
         billing: billingReducer,
         events: eventsReducer,
+        blog: blogReducer,
     },
 });
 
@@ -35,3 +37,5 @@ export * from "./thunks/orderStatusChange";
 export * from "./thunks/fetchOrder";
 export * from "./thunks/fetchEvents";
 export * from "./thunks/addEvent";
+export * from "./thunks/fetchPosts";
+export * from "./thunks/fetchPost";

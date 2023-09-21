@@ -9,7 +9,7 @@ import {
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTitle } from "../hooks/use-title";
-import { formatDate } from "../utils/functions/formatDate";
+import DateUtils from "../utils/functions/formatDate";
 
 const styles = StyleSheet.create({
     page: {
@@ -126,7 +126,8 @@ const InvoiceDocument = ({ data }) => {
                             Invoice #{data._id}
                         </Text>
                         <Text style={styles.invoiceInfoText}>
-                            Due Date: {formatDate(data.createdAt)}
+                            Due Date:{" "}
+                            {DateUtils.formatTimestamp(data.createdAt)}
                         </Text>
                     </View>
                     <View style={styles.billTo}>

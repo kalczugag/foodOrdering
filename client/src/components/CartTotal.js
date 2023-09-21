@@ -59,7 +59,7 @@ const CartTotal = () => {
             <button
                 onClick={handleCheckoutClick}
                 className="flex justify-center items-center bg-white w-64 h-10 text-red-main font-bold hover:bg-gray-100"
-                disabled={paymentLoading}
+                disabled={paymentLoading || itemsCount <= 0}
             >
                 {paymentLoading ? (
                     <GoSync className="text-2xl animate-spin" />

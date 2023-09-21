@@ -1,7 +1,7 @@
 import { AiOutlineFile } from "react-icons/ai";
 import { BiCurrentLocation } from "react-icons/bi";
-import { formatDate } from "../utils/functions/formatDate";
 import { Link } from "react-router-dom";
+import DateUtils from "../utils/functions/formatDate";
 
 const OrderHeader = ({ data }) => {
     return (
@@ -23,7 +23,7 @@ const OrderHeader = ({ data }) => {
                 </div>
             </div>
             <div className="text-gray-600 mt-2">
-                Order date: {formatDate(data.createdAt)}
+                Order date: {DateUtils.formatTimestamp(data.createdAt)}
             </div>
         </div>
     );

@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useTitle } from "../hooks/use-title";
-import { useUser } from "../hooks/use-user";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { AiOutlinePlus } from "react-icons/ai";
-import NewestBlogItem from "../components/NewestBlogItem";
+import { useThunk } from "../hooks/use-thunk";
+import { fetchPosts } from "../store";
+import { useUser } from "../hooks/use-user";
+// import NewestBlogItem from "../components/NewestBlogItem";
 import BlogItem from "../components/BlogItem";
+import PostsSkeleton from "../components/PostsSkeleton";
 
 const Blog = () => {
-    useTitle("Blog");
     const { user } = useUser();
+    const data = useSelector((state) => state.blog.data);
+
+    const [doFetchPosts, isLoadingPosts] = useThunk(fetchPosts);
+
+    useTitle("Blog");
+
+    useEffect(() => {
+        doFetchPosts();
+    }, [doFetchPosts]);
+
+    const renderedBlogItems = data.map((post) => {
+        return <BlogItem data={post} key={post._id} />;
+    });
 
     const admin = user && user.admin;
 
     return (
-        <div className="flex justify-center items-center">
+        <div className="flex items-center">
             <div className="p-10 space-y-12">
                 <h1 className="text-5xl font-bold">
                     The Blog
@@ -24,10 +39,15 @@ const Blog = () => {
                     )}
                 </h1>
                 <div className="grid grid-cols-3 gap-x-6 md:gap-8 xl:grid-cols-5">
-                    <NewestBlogItem />
-                    <BlogItem />
-                    <BlogItem />
-                    <BlogItem />
+                    {isLoadingPosts ? (
+                        <PostsSkeleton />
+                    ) : data && data.length > 0 ? (
+                        { renderedBlogItems }
+                    ) : (
+                        <div className="text-xl font-bold">
+                            There are no posts
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

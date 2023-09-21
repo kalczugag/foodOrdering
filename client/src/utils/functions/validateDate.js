@@ -30,21 +30,6 @@ class DateValidator {
         }
         return undefined; // No validation errors
     }
-
-    static formatDate(day, month, year) {
-        const date = new Date(year, month - 1, day);
-        const options = { day: "numeric", month: "long", year: "numeric" };
-        const formattedDate = date.toLocaleDateString("en-US", options);
-
-        const [formattedMonth, formattedDay, formattedYear] =
-            formattedDate.split(" ");
-
-        return {
-            day: formattedDay,
-            month: formattedMonth,
-            year: formattedYear,
-        };
-    }
 }
 
 export default DateValidator;

@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useThunk } from "../hooks/use-thunk";
 import { addEvent } from "../store";
-import DateValidator from "../utils/functions/validateAndFormatDate";
+import DateValidator from "../utils/functions/validateDate";
+import DateUtils from "../utils/functions/formatDate";
 import Modal from "./Modal";
 
 const NewPizzaForm = ({ onClose }) => {
@@ -15,7 +16,7 @@ const NewPizzaForm = ({ onClose }) => {
             const { day, month, year, time } = values.date;
 
             const formattedDate = {
-                ...DateValidator.formatDate(day, month, year),
+                ...DateUtils.formatDate(day, month, year),
                 time,
             };
 

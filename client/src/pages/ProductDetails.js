@@ -26,7 +26,7 @@ const ProductDetails = ({ data }) => {
     const { productId } = useParams();
     const [showPrice, setShowPrice] = useState(0);
     const [count, setCount] = useState(1);
-    const [doUpdateCart] = useThunk(addToCart);
+    const [doUpdateCart, cartUpdateLoading] = useThunk(addToCart);
 
     // Memoize the result of finding the product object by _id
     const thisProduct = useMemo(
@@ -113,6 +113,7 @@ const ProductDetails = ({ data }) => {
                     <button
                         onClick={handleAddToCart}
                         className="bg-red-main text-white p-1"
+                        disabled={cartUpdateLoading}
                     >
                         Add to Cart
                     </button>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { formatDate } from "../utils/functions/formatDate";
+import DateUtils from "../utils/functions/formatDate";
 import SortableTable from "./SortableTable";
 
 const PaymentList = ({ data }) => {
@@ -17,7 +17,7 @@ const PaymentList = ({ data }) => {
         },
         {
             label: "Ordered At",
-            render: (item) => formatDate(item.createdAt),
+            render: (item) => DateUtils.formatTimestamp(item.createdAt),
         },
         {
             label: "Total",
