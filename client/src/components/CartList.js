@@ -4,7 +4,7 @@ import { ImCross } from "react-icons/im";
 import Table from "./Table";
 
 const CartList = ({ data: { items, itemsCount } }) => {
-    const [doRemoveFromCart] = useThunk(removeFromCart);
+    const [doRemoveFromCart, isLoadingRemove] = useThunk(removeFromCart);
 
     const config = [
         {
@@ -43,7 +43,10 @@ const CartList = ({ data: { items, itemsCount } }) => {
         {
             label: "Actions",
             render: (item) => (
-                <button onClick={() => handleRemoveFromCart(item)}>
+                <button
+                    onClick={() => handleRemoveFromCart(item)}
+                    disabled={isLoadingRemove}
+                >
                     <ImCross className="text-red-main" />
                 </button>
             ),

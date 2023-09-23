@@ -2,7 +2,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "./utils/styles/globalStyles.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "./components/Header";
 import HomeFooter from "./pages/homepage/HomeFooter";
 import HomePage from "./pages/homepage/HomePage";
 import BlogPage from "./pages/BlogPage";
@@ -15,7 +14,8 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import AdminLogin from "./pages/admin/AdminLogin";
 import ProductDetails from "./pages/ProductDetails";
 import OrderPage from "./pages/OrderPage";
-import NewPostForm from "./components/NewPostForm";
+import BlogNew from "./pages/BlogNew";
+import Header from "./components/Header";
 import ProfileDetails from "./components/ProfileDetails";
 import ProfilePayments from "./components/ProfilePayments";
 import InvoiceDocumentWrapper from "./components/InvoiceDocument";
@@ -63,7 +63,7 @@ const App = () => {
                         path="/invoice/:orderId"
                         element={<InvoiceDocumentWrapper />}
                     />
-                    <Route path="/blog/new" element={<NewPostForm />} />
+                    <Route path="/blog/new" element={<BlogNew />} />
                 </Routes>
             </div>
             {!(

@@ -5,6 +5,7 @@ import { useThunk } from "../hooks/use-thunk";
 import { addToCart } from "../store";
 import PizzaSizeButton from "../components/PizzaSizeButton";
 import { useTitle } from "../hooks/use-title";
+import { useUser } from "../hooks/use-user";
 import Skeleton from "react-loading-skeleton";
 
 const Box = ({ children }) => {
@@ -24,9 +25,14 @@ const Box = ({ children }) => {
 
 const ProductDetails = ({ data }) => {
     const { productId } = useParams();
+
     const [showPrice, setShowPrice] = useState(0);
     const [count, setCount] = useState(1);
+    const [buttonValue, setButtonValue] = useState("Add to Cart");
+
     const [doUpdateCart, cartUpdateLoading] = useThunk(addToCart);
+
+    const { user } = useUser();
 
     // Memoize the result of finding the product object by _id
     const thisProduct = useMemo(
@@ -112,10 +118,19 @@ const ProductDetails = ({ data }) => {
                     />
                     <button
                         onClick={handleAddToCart}
-                        className="bg-red-main text-white p-1"
-                        disabled={cartUpdateLoading}
+                        className="bg-red-main text-white p-1 w-28"
+                        disabled={cartUpdateLoading || !user}
+                        onMouseOver={() =>
+                            !user &&
+                            setButtonValue(
+                                <div className="text-sm">You must log in</div>
+                            )
+                        }
+                        onMouseOut={() =>
+                            !user && setButtonValue("Add to Cart")
+                        }
                     >
-                        Add to Cart
+                        {buttonValue}
                     </button>
                 </div>
             </div>
