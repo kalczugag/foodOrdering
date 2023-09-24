@@ -1,9 +1,9 @@
 import { useTitle } from "../hooks/use-title";
 
 const BlogNew = () => {
-    useTitle("Blog New");
+    useTitle("New Post");
 
-    return <div></div>;
+    return <div className="flex flex-col"></div>;
 };
 
 export default BlogNew;

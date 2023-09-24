@@ -1,25 +1,27 @@
 class DateValidator {
-    static validateDay(day) {
-        const numericDay = parseInt(day, 10);
-        if (isNaN(numericDay) || numericDay < 1 || numericDay > 31) {
-            return "Invalid day (1-31)";
-        }
-        return undefined; // No validation errors
-    }
+    static validateDate(dateString) {
+        const dateParts = dateString.split("-");
 
-    static validateMonth(month) {
-        const numericMonth = parseInt(month, 10);
-        if (isNaN(numericMonth) || numericMonth < 1 || numericMonth > 12) {
+        if (dateParts.length !== 3) {
+            return "Invalid date format (YYYY-MM-DD)";
+        }
+
+        const [year, month, day] = dateParts.map((part) => parseInt(part, 10));
+
+        if (isNaN(year) || isNaN(month) || isNaN(day)) {
+            return "Invalid date format (YYYY-MM-DD)";
+        }
+
+        if (month < 1 || month > 12) {
             return "Invalid month (1-12)";
         }
-        return undefined; // No validation errors
-    }
 
-    static validateYear(year) {
-        const numericYear = parseInt(year, 10);
-        if (isNaN(numericYear) || numericYear < 1900 || numericYear > 2099) {
-            return "Invalid year (1900-2099)";
+        if (day < 1 || day > 31) {
+            return "Invalid day (1-31)";
         }
+
+        // Additional date validation logic can be added here if needed
+
         return undefined; // No validation errors
     }
 

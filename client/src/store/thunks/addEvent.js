@@ -12,5 +12,6 @@ export const addEvent = createAsyncThunk("events/add", async (event) => {
         img: imageUploadResponse.data.imageUrl,
     });
 
+    console.log(response);
     return response.data;
 });

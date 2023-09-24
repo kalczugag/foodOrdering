@@ -13,10 +13,10 @@ const NewPizzaForm = ({ onClose }) => {
 
     const onSubmit = (values) => {
         try {
-            const { day, month, year, time } = values.date;
+            const { day, time } = values.date;
 
             const formattedDate = {
-                ...DateUtils.formatDate(day, month, year),
+                ...DateUtils.formatDate(day),
                 time,
             };
 
@@ -38,9 +38,6 @@ const NewPizzaForm = ({ onClose }) => {
     };
 
     const required = (value) => (value ? undefined : "Required");
-    const dayError = (value) => DateValidator.validateDay(value);
-    const monthError = (value) => DateValidator.validateMonth(value);
-    const yearError = (value) => DateValidator.validateYear(value);
     const timeError = (value) => DateValidator.validateTime(value);
 
     return (
@@ -87,40 +84,15 @@ const NewPizzaForm = ({ onClose }) => {
                                 validate={required}
                             />
                         </div>
-                        <div className="flex flex-row space-x-6">
-                            <div className="flex flex-col">
-                                <label className="field-label">Day</label>
-                                <Field
-                                    className="input-initial"
-                                    placeholder="dd"
-                                    type="text"
-                                    component="input"
-                                    name="date.day"
-                                    validate={dayError}
-                                />
-                            </div>
-                            <div className="flex flex-col">
-                                <label className="field-label">Month</label>
-                                <Field
-                                    className="input-initial"
-                                    placeholder="mm"
-                                    type="text"
-                                    component="input"
-                                    name="date.month"
-                                    validate={monthError}
-                                />
-                            </div>
-                            <div className="flex flex-col">
-                                <label className="field-label">Year</label>
-                                <Field
-                                    className="input-initial"
-                                    placeholder="yyyy"
-                                    type="text"
-                                    component="input"
-                                    name="date.year"
-                                    validate={yearError}
-                                />
-                            </div>
+                        <div className="flex flex-col">
+                            <label className="field-label">Day</label>
+                            <Field
+                                className="input-initial"
+                                type="date"
+                                component="input"
+                                name="date.day"
+                                validate={required}
+                            />
                         </div>
                         <div className="flex flex-row space-x-12">
                             <div className="flex flex-col">
@@ -128,7 +100,7 @@ const NewPizzaForm = ({ onClose }) => {
                                 <Field
                                     className="input-initial"
                                     placeholder="00:00"
-                                    type="text"
+                                    type="time"
                                     component="input"
                                     name="date.time.from"
                                     validate={timeError}
@@ -139,7 +111,7 @@ const NewPizzaForm = ({ onClose }) => {
                                 <Field
                                     className="input-initial"
                                     placeholder="00:00"
-                                    type="text"
+                                    type="time"
                                     component="input"
                                     name="date.time.to"
                                     validate={timeError}

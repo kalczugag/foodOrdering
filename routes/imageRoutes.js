@@ -74,8 +74,8 @@ module.exports = (app) => {
             res.status(204).send(
                 "Successfull delete from Google Cloud Storage"
             );
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.error(err);
             res.status(500).send("Internal Server Error");
         }
     });

@@ -11,10 +11,12 @@ import EventItem from "../components/EventItem";
 const Events = () => {
     const [showNewEventForm, setShowNewEventForm] = useState(false);
 
+    const events = useSelector((state) => state.events.data);
+
     useTitle("Events");
 
     const { user } = useUser();
-    const events = useSelector((state) => state.events.data);
+    const admin = user && user.admin;
 
     const [doFetchEvents] = useThunk(fetchEvents);
 
@@ -35,10 +37,9 @@ const Events = () => {
         return <EventItem key={event.title} data={event} />;
     });
 
-    const admin = user && user.admin;
     return (
         <>
-            <div className="grid grid-cols-4 p-10 gap-10">
+            <div className="grid grid-cols-2 p-10 gap-10 md:grid-cols-4">
                 {events ? renderedEvents : <div>There are no events</div>}
                 {admin && (
                     <button

@@ -18,7 +18,9 @@ class DateUtils {
             .value();
     }
 
-    static formatDate(day, month, year) {
+    static formatDate(dateString) {
+        const [year, month, day] = dateString.split("-");
+
         const date = new Date(year, month - 1, day);
         const options = { day: "numeric", month: "long", year: "numeric" };
         const formattedDate = date.toLocaleDateString("en-US", options);
@@ -27,7 +29,7 @@ class DateUtils {
             formattedDate.split(" ");
 
         return {
-            day: formattedDay,
+            day: formattedDay.replace(/,/g, ""),
             month: formattedMonth,
             year: formattedYear,
         };

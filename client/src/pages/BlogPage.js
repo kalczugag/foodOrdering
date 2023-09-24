@@ -10,8 +10,10 @@ import BlogItem from "../components/BlogItem";
 import PostsSkeleton from "../components/PostsSkeleton";
 
 const Blog = () => {
-    const { user } = useUser();
     const data = useSelector((state) => state.blog.data);
+
+    const { user } = useUser();
+    const admin = user && user.admin;
 
     const [doFetchPosts, isLoadingPosts] = useThunk(fetchPosts);
 
@@ -24,8 +26,6 @@ const Blog = () => {
     const renderedBlogItems = data.map((post) => {
         return <BlogItem data={post} key={post._id} />;
     });
-
-    const admin = user && user.admin;
 
     return (
         <div className="flex items-center">

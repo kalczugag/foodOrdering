@@ -16,8 +16,10 @@ const DashboardAdmin = () => {
 
     const [doFetchAdminOrders] = useThunk(fetchOrders);
 
-    const { user } = useUser();
     useTitle("Admin dashboard");
+
+    const { user } = useUser();
+    const admin = user && user.admin;
 
     useEffect(() => {
         doFetchAdminOrders(true);
@@ -46,7 +48,7 @@ const DashboardAdmin = () => {
 
     return (
         <div>
-            {user && user.admin ? (
+            {admin ? (
                 <div className="flex flex-col p-10 justify-between space-y-12 xl:space-y-0 xl:flex-row xl:p-14">
                     <AdminProducts
                         onOpen={handleOpenModal}
