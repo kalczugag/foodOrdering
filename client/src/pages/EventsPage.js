@@ -7,6 +7,7 @@ import { fetchEvents } from "../store";
 import { AiOutlinePlus } from "react-icons/ai";
 import NewEventForm from "../components/NewEventForm";
 import EventItem from "../components/EventItem";
+import EventsSkeleton from "../components/EventsSkeleton";
 
 const Events = () => {
     const [showNewEventForm, setShowNewEventForm] = useState(false);
@@ -18,7 +19,7 @@ const Events = () => {
     const { user } = useUser();
     const admin = user && user.admin;
 
-    const [doFetchEvents] = useThunk(fetchEvents);
+    const [doFetchEvents, isLoadingEvents] = useThunk(fetchEvents);
 
     useEffect(() => {
         doFetchEvents();
@@ -40,7 +41,13 @@ const Events = () => {
     return (
         <>
             <div className="grid grid-cols-2 p-10 gap-10 md:grid-cols-4">
-                {events ? renderedEvents : <div>There are no events</div>}
+                {isLoadingEvents ? (
+                    <EventsSkeleton />
+                ) : events && events.length > 0 ? (
+                    renderedEvents
+                ) : (
+                    <div className="text-xl font-bold">There are no events</div>
+                )}
                 {admin && (
                     <button
                         onClick={handleShowForm}

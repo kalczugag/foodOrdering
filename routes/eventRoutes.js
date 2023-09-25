@@ -36,6 +36,7 @@ module.exports = (app) => {
 
         try {
             await Event.deleteOne({ _id: eventId });
+            res.status(200).send("Successful remove");
         } catch (err) {
             console.error(err);
             res.send(500).send("Internal Server Error");

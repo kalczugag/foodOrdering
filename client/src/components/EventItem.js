@@ -4,7 +4,7 @@ import { useThunk } from "../hooks/use-thunk";
 import { removeEvent } from "../store";
 
 const EventItem = ({ data }) => {
-    const [doRemoveEvent] = useThunk(removeEvent);
+    const [doRemoveEvent, isRemoveLoading] = useThunk(removeEvent);
 
     const { user } = useUser();
     const admin = user && user.admin;
@@ -19,6 +19,7 @@ const EventItem = ({ data }) => {
                 <button
                     onClick={handleRemoveEvent}
                     className="relative -top-2 -right-2 z-10 text-2xl bg-white rounded p-1 opacity-80 md:absolute"
+                    disabled={isRemoveLoading}
                 >
                     <FaRegTrashAlt />
                 </button>
