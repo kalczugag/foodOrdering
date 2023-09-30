@@ -1,16 +1,25 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { orderStatusChange } from "../store";
 import SortableTable from "./SortableTable";
-import { useState } from "react";
+import PaginationContainer from "./PaginationConatiner";
 
 const status = ["paid", "delivery", "delivered"];
+const itemsPerPage = 5; // Number of items to display per page
 
 const AdminOrders = () => {
     const [doStatusChange, isStatusChangeLoading] = useThunk(orderStatusChange);
     const [statusIndex, setStatusIndex] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+
     const data = useSelector((state) => state.orders.dataAdmin) || [];
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const paginatedData = data.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     const handleStatusChange = (item) => {
         if (statusIndex >= 0 && statusIndex < 2) {
@@ -71,10 +80,16 @@ const AdminOrders = () => {
     const keyFn = (data) => {
         return data.id;
     };
+
     return (
         <div className="flex flex-col space-y-4">
             <h1 className="text-3xl font-bold">Orders</h1>
-            <SortableTable data={data} config={config} keyFn={keyFn} />
+            <SortableTable data={paginatedData} config={config} keyFn={keyFn} />
+            <PaginationContainer
+                setPage={setCurrentPage}
+                totalPages={totalPages}
+                currentPage={currentPage}
+            />
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useThunk } from "../hooks/use-thunk";
 import { fetchPosts } from "../store";
 import { useUser } from "../hooks/use-user";
-// import NewestBlogItem from "../components/NewestBlogItem";
+import NewestBlogItem from "../components/NewestBlogItem";
 import BlogItem from "../components/BlogItem";
 import PostsSkeleton from "../components/PostsSkeleton";
 
@@ -23,8 +23,12 @@ const Blog = () => {
         doFetchPosts();
     }, [doFetchPosts]);
 
-    const renderedBlogItems = data.map((post) => {
-        return <BlogItem data={post} key={post._id} />;
+    const renderedBlogItems = data.map((post, index) => {
+        if (index !== 0) {
+            return <BlogItem data={post} key={post._id} />;
+        }
+
+        return <NewestBlogItem data={post} key={post._id} />;
     });
 
     return (
@@ -42,7 +46,7 @@ const Blog = () => {
                     {isLoadingPosts ? (
                         <PostsSkeleton />
                     ) : data && data.length > 0 ? (
-                        { renderedBlogItems }
+                        renderedBlogItems
                     ) : (
                         <div className="text-xl font-bold">
                             There are no posts

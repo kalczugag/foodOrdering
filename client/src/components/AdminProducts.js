@@ -1,12 +1,23 @@
-import SortableTable from "./SortableTable";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { removeProduct } from "../store";
 import { Link } from "react-router-dom";
+import SortableTable from "./SortableTable";
+import PaginationContainer from "./PaginationConatiner";
+
+const itemsPerPage = 5; // Number of items to display per page
 
 const AdminProducts = ({ onOpen, onEdit }) => {
-    const data = useSelector((state) => state.products.data) || [];
     const [doRemoveProduct] = useThunk(removeProduct);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const data = useSelector((state) => state.products.data) || [];
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const paginatedData = data.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     const config = [
         {
@@ -66,7 +77,6 @@ const AdminProducts = ({ onOpen, onEdit }) => {
             ),
         },
     ];
-
     const handleRemoveProduct = (item) => {
         doRemoveProduct(item);
     };
@@ -87,7 +97,16 @@ const AdminProducts = ({ onOpen, onEdit }) => {
                 </button>
             </div>
             <div>
-                <SortableTable data={data} config={config} keyFn={keyFn} />
+                <SortableTable
+                    data={paginatedData}
+                    config={config}
+                    keyFn={keyFn}
+                />
+                <PaginationContainer
+                    setPage={setCurrentPage}
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                />
             </div>
         </div>
     );

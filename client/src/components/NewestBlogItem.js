@@ -1,9 +1,31 @@
 import { Link } from "react-router-dom";
+import { useThunk } from "../hooks/use-thunk";
+import { useUser } from "../hooks/use-user";
+import { removePost } from "../store";
 import DateUtils from "../utils/functions/formatDate";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const NewestBlogItem = ({ data }) => {
+    const [doRemovePost, isRemoveLoading] = useThunk(removePost);
+
+    const { user } = useUser();
+    const admin = user && user.admin;
+
+    const handleRemovePost = () => {
+        doRemovePost(data);
+    };
+
     return (
-        <div className="col-span-5">
+        <div className="relative col-span-5">
+            {admin && (
+                <button
+                    onClick={handleRemovePost}
+                    className="relative -top-2 -left-2 z-10 text-2xl bg-white rounded p-1 opacity-80 md:absolute"
+                    disabled={isRemoveLoading}
+                >
+                    <FaRegTrashAlt />
+                </button>
+            )}
             <div className="flex flex-col space-y-4 md:flex-row md:space-x-6">
                 <img
                     className="h-60 rounded-md shadow-xl xl:h-72"

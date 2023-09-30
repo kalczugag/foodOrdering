@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
+import { useThunk } from "../hooks/use-thunk";
 import { useTitle } from "../hooks/use-title";
+import { addPost } from "../store";
 import { AiOutlinePlus } from "react-icons/ai";
+import { ImCross } from "react-icons/im";
 
 const BlogNew = () => {
     const [imageFile, setImageFile] = useState(null);
     const [showInput, setShowInput] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
+
+    const [doAddPost, isPostAdding] = useThunk(addPost);
 
     useTitle("New Post");
 
@@ -30,7 +35,7 @@ const BlogNew = () => {
     }, []);
 
     const onSubmit = (values) => {
-        console.log(values);
+        doAddPost([values, imageFile]);
     };
 
     const handleImageChange = (event) => {
@@ -53,32 +58,9 @@ const BlogNew = () => {
                         className="flex flex-col space-y-4"
                     >
                         <h1 className="font-bold text-3xl">Create Post</h1>
-                        {/* <div>
-                            <label className="field-label">
-                                Choose an Image (use image{" "}
-                                <a
-                                    href="https://imagecompressor.com/"
-                                    className="field-label underline text-gray-600 hover:text-gray-500"
-                                    rel="noreferrer"
-                                    target="_blank"
-                                >
-                                    compressor
-                                </a>
-                                )
-                            </label>
-                            <input
-                                className="input-initial"
-                                type="file"
-                                name="image"
-                                onChange={handleImageChange}
-                                accept="image/*" // Optional: restrict to image files if needed
-                                required // Optional: add the required attribute if needed
-                            />
-                        </div> */}
-
                         <div className="relative flex flex-col border shadow-md">
                             <Field
-                                className="text-2xl border-0 border-b-2 border-gray-300 rounded-none w-full outline-none focus:border-l-2"
+                                className="text-2xl border-0 border-b-2 border-gray-300 rounded-none w-full outline-gray-500 -outline-offset-2"
                                 type="text"
                                 component="input"
                                 name="title"
@@ -86,7 +68,7 @@ const BlogNew = () => {
                                 validate={required}
                             />
                             <Field
-                                className="p-2 outline-none focus:border-gray-main"
+                                className="p-2 outline-none focus:outline-gray-500 -outline-offset-2"
                                 component="textarea"
                                 name="desc"
                                 placeholder="Description (no more than 150 words)"
@@ -96,18 +78,31 @@ const BlogNew = () => {
                                 validate={required}
                             />
                             <div className="relative flex flex-row p-2 py-3 bg-gray-200">
-                                <button className="flex flex-row items-center justify-center space-x-1 hover:text-gray-500">
-                                    <AiOutlinePlus className="text-green-main" />
-                                    <p>Add Pictures</p>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowInput(!showInput)}
+                                    className="flex flex-row items-center justify-center space-x-1 hover:text-gray-500"
+                                >
+                                    {showInput ? (
+                                        <ImCross className="text-red-main" />
+                                    ) : (
+                                        <AiOutlinePlus className="text-green-main" />
+                                    )}
+                                    <p>
+                                        {showInput ? "Close" : "Add Pictures"}
+                                    </p>
                                 </button>
-                                <div className={`hidden `}>
+                                <div
+                                    className={`top-2.5 left-32 ${
+                                        showInput ? "absolute" : "hidden"
+                                    }`}
+                                >
                                     <input
                                         className="input-initial"
                                         type="file"
                                         name="image"
                                         onChange={handleImageChange}
-                                        accept="image/*" // Optional: restrict to image files if needed
-                                        required // Optional: add the required attribute if needed
+                                        accept="image/*"
                                     />
                                 </div>
                             </div>
@@ -116,7 +111,7 @@ const BlogNew = () => {
                             <button
                                 onClick={() => onSubmit(getState().values)}
                                 className="color text-white rounded p-1 px-6 mt-4"
-                                disabled={getState().invalid}
+                                disabled={getState().invalid || isPostAdding}
                             >
                                 Submit
                             </button>

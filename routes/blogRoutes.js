@@ -39,8 +39,21 @@ module.exports = (app) => {
 
         try {
             await post.save();
+            res.status(200).send("Successful added post").redirect("/blog");
         } catch (err) {
             res.status(422).send(err);
+        }
+    });
+
+    app.delete("/api/posts/:postId", async (req, res) => {
+        const { postId } = req.params;
+
+        try {
+            await Post.deleteOne({ _id: postId });
+            res.status(200).send("Successful remove");
+        } catch (err) {
+            console.error(err);
+            res.send(500).send("Internal Server Error");
         }
     });
 };
