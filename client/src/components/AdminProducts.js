@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { removeProduct } from "../store";
