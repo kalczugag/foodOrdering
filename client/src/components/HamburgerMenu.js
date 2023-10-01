@@ -42,6 +42,7 @@ const HamburgerMenu = () => {
                 <Link
                     className="flex items-center space-x-2 p-2"
                     to={to}
+                    onClick={() => setIsOpen(false)}
                     key={`menu-${index}`}
                 >
                     <div>{icon}</div>

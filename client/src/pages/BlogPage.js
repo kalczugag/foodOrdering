@@ -48,7 +48,7 @@ const Blog = () => {
                     ) : data && data.length > 0 ? (
                         renderedBlogItems
                     ) : (
-                        <div className="text-xl font-bold">
+                        <div className="text-xl font-bold w-48">
                             There are no posts
                         </div>
                     )}

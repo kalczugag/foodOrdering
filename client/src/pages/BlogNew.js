@@ -71,10 +71,11 @@ const BlogNew = () => {
                                 className="p-2 outline-none focus:outline-gray-500 -outline-offset-2"
                                 component="textarea"
                                 name="desc"
-                                placeholder="Description (no more than 150 words)"
-                                maxlength={150}
+                                placeholder="Description (no more than 400 words)"
+                                maxlength={400}
                                 rows={6}
                                 cols={isMobile ? 50 : 75}
+                                style={{ resize: "none" }}
                                 validate={required}
                             />
                             <div className="relative flex flex-row p-2 py-3 bg-gray-200">

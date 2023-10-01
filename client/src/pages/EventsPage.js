@@ -46,7 +46,9 @@ const Events = () => {
                 ) : events && events.length > 0 ? (
                     renderedEvents
                 ) : (
-                    <div className="text-xl font-bold">There are no events</div>
+                    <div className="text-xl font-bold w-48">
+                        There are no events
+                    </div>
                 )}
                 {admin && (
                     <button

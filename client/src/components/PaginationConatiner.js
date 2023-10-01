@@ -8,7 +8,6 @@ const PaginationContainer = ({ setPage, totalPages, currentPage }) => {
     };
 
     const activeClassName = "text-white bg-red-main";
-    console.log(totalPages, " = ", currentPage);
 
     return (
         <div className="flex flex-row items-center text-lg mt-2">

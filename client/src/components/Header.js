@@ -10,10 +10,10 @@ import HamburgerMenu from "./HamburgerMenu";
 import CartIcon from "./CartIcon";
 
 const Header = () => {
-    const { user } = useUser();
     const [doFetchCart] = useThunk(fetchCart);
     const [doFetchUser] = useThunk(fetchUser);
     const [doFetchProducts] = useThunk(fetchProducts);
+    const { user } = useUser();
 
     useEffect(() => {
         const fetchData = async () => {

@@ -32,7 +32,6 @@ const ProfileEditForm = ({ config, onSubmit, editFn }) => {
             initialValues={initialValues}
             render={({ handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
-                    {/* Render editable inputs */}
                     {renderedInfoToChange}
                     <div className="flex flex-row justify-end space-x-2 text-white mt-6">
                         <button

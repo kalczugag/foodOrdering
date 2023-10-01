@@ -12,6 +12,7 @@ module.exports = {
         },
         colors: {
             "red-main": "#d3401f",
+            "red-sub": "#e04522",
             "gray-main": "#222022",
             "green-main": "#02787a",
             transparent: "transparent",
