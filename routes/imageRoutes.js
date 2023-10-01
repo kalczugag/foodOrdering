@@ -14,9 +14,9 @@ const multer = Multer({
 
 const storage = new Storage({
     projectId: keys.googleProjectId,
-    keyFilename: path.join(__dirname, "../food-dev-391911-228a3cd0a34d.json"),
+    keyFilename: path.join(__dirname, keys.googleKeyFile),
 });
-const bucket = storage.bucket("adsfadf231");
+const bucket = storage.bucket(keys.googleBucketName);
 
 module.exports = (app) => {
     app.post("/api/image", multer.single("imgfile"), async (req, res) => {
