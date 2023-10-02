@@ -14,7 +14,10 @@ const multer = Multer({
 
 const storage = new Storage({
     projectId: keys.googleProjectId,
-    keyFilename: path.join(__dirname, keys.googleCredentials),
+    credentials: {
+        client_email: keys.googleClientEmail,
+        private_key: keys.googlePrivateKey,
+    },
 });
 const bucket = storage.bucket(keys.googleBucketName);
 
