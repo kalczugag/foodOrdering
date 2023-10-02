@@ -9,5 +9,5 @@ module.exports = {
     redirectDomain: process.env.REDIRECT_DOMAIN,
     googleProjectId: process.env.GOOGLE_STORAGE_PROJECT_ID,
     googleBucketName: process.env.GOOGLE_STORAGE_BUCKET_NAME,
-    googleKeyFile: process.env.GOOGLE_KEY_FILE,
+    googleCredentials: process.env.GOOGLE_CREDENTIALS,
 };
