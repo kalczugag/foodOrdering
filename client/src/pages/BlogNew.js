@@ -5,6 +5,7 @@ import { useTitle } from "../hooks/use-title";
 import { addPost } from "../store";
 import { AiOutlinePlus } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
+import { convertToBase64 } from "../utils/functions/convertToBase64";
 
 const BlogNew = () => {
     const [imageFile, setImageFile] = useState(null);
@@ -38,9 +39,10 @@ const BlogNew = () => {
         doAddPost([values, imageFile]);
     };
 
-    const handleImageChange = (event) => {
+    const handleImageChange = async (event) => {
         const file = event.target.files[0];
-        setImageFile(file);
+        const base64 = await convertToBase64(file);
+        setImageFile(base64);
     };
 
     const required = (value) => (value ? undefined : "Required");

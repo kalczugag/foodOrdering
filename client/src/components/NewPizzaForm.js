@@ -5,6 +5,7 @@ import { useThunk } from "../hooks/use-thunk";
 import { addProduct } from "../store";
 import Modal from "./Modal";
 import NewPizzaReview from "./NewPizzaReview";
+import { convertToBase64 } from "../utils/functions/convertToBase64";
 
 const NewPizzaForm = ({ onClose }) => {
     const [formValues, setFormValues] = useState(null);
@@ -29,9 +30,10 @@ const NewPizzaForm = ({ onClose }) => {
         }
     };
 
-    const handleImageChange = (event) => {
+    const handleImageChange = async (event) => {
         const file = event.target.files[0];
-        setImageFile(file);
+        const base64 = await convertToBase64(file);
+        setImageFile(base64);
     };
 
     const required = (value) => (value ? undefined : "Required");

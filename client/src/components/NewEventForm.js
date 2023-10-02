@@ -6,6 +6,7 @@ import { addEvent } from "../store";
 import DateValidator from "../utils/functions/validateDate";
 import DateUtils from "../utils/functions/formatDate";
 import Modal from "./Modal";
+import { convertToBase64 } from "../utils/functions/convertToBase64";
 
 const NewPizzaForm = ({ onClose }) => {
     const [imageFile, setImageFile] = useState(null);
@@ -32,9 +33,10 @@ const NewPizzaForm = ({ onClose }) => {
         }
     };
 
-    const handleImageChange = (event) => {
+    const handleImageChange = async (event) => {
         const file = event.target.files[0];
-        setImageFile(file);
+        const base64 = await convertToBase64(file);
+        setImageFile(base64);
     };
 
     const required = (value) => (value ? undefined : "Required");
