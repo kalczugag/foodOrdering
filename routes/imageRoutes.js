@@ -13,8 +13,8 @@ const multer = Multer({
 });
 
 const storage = new Storage({
-    projectId: keys.googleProjectId,
     credentials: {
+        projectId: keys.googleProjectId,
         client_email: keys.googleClientEmail,
         private_key: keys.googlePrivateKey,
     },
