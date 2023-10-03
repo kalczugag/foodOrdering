@@ -33,8 +33,8 @@ module.exports = (app) => {
                 payment_method_types: ["card"],
                 mode: "payment",
                 line_items: lineItems, // Use the resolved array of line items
-                success_url: `${keys.redirectDomain}?success=true`,
-                cancel_url: `${keys.redirectDomain}?canceled=true`,
+                success_url: `${keys.redirectDomain}/profile/history`,
+                cancel_url: `${keys.redirectDomain}/profile/history`,
             });
 
             return res.status(200).send(session);
