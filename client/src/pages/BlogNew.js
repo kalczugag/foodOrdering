@@ -11,6 +11,7 @@ const BlogNew = () => {
     const [imageFile, setImageFile] = useState(null);
     const [showInput, setShowInput] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
     const [doAddPost, isPostAdding] = useThunk(addPost);
 
@@ -26,17 +27,24 @@ const BlogNew = () => {
             setWidth(window.innerWidth);
         };
 
-        window.addEventListener("beforeunload", handleBeforeUnload);
+        if (isFormSubmitted) {
+            return (window.location.href = "/blog");
+        }
+
+        if (!isFormSubmitted)
+            window.addEventListener("beforeunload", handleBeforeUnload);
         window.addEventListener("resize", handleWindowSize);
 
         return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
+            if (!isFormSubmitted)
+                window.removeEventListener("beforeunload", handleBeforeUnload);
             window.removeEventListener("resize", handleWindowSize);
         };
-    }, []);
+    }, [isFormSubmitted]);
 
     const onSubmit = (values) => {
         doAddPost([values, imageFile]);
+        setIsFormSubmitted(true);
     };
 
     const handleImageChange = async (event) => {

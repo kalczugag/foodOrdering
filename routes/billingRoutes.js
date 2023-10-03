@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const keys = require("../config/keys");
 const bodyParser = require("body-parser");
 const stripe = require("stripe")(keys.stripeSecretKey);
-
 const Products = mongoose.model("products");
 const Cart = mongoose.model("cart");
 const Order = mongoose.model("orders");

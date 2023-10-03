@@ -28,7 +28,6 @@ module.exports = (app) => {
 
     app.post("/api/posts", requireAdmin, async (req, res) => {
         const { title, desc, date, img } = req.body;
-        console.log(title, desc, date, img);
 
         const post = new Post({
             title,
@@ -39,7 +38,7 @@ module.exports = (app) => {
 
         try {
             await post.save();
-            res.status(200).send("Successful added post").redirect("/blog");
+            res.status(200).send(post);
         } catch (err) {
             res.status(422).send(err);
         }
