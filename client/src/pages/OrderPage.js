@@ -22,7 +22,7 @@ const OrderPage = ({ data }) => {
     return (
         <>
             {!fetchOrderLoading ? (
-                <div className="flex flex-col space-y-4 md:max-w-3xl md:mx-auto">
+                <div className="flex flex-col space-y-4 p-8 md:max-w-3xl md:mx-auto">
                     <OrderHeader data={data} />
                     <OrderList data={data.products || []} />
                     <OrderFooter data={data} />

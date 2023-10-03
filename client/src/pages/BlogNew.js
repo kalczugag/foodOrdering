@@ -43,8 +43,8 @@ const BlogNew = () => {
     }, [isFormSubmitted]);
 
     const onSubmit = async (values) => {
-        await doAddPost([values, imageFile]);
-        setIsFormSubmitted(true);
+        doAddPost([values, imageFile]);
+        if (!isPostAdding) setIsFormSubmitted(true);
     };
 
     const handleImageChange = async (event) => {
