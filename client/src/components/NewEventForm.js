@@ -8,7 +8,7 @@ import DateUtils from "../utils/functions/formatDate";
 import Modal from "./Modal";
 import { convertToBase64 } from "../utils/functions/convertToBase64";
 
-const NewPizzaForm = ({ onClose }) => {
+const NewEventForm = ({ onClose }) => {
     const [imageFile, setImageFile] = useState(null);
     const [doAddEvent] = useThunk(addEvent);
 
@@ -139,4 +139,4 @@ const NewPizzaForm = ({ onClose }) => {
     );
 };
 
-export default NewPizzaForm;
+export default NewEventForm;

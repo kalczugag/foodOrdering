@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
+import { useNavigate } from "react-router-dom";
 import { useThunk } from "../hooks/use-thunk";
 import { useTitle } from "../hooks/use-title";
 import { addPost } from "../store";
@@ -13,9 +14,9 @@ const BlogNew = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-    const [doAddPost, isPostAdding] = useThunk(addPost);
-
     useTitle("New Post");
+    const navigate = useNavigate();
+    const [doAddPost, isPostAdding] = useThunk(addPost);
 
     useEffect(() => {
         const handleBeforeUnload = (e) => {
@@ -26,10 +27,6 @@ const BlogNew = () => {
         const handleWindowSize = () => {
             setWidth(window.innerWidth);
         };
-
-        if (isFormSubmitted) {
-            return (window.location.href = "/blog");
-        }
 
         if (!isFormSubmitted)
             window.addEventListener("beforeunload", handleBeforeUnload);
@@ -43,8 +40,13 @@ const BlogNew = () => {
     }, [isFormSubmitted]);
 
     const onSubmit = async (values) => {
-        doAddPost([values, imageFile]);
-        if (!isPostAdding) setIsFormSubmitted(true);
+        try {
+            await doAddPost([values, imageFile]);
+            setIsFormSubmitted(true);
+            navigate("/blog");
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     const handleImageChange = async (event) => {

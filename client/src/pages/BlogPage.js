@@ -20,8 +20,10 @@ const Blog = () => {
     useTitle("Blog");
 
     useEffect(() => {
-        doFetchPosts();
-    }, [doFetchPosts]);
+        if (!data) {
+            doFetchPosts();
+        }
+    }, [doFetchPosts, data]);
 
     const renderedBlogItems = data.map((post, index) => {
         if (index !== 0) {
