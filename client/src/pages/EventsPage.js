@@ -22,8 +22,10 @@ const Events = () => {
     const [doFetchEvents, isLoadingEvents] = useThunk(fetchEvents);
 
     useEffect(() => {
-        doFetchEvents();
-    }, [doFetchEvents]);
+        if (events.length <= 0) {
+            doFetchEvents();
+        }
+    }, [doFetchEvents, events]);
 
     //the two handlers are due to various unwanted cases
     const handleShowForm = () => {
