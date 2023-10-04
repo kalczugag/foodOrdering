@@ -11,7 +11,6 @@ import PostsSkeleton from "../components/PostsSkeleton";
 
 const Blog = () => {
     const data = useSelector((state) => state.blog.data);
-
     const { user } = useUser();
     const admin = user && user.admin;
 
@@ -20,7 +19,7 @@ const Blog = () => {
     useTitle("Blog");
 
     useEffect(() => {
-        if (!data) {
+        if (data.length <= 0) {
             doFetchPosts();
         }
     }, [doFetchPosts, data]);
