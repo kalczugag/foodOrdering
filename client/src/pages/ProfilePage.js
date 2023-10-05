@@ -22,7 +22,7 @@ const ProfilePage = () => {
     return (
         <div>
             {user ? (
-                <div className="flex flex-row p-2 space-x-10">
+                <div className="flex flex-row p-2 space-x-4 md:space-x-10">
                     <ProfileSidebar />
                     <Outlet />
                 </div>

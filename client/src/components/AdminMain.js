@@ -42,7 +42,7 @@ const AdminMain = () => {
     return (
         <>
             {admin ? (
-                <div className="flex flex-col p-10 justify-between space-y-12 xl:space-y-0 xl:flex-row xl:p-14">
+                <div className="flex flex-col p-10 justify-between space-y-12 xl:space-y-0 xl:flex-row">
                     <AdminProducts
                         onOpen={handleOpenModal}
                         onEdit={handleEditProduct}
@@ -50,7 +50,7 @@ const AdminMain = () => {
                     <AdminOrders />
                 </div>
             ) : (
-                <div className="flex flex-col p-10 justify-between space-y-12 xl:space-y-0 xl:flex-row xl:p-14">
+                <div className="flex flex-col p-10 justify-between space-y-12 xl:space-y-0 xl:flex-row">
                     <div className="flex flex-col">
                         <div className="flex flex-row space-x-2 items-end">
                             <Skeleton

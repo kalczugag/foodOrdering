@@ -21,8 +21,8 @@ import ProfileDetails from "./components/ProfileDetails";
 import ProfilePayments from "./components/ProfilePayments";
 import InvoiceDocumentWrapper from "./components/InvoiceDocument";
 import AdminMain from "./components/AdminMain";
-import AdminBlog from "./components/AdminBlog";
-import AdminEvents from "./components/AdminEvents";
+import AdminBlog from "./pages/admin/AdminBlog";
+import AdminEvents from "./pages/admin/AdminEvents";
 
 const App = () => {
     const scrollableNodeRef = useRef();

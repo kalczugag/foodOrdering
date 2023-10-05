@@ -19,9 +19,9 @@ const Blog = () => {
     useTitle("Blog");
 
     useEffect(() => {
-        if (data.length <= 0) {
-            doFetchPosts();
-        }
+        if (data.length <= 0 && !isLoadingPosts) doFetchPosts();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchPosts, data]);
 
     const renderedBlogItems = data.map((post, index) => {
@@ -34,7 +34,7 @@ const Blog = () => {
 
     return (
         <div className="flex items-center">
-            <div className="p-10 space-y-12">
+            <div className="p-4 space-y-12 md:p-10">
                 <h1 className="text-5xl font-bold">
                     The Blog
                     {admin && (

@@ -1,40 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useThunk } from "../hooks/use-thunk";
 import { useTitle } from "../hooks/use-title";
-import { useUser } from "../hooks/use-user";
 import { fetchEvents } from "../store";
-import { AiOutlinePlus } from "react-icons/ai";
-import NewEventForm from "../components/NewEventForm";
 import EventItem from "../components/EventItem";
 import EventsSkeleton from "../components/EventsSkeleton";
 
 const Events = () => {
-    const [showNewEventForm, setShowNewEventForm] = useState(false);
-
     const events = useSelector((state) => state.events.data);
 
     useTitle("Events");
 
-    const { user } = useUser();
-    const admin = user && user.admin;
-
     const [doFetchEvents, isLoadingEvents] = useThunk(fetchEvents);
 
     useEffect(() => {
-        if (events.length <= 0) {
-            doFetchEvents();
-        }
+        if (events.length <= 0 && !isLoadingEvents) doFetchEvents();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchEvents, events]);
-
-    //the two handlers are due to various unwanted cases
-    const handleShowForm = () => {
-        setShowNewEventForm(true);
-    };
-
-    const handleCloseForm = () => {
-        setShowNewEventForm(false);
-    };
 
     const renderedEvents = events.map((event) => {
         return <EventItem key={event.title} data={event} />;
@@ -52,16 +35,7 @@ const Events = () => {
                         There are no events
                     </div>
                 )}
-                {admin && (
-                    <button
-                        onClick={handleShowForm}
-                        className="fixed bottom-2 right-2 flex justify-center items-center w-16 h-16 bg-red-main rounded-full"
-                    >
-                        <AiOutlinePlus className="text-white text-4xl" />
-                    </button>
-                )}
             </div>
-            {showNewEventForm && <NewEventForm onClose={handleCloseForm} />}
         </>
     );
 };

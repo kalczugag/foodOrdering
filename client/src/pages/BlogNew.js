@@ -60,7 +60,7 @@ const BlogNew = () => {
     const isMobile = width <= 768;
 
     return (
-        <div className="flex justify-center p-10">
+        <div className="flex justify-center p-4 md:p-10">
             <Form
                 onSubmit={onSubmit}
                 render={({ handleSubmit, form: { getState } }) => (
@@ -86,7 +86,7 @@ const BlogNew = () => {
                                 placeholder="Description (no more than 400 words)"
                                 maxlength={400}
                                 rows={6}
-                                cols={isMobile ? 50 : 75}
+                                cols={isMobile ? 43 : 75}
                                 style={{ resize: "none" }}
                                 validate={required}
                             />
