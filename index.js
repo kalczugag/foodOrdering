@@ -17,11 +17,7 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
-app.use(
-    cors({
-        origin: keys.redirectDomain,
-    })
-);
+app.use(cors());
 app.use("/api/webhook", express.raw({ type: "application/json" }));
 app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -43,6 +39,7 @@ require("./routes/ordersRoutes")(app);
 require("./routes/cartRoutes")(app);
 require("./routes/eventRoutes")(app);
 require("./routes/blogRoutes")(app);
+require("./routes/imageRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));

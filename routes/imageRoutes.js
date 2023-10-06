@@ -1,9 +1,11 @@
 const Multer = require("multer");
 const sharp = require("sharp");
 const keys = require("../config/keys");
-const path = require("path");
+const NodeCache = require("node-cache");
+const axios = require("axios");
 const { URL } = require("url");
 const { Storage } = require("@google-cloud/storage");
+const cache = new NodeCache();
 
 const multer = Multer({
     storage: Multer.memoryStorage(),
@@ -20,9 +22,40 @@ const storage = new Storage({
     },
 });
 const bucket = storage.bucket(keys.googleBucketName);
-
 module.exports = (app) => {
-    app.post("/api/image", multer.single("imgfile"), async (req, res) => {
+    app.get("/api/images/:imageName", async (req, res) => {
+        const { imageName } = req.params;
+
+        // Check if the image is in cache
+        const cachedImage = cache.get(imageName);
+        if (cachedImage) {
+            console.log("Image fetched from cache:", imageName);
+            return res.send(cachedImage);
+        }
+
+        // If not in cache, fetch the image from Google Cloud Storage
+        try {
+            const response = await axios.get(
+                `https://storage.googleapis.com/${keys.googleBucketName}/${imageName}`,
+                { responseType: "arraybuffer" } // Treat the response as binary data
+            );
+
+            // Cache the image for future requests (expires in 1 hour, adjust as needed)
+            cache.set(imageName, response.data, 3600);
+
+            console.log(
+                "Image fetched from Google Cloud Storage and cached:",
+                imageName
+            );
+            res.set("Content-Type", "image/jpeg"); // Adjust the content type based on your image type
+            return res.send(response.data);
+        } catch (error) {
+            console.error("Error fetching image:", error);
+            return res.status(500).send("Error fetching image");
+        }
+    });
+
+    app.post("/api/images", multer.single("imgfile"), async (req, res) => {
         try {
             if (req.file) {
                 const compressedImageBuffer = await sharp(req.file.buffer)
@@ -48,7 +81,7 @@ module.exports = (app) => {
         }
     });
 
-    app.delete("/api/image/:imageUrl", async (req, res) => {
+    app.delete("/api/images/:imageUrl", async (req, res) => {
         const { imageUrl } = req.params;
 
         if (!imageUrl) {

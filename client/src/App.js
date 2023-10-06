@@ -5,7 +5,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import SimpleBar from "simplebar-react";
 import HomeFooter from "./pages/homepage/HomeFooter";
-import HomePage from "./pages/homepage/HomePage";
+import HomeCarouselContainer from "./pages/homepage/HomeCarouselContainer";
 import BlogPage from "./pages/BlogPage";
 import ContactPage from "./pages/ContactPage";
 import EventsPage from "./pages/EventsPage";
@@ -43,7 +43,7 @@ const App = () => {
                 }
             >
                 <Routes>
-                    <Route index element={<HomePage />} />
+                    <Route index element={<HomeCarouselContainer />} />
                     <Route path="/events" element={<EventsPage />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/contact" element={<ContactPage />} />
