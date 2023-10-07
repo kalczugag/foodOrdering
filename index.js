@@ -4,6 +4,7 @@ const cors = require("cors");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
+const path = require("path");
 const keys = require("./config/keys");
 require("./models/User");
 require("./models/Product");
@@ -39,12 +40,11 @@ require("./routes/ordersRoutes")(app);
 require("./routes/cartRoutes")(app);
 require("./routes/eventRoutes")(app);
 require("./routes/blogRoutes")(app);
-require("./routes/imageRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
+    app.use(express.static("client/public", { maxAge: 86400000 * 30 }));
 
-    const path = require("path");
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
     });

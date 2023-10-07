@@ -95,6 +95,7 @@ const ProductDetails = ({ data }) => {
                     className="w-96 h-96 object-contain"
                     src={img}
                     alt={title}
+                    loading="lazy"
                 />
             </div>
             <div className="flex flex-col flex-1 space-y-4">

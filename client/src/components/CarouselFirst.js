@@ -1,5 +1,3 @@
-import ImageComponent from "./ImageComponent";
-
 const CarouselFirst = () => {
     return (
         <div className="flex flex-col items-center space-y-8 md:flex-row md:space-y-0">
@@ -18,7 +16,7 @@ const CarouselFirst = () => {
                 </div>
             </div>
             <div className="w-1/2 md:w-full">
-                <ImageComponent imageUrl={"1.png"} />
+                <img src="/images/1.png" alt="pizza" />
             </div>
         </div>
     );

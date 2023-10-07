@@ -1,5 +1,5 @@
 import { useTitle } from "../../hooks/use-title";
-import HomeMain from "./HomeMain";
+import HomeCarouselContainer from "./HomeCarouselContainer";
 import HomePizzas from "./HomePizzas";
 
 const Home = () => {
@@ -7,7 +7,7 @@ const Home = () => {
 
     return (
         <>
-            <HomeMain />
+            <HomeCarouselContainer />
             <HomePizzas />
         </>
     );

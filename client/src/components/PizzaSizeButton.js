@@ -6,7 +6,7 @@ const PizzaSizeButton = ({ data, index, priceFn, currentIndex }) => {
             <img
                 width={data.size.width}
                 height={data.size.height}
-                src={require("../utils/svg/pizzaSize.svg").default}
+                src="/svg/pizzaSize.svg"
                 alt={data.label}
             />
             <div

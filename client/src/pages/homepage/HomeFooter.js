@@ -45,7 +45,7 @@ const HomeFooter = () => {
             <div className="hidden md:block">
                 <img
                     className="h-screen-fit object-cover"
-                    src="https://storage.cloud.google.com/adsfadf231/bg.png"
+                    src="/images/bg.png"
                     loading="lazy"
                     alt="bg"
                 />

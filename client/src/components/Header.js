@@ -31,12 +31,7 @@ const Header = () => {
             name: "events",
         },
         {
-            label: (
-                <img
-                    src={require("../utils/svg/logo.svg").default}
-                    alt="logo"
-                />
-            ),
+            label: <img src="/svg/logo.svg" alt="logo" />,
             name: "",
             className: "w-28",
         },

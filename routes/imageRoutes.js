@@ -1,11 +1,9 @@
 const Multer = require("multer");
 const sharp = require("sharp");
 const keys = require("../config/keys");
-const NodeCache = require("node-cache");
 const axios = require("axios");
 const { URL } = require("url");
 const { Storage } = require("@google-cloud/storage");
-const cache = new NodeCache();
 
 const multer = Multer({
     storage: Multer.memoryStorage(),
