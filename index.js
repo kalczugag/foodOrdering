@@ -42,8 +42,7 @@ require("./routes/eventRoutes")(app);
 require("./routes/blogRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-    app.use(express.static("client/public", { maxAge: 86400000 * 30 }));
+    app.use(express.static("client/build", { maxAge: 86400000 * 30 }));
 
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
