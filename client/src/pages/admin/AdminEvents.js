@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useThunk } from "../../hooks/use-thunk";
 import { usePaginate } from "../../hooks/use-paginate";
+import { useUser } from "../../hooks/use-user";
 import { fetchEvents, removeEvent } from "../../store";
 import NewEventForm from "../../components/NewEventForm";
 import SortableTable from "../../components/SortableTable";
@@ -19,8 +20,12 @@ const AdminEvents = () => {
         currentPage
     );
 
+    const { user } = useUser();
+    const admin = user && user.admin;
+
     useEffect(() => {
-        if (paginatedData.length <= 0 && !isFetchingEvents) doFetchEvents();
+        if (admin && paginatedData.length <= 0 && !isFetchingEvents)
+            doFetchEvents();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchEvents]);
 

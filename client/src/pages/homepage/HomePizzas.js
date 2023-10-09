@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useThunk } from "../../hooks/use-thunk";
+import { fetchProducts } from "../../store";
 import MainProductItem from "../../components/MainProductsItem";
 
 const HomePizzas = () => {
+    const [doFetchProducts, isLoadingProducts] = useThunk(fetchProducts);
+
     const data = useSelector((state) => state.products.data) || [];
+
+    useEffect(() => {
+        if (data.length <= 0 && !isLoadingProducts) doFetchProducts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [doFetchProducts, data]);
 
     const renderedFeaturedPizzas = data.map((pizza) => {
         return <MainProductItem key={pizza._id} data={pizza} />;

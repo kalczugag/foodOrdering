@@ -32,7 +32,6 @@ module.exports = (app) => {
         const post = new Post({
             title,
             desc,
-            date,
             img,
         });
 
@@ -41,6 +40,25 @@ module.exports = (app) => {
             res.status(200).send(post);
         } catch (err) {
             res.status(422).send(err);
+        }
+    });
+
+    app.put("/api/posts", requireAdmin, async (req, res) => {
+        const postToUpdate = req.body._id;
+        const { title, desc, img } = req.body;
+
+        try {
+            const updatedPosts = await Post.findByIdAndUpdate(
+                postToUpdate,
+                {
+                    $set: { title, desc, img },
+                },
+                { new: true }
+            );
+
+            res.status(200).send(updatedPosts);
+        } catch (err) {
+            res.status(500).send({ error: err.message });
         }
     });
 

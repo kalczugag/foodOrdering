@@ -1,28 +1,13 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlinePhone } from "react-icons/ai";
 import { GoPerson } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
 import { useUser } from "../hooks/use-user";
-import { useThunk } from "../hooks/use-thunk";
-import { fetchCart, fetchUser, fetchProducts } from "../store";
 import HamburgerMenu from "./HamburgerMenu";
 import CartIcon from "./CartIcon";
 
 const Header = () => {
-    const [doFetchCart] = useThunk(fetchCart);
-    const [doFetchUser] = useThunk(fetchUser);
-    const [doFetchProducts] = useThunk(fetchProducts);
     const { user } = useUser();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            await doFetchUser();
-            doFetchProducts();
-            doFetchCart();
-        };
-        fetchData();
-    }, [doFetchCart, doFetchUser, doFetchProducts]);
 
     const config = [
         { label: "Homepage", name: "" },

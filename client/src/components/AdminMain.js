@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useUser } from "../hooks/use-user";
 import { useThunk } from "../hooks/use-thunk";
-import { fetchOrders } from "../store";
+import { fetchOrders, fetchProducts } from "../store";
 import AdminOrders from "../components/AdminOrders";
 import AdminProducts from "../components/AdminProducts";
 import NewPizzaForm from "../components/NewPizzaForm";
@@ -13,14 +14,28 @@ const AdminMain = () => {
     const [showEditPizzaModal, setShowEditPizzaModal] = useState(false);
     const [item, setItem] = useState(null);
 
-    const [doFetchAdminOrders] = useThunk(fetchOrders);
+    const [doFetchAdminOrders, isLoadingOrders] = useThunk(fetchOrders);
+    const [doFetchProducts, isLoadingProducts] = useThunk(fetchProducts);
+
+    const ordersData = useSelector((state) => state.orders.data);
+    const productsData = useSelector((state) => state.products.data);
 
     const { user } = useUser();
     const admin = user && user.admin;
 
     useEffect(() => {
-        doFetchAdminOrders(true);
-    }, [doFetchAdminOrders]);
+        if (
+            admin &&
+            ordersData.length <= 0 &&
+            !isLoadingOrders &&
+            productsData.length <= 0 &&
+            !isLoadingProducts
+        ) {
+            doFetchProducts();
+            doFetchAdminOrders(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [doFetchAdminOrders, doFetchProducts, admin, ordersData, productsData]);
 
     const handleOpenModal = () => {
         setShowNewPizzaModal(true);

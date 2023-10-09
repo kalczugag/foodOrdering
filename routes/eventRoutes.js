@@ -31,6 +31,25 @@ module.exports = (app) => {
         }
     });
 
+    app.put("/api/events", requireAdmin, async (req, res) => {
+        const eventToUpdate = req.body._id;
+        const { title, date, img } = req.body;
+
+        try {
+            const updatedEvents = await Event.findByIdAndUpdate(
+                eventToUpdate,
+                {
+                    $set: { title, date, img },
+                },
+                { new: true }
+            );
+
+            res.status(200).send(updatedEvents);
+        } catch (err) {
+            res.status(500).send({ error: err.message });
+        }
+    });
+
     app.delete("/api/events/:eventId", async (req, res) => {
         const { eventId } = req.params;
 

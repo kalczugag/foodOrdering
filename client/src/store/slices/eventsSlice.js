@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchEvents } from "../thunks/fetchEvents";
 import { addEvent } from "../thunks/addEvent";
+import { editEvent } from "../thunks/editEvent";
 import { removeEvent } from "../thunks/removeEvent";
 
 const eventsSlice = createSlice({
@@ -31,6 +32,31 @@ const eventsSlice = createSlice({
             state.data.push(action.payload);
         });
         builder.addCase(addEvent.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error;
+        });
+
+        builder.addCase(editEvent.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(editEvent.fulfilled, (state, action) => {
+            state.isLoading = false;
+            const editedEvent = action.payload;
+
+            const index = state.data.findIndex(
+                (event) => event._id === editedEvent._id
+            );
+
+            if (index !== -1) {
+                state.data[index] = {
+                    ...state.data[index],
+                    title: editedEvent.title,
+                    date: editedEvent.date,
+                    img: editedEvent.img,
+                };
+            }
+        });
+        builder.addCase(editEvent.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error;
         });

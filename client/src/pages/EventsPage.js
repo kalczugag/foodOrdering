@@ -15,7 +15,6 @@ const Events = () => {
 
     useEffect(() => {
         if (events.length <= 0 && !isLoadingEvents) doFetchEvents();
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchEvents, events]);
 

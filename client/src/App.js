@@ -3,6 +3,10 @@ import "simplebar-react/dist/simplebar.min.css";
 import "./utils/styles/globalStyles.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { fetchCart, fetchUser } from "./store";
+import { useUser } from "./hooks/use-user";
+import { useThunk } from "./hooks/use-thunk";
 import SimpleBar from "simplebar-react";
 import HomeFooter from "./pages/homepage/HomeFooter";
 import HomePage from "./pages/homepage/HomePage";
@@ -28,9 +32,26 @@ const App = () => {
     const scrollableNodeRef = useRef();
     const location = useLocation();
 
+    const [doFetchUser, isLoadingUser] = useThunk(fetchUser);
+    const [doFetchCart, isLoadingCart] = useThunk(fetchCart);
+
+    const { user } = useUser;
+    const cart = useSelector((state) => state.cart.items);
+
     useEffect(() => {
         scrollableNodeRef.current.scrollTop = 0;
     }, [location]);
+
+    useEffect(() => {
+        if (!user && !isLoadingUser && cart.length <= 0 && !isLoadingCart) {
+            const fetchData = async () => {
+                await doFetchUser();
+                doFetchCart();
+            };
+            fetchData();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [doFetchUser, doFetchCart, user, cart]);
 
     return (
         <SimpleBar

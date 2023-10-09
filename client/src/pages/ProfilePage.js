@@ -1,19 +1,10 @@
-import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { useUser } from "../hooks/use-user";
-import { useThunk } from "../hooks/use-thunk";
-import { fetchOrders } from "../store";
 import ProfileSidebar from "../components/ProfileSidebar";
 
 const ProfilePage = () => {
     const { user } = useUser();
-
-    const [doFetchOrders] = useThunk(fetchOrders);
-
-    useEffect(() => {
-        doFetchOrders();
-    }, [doFetchOrders]);
 
     if (user === false) {
         return <div>You are not logged in!</div>;

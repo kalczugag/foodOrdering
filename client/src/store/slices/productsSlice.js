@@ -72,7 +72,6 @@ const productsSlice = createSlice({
                 };
             }
         });
-
         builder.addCase(editProduct.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error;

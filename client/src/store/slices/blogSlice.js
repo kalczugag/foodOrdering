@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchPosts } from "../thunks/fetchPosts";
 import { addPost } from "../thunks/addPost";
+import { editPost } from "../thunks/editPost";
 import { removePost } from "../thunks/removePost";
 
 const blogSlice = createSlice({
@@ -31,6 +32,31 @@ const blogSlice = createSlice({
             state.data.push(action.payload);
         });
         builder.addCase(addPost.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error;
+        });
+
+        builder.addCase(editPost.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(editPost.fulfilled, (state, action) => {
+            state.isLoading = false;
+            const editedPost = action.payload;
+
+            const index = state.data.findIndex(
+                (post) => post._id === editedPost._id
+            );
+
+            if (index !== -1) {
+                state.data[index] = {
+                    ...state.data[index],
+                    title: editedPost.title,
+                    desc: editedPost.desc,
+                    img: editedPost.img,
+                };
+            }
+        });
+        builder.addCase(editPost.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error;
         });

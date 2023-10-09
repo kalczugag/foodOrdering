@@ -25,8 +25,8 @@ const EditPizzaForm = ({
                 onSubmit={onSubmit}
                 initialValues={{
                     imageURI: img,
-                    title: title,
-                    desc: desc,
+                    title,
+                    desc,
                     smallPrice: price[0],
                     mediumPrice: price[1],
                     largePrice: price[2],

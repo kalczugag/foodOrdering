@@ -1,11 +1,21 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTitle } from "../hooks/use-title";
+import { useThunk } from "../hooks/use-thunk";
+import { fetchOrders } from "../store";
 import PaymentsList from "./PaymentsList";
 
 const ProfilePayments = () => {
     useTitle("Payments - Profile");
 
+    const [doFetchOrders, isLoadingOrders] = useThunk(fetchOrders);
+
     const data = useSelector((state) => state.orders.data);
+
+    useEffect(() => {
+        if (data.length <= 0 && !isLoadingOrders) doFetchOrders();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [doFetchOrders, data]);
 
     return (
         <div className="flex flex-col space-y-4">

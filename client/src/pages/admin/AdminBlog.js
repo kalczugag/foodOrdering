@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useThunk } from "../../hooks/use-thunk";
 import { usePaginate } from "../../hooks/use-paginate";
+import { useUser } from "../../hooks/use-user";
 import { fetchPosts, removePost } from "../../store";
 import DateUtils from "../../utils/functions/formatDate";
 import SortableTable from "../../components/SortableTable";
@@ -17,8 +18,12 @@ const AdminBlog = () => {
         currentPage
     );
 
+    const { user } = useUser();
+    const admin = user && user.admin;
+
     useEffect(() => {
-        if (paginatedData.length <= 0 && !isFetchingPosts) doFetchPosts();
+        if (admin && paginatedData.length <= 0 && !isFetchingPosts)
+            doFetchPosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchPosts, paginatedData]);
 
