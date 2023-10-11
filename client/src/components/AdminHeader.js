@@ -19,7 +19,7 @@ const AdminHeader = () => {
 
         return (
             <Link
-                className={`hover:text-gray-100 ${activeClass}`}
+                className={`transition-all hover:text-gray-100 ${activeClass}`}
                 to={to}
                 key={label.toLowerCase()}
             >

@@ -35,6 +35,19 @@ class DateUtils {
         };
     }
 
+    static formatDateString({ year, month, day }) {
+        const monthIndex =
+            new Date(Date.parse(`${month} 1, 2000`)).getMonth() + 1;
+
+        const formattedMonth =
+            monthIndex < 10 ? `0${monthIndex}` : `${monthIndex}`;
+        const formattedDay = day < 10 ? `0${day}` : `${day}`;
+
+        const formattedDateString = `${year}-${formattedMonth}-${formattedDay}`;
+
+        return formattedDateString;
+    }
+
     static formatDateFromMongoDB(timestamp) {
         const date = new Date(timestamp);
 

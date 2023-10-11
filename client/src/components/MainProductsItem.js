@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const MainProductItem = ({ data }) => {
+    const [isActive, setIsActive] = useState(false);
+
     const minPrice = data.price && data.price[0];
     const maxPrice = data.price && data.price[2];
 
@@ -9,6 +12,8 @@ const MainProductItem = ({ data }) => {
             key={data.title}
             to={`/products/${data._id}`}
             className="flex flex-col items-center space-y-1"
+            onMouseOver={() => setIsActive(true)}
+            onMouseLeave={() => setIsActive(false)}
         >
             <img
                 loading="lazy"
@@ -17,7 +22,11 @@ const MainProductItem = ({ data }) => {
                 alt={data.title}
             />
 
-            <p className="text-red-500 text-xl border-b border-white hover:border-red-main">
+            <p
+                className={`text-red-500 text-xl border-b transition-all ${
+                    isActive ? "border-red-main" : "border-white"
+                }`}
+            >
                 {data.title}
             </p>
             {minPrice !== undefined && maxPrice !== undefined && (

@@ -3,9 +3,11 @@ import { useThunk } from "../../hooks/use-thunk";
 import { usePaginate } from "../../hooks/use-paginate";
 import { useUser } from "../../hooks/use-user";
 import { fetchEvents, removeEvent } from "../../store";
+import DateUtils from "../../utils/functions/formatDate";
 import NewEventForm from "../../components/NewEventForm";
 import SortableTable from "../../components/SortableTable";
 import PaginationContainer from "../../components/PaginationConatiner";
+import EditEventForm from "../../components/EditEventForm";
 
 const AdminEvents = () => {
     const [doFetchEvents, isFetchingEvents] = useThunk(fetchEvents);
@@ -13,6 +15,8 @@ const AdminEvents = () => {
 
     const [showNewEventForm, setShowNewEventForm] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [event, setEvent] = useState(null);
 
     const [paginatedData, totalPages] = usePaginate(
         "events.data",
@@ -28,6 +32,28 @@ const AdminEvents = () => {
             doFetchEvents();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchEvents]);
+
+    const handleEditEvent = (event) => {
+        setEvent(event);
+        setShowEditForm(true);
+    };
+
+    //the two handlers are due to various unwanted cases
+    const handleShowForm = () => {
+        setShowNewEventForm(true);
+    };
+
+    const handleCloseForm = () => {
+        setShowNewEventForm(false);
+    };
+
+    const handleRemoveEvent = (event) => {
+        doRemoveEvent(event);
+    };
+
+    const keyFn = (data) => {
+        return data.id;
+    };
 
     const config = [
         {
@@ -65,7 +91,7 @@ const AdminEvents = () => {
             render: (event) => (
                 <div className="flex flex-col items-center text-white md:space-x-2 md:flex-row">
                     <button
-                        onClick={() => console.log("edit")}
+                        onClick={() => handleEditEvent(event)}
                         className="w-full color p-1 rounded"
                     >
                         Edit
@@ -81,23 +107,6 @@ const AdminEvents = () => {
             ),
         },
     ];
-
-    //the two handlers are due to various unwanted cases
-    const handleShowForm = () => {
-        setShowNewEventForm(true);
-    };
-
-    const handleCloseForm = () => {
-        setShowNewEventForm(false);
-    };
-
-    const handleRemoveEvent = (event) => {
-        doRemoveEvent(event);
-    };
-
-    const keyFn = (data) => {
-        return data.id;
-    };
 
     return (
         <>
@@ -123,6 +132,12 @@ const AdminEvents = () => {
                 />
             </div>
             {showNewEventForm && <NewEventForm onClose={handleCloseForm} />}
+            {showEditForm && (
+                <EditEventForm
+                    onClose={() => setShowEditForm(false)}
+                    event={event}
+                />
+            )}
         </>
     );
 };
