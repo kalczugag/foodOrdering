@@ -4,7 +4,7 @@ import AdminHeader from "../../components/AdminHeader";
 import { Outlet } from "react-router-dom";
 
 const DashboardAdmin = () => {
-    useTitle("Admin dashboard");
+    useTitle("Admin Dashboard");
 
     const { user } = useUser();
     const admin = user && user.admin;

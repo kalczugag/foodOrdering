@@ -35,6 +35,8 @@ export * from "./thunks/addPost";
 export * from "./thunks/addEvent";
 export * from "./thunks/editUser";
 export * from "./thunks/editProduct";
+export * from "./thunks/editEvent";
+export * from "./thunks/editPost";
 export * from "./thunks/removeProduct";
 export * from "./thunks/removeFromCart";
 export * from "./thunks/removeEvent";

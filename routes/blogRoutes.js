@@ -48,10 +48,19 @@ module.exports = (app) => {
         const { title, desc, img } = req.body;
 
         try {
+            let updateObject = {
+                title,
+                desc,
+            };
+
+            if (img !== null) {
+                updateObject.img = img;
+            }
+
             const updatedPosts = await Post.findByIdAndUpdate(
                 postToUpdate,
                 {
-                    $set: { title, desc, img },
+                    $set: updateObject,
                 },
                 { new: true }
             );

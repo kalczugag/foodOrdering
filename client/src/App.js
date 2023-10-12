@@ -27,6 +27,7 @@ import InvoiceDocumentWrapper from "./components/InvoiceDocument";
 import AdminMain from "./components/AdminMain";
 import AdminBlog from "./pages/admin/AdminBlog";
 import AdminEvents from "./pages/admin/AdminEvents";
+import BlogEdit from "./pages/BlogEdit";
 
 const App = () => {
     const scrollableNodeRef = useRef();
@@ -78,6 +79,10 @@ const App = () => {
                     <Route path="/admin" element={<DashboardAdmin />}>
                         <Route path="" element={<AdminMain />} />
                         <Route path="/admin/blog" element={<AdminBlog />} />
+                        <Route
+                            path="/admin/blog/edit/:postId"
+                            element={<BlogEdit />}
+                        />
                         <Route path="/admin/events" element={<AdminEvents />} />
                     </Route>
                     <Route

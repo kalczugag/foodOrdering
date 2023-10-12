@@ -1,8 +1,9 @@
 import "../utils/styles/pizzaForm.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { isEqual } from "lodash";
 import { Form, Field } from "react-final-form";
 import { useThunk } from "../hooks/use-thunk";
-import { addEvent } from "../store";
+import { editEvent } from "../store";
 import { convertToBase64 } from "../utils/functions/convertToBase64";
 import DateValidator from "../utils/functions/validateDate";
 import DateUtils from "../utils/functions/formatDate";
@@ -10,26 +11,47 @@ import Modal from "./Modal";
 
 const EditEventForm = ({ onClose, event: { _id, date, img, title } }) => {
     const [imageFile, setImageFile] = useState(null);
-    const [doAddEvent] = useThunk(addEvent);
+    const [initialValues, setInitialValues] = useState(null);
+
+    const [doEditEvent] = useThunk(editEvent);
+
+    useEffect(() => {
+        setInitialValues({
+            title,
+            date: {
+                day: DateUtils.formatDateString(date),
+                time: {
+                    from: date.time.from,
+                    to: date.time.to,
+                },
+            },
+        });
+    }, [title, date]);
 
     const onSubmit = (values) => {
-        try {
-            const { day, time } = values.date;
+        const isFormChanged = !isEqual(initialValues, values);
+        if (isFormChanged || imageFile !== null) {
+            try {
+                const { day, time } = values.date;
 
-            const formattedDate = {
-                ...DateUtils.formatDate(day),
-                time,
-            };
+                const formattedDate = {
+                    ...DateUtils.formatDate(day),
+                    time,
+                };
 
-            const modifiedValues = {
-                ...values,
-                date: formattedDate,
-            };
+                const modifiedValues = {
+                    ...values,
+                    _id,
+                    date: formattedDate,
+                };
 
-            doAddEvent([modifiedValues, imageFile]);
-            onClose();
-        } catch (error) {
-            console.error("Error adding event:", error);
+                doEditEvent([modifiedValues, imageFile]);
+                onClose();
+            } catch (error) {
+                console.error("Error adding event:", error);
+            }
+        } else {
+            alert("Form values have not changed.");
         }
     };
 
@@ -47,7 +69,6 @@ const EditEventForm = ({ onClose, event: { _id, date, img, title } }) => {
             <Form
                 onSubmit={onSubmit}
                 initialValues={{
-                    image: img,
                     title,
                     date: {
                         day: DateUtils.formatDateString(date),
@@ -65,6 +86,11 @@ const EditEventForm = ({ onClose, event: { _id, date, img, title } }) => {
                     >
                         <h1 className="font-bold text-3xl">Edit Event</h1>
                         <div className="space-y-2">
+                            <img
+                                className="h-20 border-2"
+                                src={imageFile ? imageFile : img}
+                                alt={title}
+                            />
                             <label className="field-label">
                                 Choose an Image (use a{" "}
                                 <a
@@ -83,7 +109,6 @@ const EditEventForm = ({ onClose, event: { _id, date, img, title } }) => {
                                 name="image"
                                 onChange={handleImageChange}
                                 accept="image/*"
-                                required
                             />
                         </div>
 
@@ -112,7 +137,6 @@ const EditEventForm = ({ onClose, event: { _id, date, img, title } }) => {
                                 <label className="field-label">Starts</label>
                                 <Field
                                     className="input-initial"
-                                    placeholder="00:00"
                                     type="time"
                                     component="input"
                                     name="date.time.from"
@@ -123,7 +147,6 @@ const EditEventForm = ({ onClose, event: { _id, date, img, title } }) => {
                                 <label className="field-label">Ends</label>
                                 <Field
                                     className="input-initial"
-                                    placeholder="00:00"
                                     type="time"
                                     component="input"
                                     name="date.time.to"
@@ -133,8 +156,7 @@ const EditEventForm = ({ onClose, event: { _id, date, img, title } }) => {
                         </div>
                         <div className="flex justify-end">
                             <button
-                                onClick={() => onSubmit(getState().values)}
-                                type="button"
+                                type="submit"
                                 className="color text-white rounded p-1 px-6 mt-4"
                                 disabled={getState().invalid}
                             >

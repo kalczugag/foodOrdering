@@ -54,6 +54,13 @@ const NewEventForm = ({ onClose }) => {
                     >
                         <h1 className="font-bold text-3xl">Add a new Event</h1>
                         <div className="space-y-2">
+                            {imageFile && (
+                                <img
+                                    className="h-20 border-2"
+                                    src={imageFile}
+                                    alt="current"
+                                />
+                            )}
                             <label className="field-label">
                                 Choose an Image (use a{" "}
                                 <a

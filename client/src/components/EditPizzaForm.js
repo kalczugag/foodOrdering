@@ -43,6 +43,11 @@ const EditPizzaForm = ({
                             {title} Pizza
                         </h1>
                         <div>
+                            <img
+                                className="h-20 border-2"
+                                src={img}
+                                alt={title}
+                            />
                             <label className="field-label">
                                 Choose an Image URI
                             </label>

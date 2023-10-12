@@ -3,7 +3,6 @@ import { useThunk } from "../../hooks/use-thunk";
 import { usePaginate } from "../../hooks/use-paginate";
 import { useUser } from "../../hooks/use-user";
 import { fetchEvents, removeEvent } from "../../store";
-import DateUtils from "../../utils/functions/formatDate";
 import NewEventForm from "../../components/NewEventForm";
 import SortableTable from "../../components/SortableTable";
 import PaginationContainer from "../../components/PaginationConatiner";
@@ -31,20 +30,15 @@ const AdminEvents = () => {
         if (admin && paginatedData.length <= 0 && !isFetchingEvents)
             doFetchEvents();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [doFetchEvents]);
+    }, [doFetchEvents, paginatedData]);
 
     const handleEditEvent = (event) => {
         setEvent(event);
         setShowEditForm(true);
     };
 
-    //the two handlers are due to various unwanted cases
     const handleShowForm = () => {
         setShowNewEventForm(true);
-    };
-
-    const handleCloseForm = () => {
-        setShowNewEventForm(false);
     };
 
     const handleRemoveEvent = (event) => {
@@ -131,7 +125,9 @@ const AdminEvents = () => {
                     currentPage={currentPage}
                 />
             </div>
-            {showNewEventForm && <NewEventForm onClose={handleCloseForm} />}
+            {showNewEventForm && (
+                <NewEventForm onClose={() => setShowNewEventForm(false)} />
+            )}
             {showEditForm && (
                 <EditEventForm
                     onClose={() => setShowEditForm(false)}

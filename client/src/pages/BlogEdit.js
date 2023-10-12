@@ -1,51 +1,62 @@
 import { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useThunk } from "../hooks/use-thunk";
 import { useTitle } from "../hooks/use-title";
-import { addPost } from "../store";
+import { editPost } from "../store";
 import { AiOutlinePlus } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
 import { convertToBase64 } from "../utils/functions/convertToBase64";
+import { useSelector } from "react-redux";
+import { isEqual } from "lodash";
 
 const BlogNew = () => {
+    useTitle("New Post");
+    const { postId } = useParams();
+    const navigate = useNavigate();
+    const post = useSelector((state) => {
+        return state.blog.data.find((e) => e._id === postId) || null;
+    });
+    const [doEditPost, isPostEditing] = useThunk(editPost);
+
+    const [initialValues, setInitialValues] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [showInput, setShowInput] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
-    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-
-    useTitle("New Post");
-    const navigate = useNavigate();
-    const [doEditPost, isPostEditing] = useThunk(addPost);
 
     useEffect(() => {
-        const handleBeforeUnload = (e) => {
-            e.preventDefault();
-            e.returnValue = "Are you sure you want to leave this page?";
-        };
-
         const handleWindowSize = () => {
             setWidth(window.innerWidth);
         };
 
-        if (!isFormSubmitted)
-            window.addEventListener("beforeunload", handleBeforeUnload);
+        setInitialValues({
+            title: post.title,
+            desc: post.desc,
+        });
+
         window.addEventListener("resize", handleWindowSize);
 
         return () => {
-            if (!isFormSubmitted)
-                window.removeEventListener("beforeunload", handleBeforeUnload);
             window.removeEventListener("resize", handleWindowSize);
         };
-    }, [isFormSubmitted]);
+    }, [post]);
 
     const onSubmit = async (values) => {
-        try {
-            await doEditPost([values, imageFile]);
-            setIsFormSubmitted(true);
-            navigate("/blog");
-        } catch (err) {
-            console.error(err);
+        const isFormChanged = !isEqual(initialValues, values);
+        if (isFormChanged || imageFile !== null) {
+            try {
+                const modifiedValues = {
+                    ...values,
+                    _id: postId,
+                };
+
+                await doEditPost([modifiedValues, imageFile]);
+                navigate("/admin/blog");
+            } catch (err) {
+                console.error(err);
+            }
+        } else {
+            alert("Form values have not changed.");
         }
     };
 
@@ -63,6 +74,7 @@ const BlogNew = () => {
         <div className="flex justify-center p-4 md:p-10">
             <Form
                 onSubmit={onSubmit}
+                initialValues={{ title: post.title, desc: post.desc }}
                 render={({ handleSubmit, form: { getState } }) => (
                     <form
                         id="myForm"
@@ -120,9 +132,29 @@ const BlogNew = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex justify-end">
+                        <div
+                            className={`flex ${
+                                showInput ? "justify-between" : "justify-end"
+                            } h-12`}
+                        >
+                            <div className="flex flex-col">
+                                {showInput && (
+                                    <>
+                                        <p className="field-label">
+                                            current image
+                                        </p>
+                                        <img
+                                            className="h-20 border-2"
+                                            src={
+                                                imageFile ? imageFile : post.img
+                                            }
+                                            alt={post.title}
+                                        />
+                                    </>
+                                )}
+                            </div>
                             <button
-                                onClick={() => onSubmit(getState().values)}
+                                type="submit"
                                 className="color text-white rounded p-1 px-6 mt-4"
                                 disabled={getState().invalid || isPostEditing}
                             >

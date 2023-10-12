@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useThunk } from "../../hooks/use-thunk";
 import { usePaginate } from "../../hooks/use-paginate";
 import { useUser } from "../../hooks/use-user";
@@ -8,6 +9,8 @@ import SortableTable from "../../components/SortableTable";
 import PaginationContainer from "../../components/PaginationConatiner";
 
 const AdminBlog = () => {
+    const navigate = useNavigate();
+
     const [doFetchPosts, isFetchingPosts] = useThunk(fetchPosts);
     const [doRemovePost, isRemovingPost] = useThunk(removePost);
     const [currentPage, setCurrentPage] = useState(1);
@@ -50,7 +53,7 @@ const AdminBlog = () => {
             render: (post) => (
                 <div className="flex flex-col items-center text-white md:space-x-2 md:flex-row">
                     <button
-                        onClick={() => console.log("edit")}
+                        onClick={() => navigate(`edit/${post._id}`)}
                         className="w-full color p-1 rounded"
                     >
                         Edit

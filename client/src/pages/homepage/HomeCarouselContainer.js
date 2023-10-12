@@ -14,6 +14,10 @@ const HomeCarouselContainer = () => {
     const handlePageChange = (pageNumber) => {
         if (pageNumber >= 0 && pageNumber < pages.length) {
             setCurrentPage(pageNumber);
+        } else if (pageNumber <= 0) {
+            setCurrentPage(pages.length - 1);
+        } else {
+            setCurrentPage(0);
         }
     };
 

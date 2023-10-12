@@ -36,10 +36,19 @@ module.exports = (app) => {
         const { title, date, img } = req.body;
 
         try {
+            let updateObject = {
+                title,
+                date,
+            };
+
+            if (img !== null) {
+                updateObject.img = img;
+            }
+
             const updatedEvents = await Event.findByIdAndUpdate(
                 eventToUpdate,
                 {
-                    $set: { title, date, img },
+                    $set: updateObject,
                 },
                 { new: true }
             );
