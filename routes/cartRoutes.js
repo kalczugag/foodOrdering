@@ -110,7 +110,8 @@ module.exports = (app) => {
             );
 
             res.status(200).send(updatedCart);
-        } catch (error) {
+        } catch (err) {
+            console.error(err);
             res.status(500).send({
                 error: "An error occurred while updating the cart.",
             });

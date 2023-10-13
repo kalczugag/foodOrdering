@@ -14,15 +14,17 @@ module.exports = (app) => {
 
         try {
             const lineItems = await Promise.all(
-                req.body.map(async (item) => {
+                req.body.items.map(async (item) => {
                     const storeItem = await Products.findById(item._id);
+                    const discountedPrice =
+                        item.price - item.price * req.body.discount;
                     return {
                         price_data: {
                             currency: "usd",
                             product_data: {
                                 name: storeItem.title,
                             },
-                            unit_amount: item.price * 100,
+                            unit_amount: discountedPrice * 100,
                         },
                         quantity: item.quantity,
                     };
@@ -34,7 +36,7 @@ module.exports = (app) => {
                 mode: "payment",
                 line_items: lineItems, // Use the resolved array of line items
                 success_url: `${keys.redirectDomain}/profile/history`,
-                cancel_url: `${keys.redirectDomain}/profile/history`,
+                cancel_url: `${keys.redirectDomain}/cart`,
             });
 
             return res.status(200).send(session);

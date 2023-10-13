@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchCart } from "../thunks/fetchCart";
 import { addToCart } from "../thunks/addToCart";
 import { removeFromCart } from "../thunks/removeFromCart";
+import { checkDiscount } from "../thunks/checkDiscount";
 
 //item model: { image: img, name: string, extras: [string], price: number, count: {type: number, dufault: 1} }
 const cartSlice = createSlice({
@@ -15,11 +16,6 @@ const cartSlice = createSlice({
         totalPrice: 0,
     },
     reducers: {
-        addDiscount(state, action) {
-            state.discount = action.payload;
-            state.totalPrice -= state.totalPrice * state.discount;
-        },
-
         changeDiscountCode(state, action) {
             state.discountCode = action.payload;
         },
@@ -125,8 +121,24 @@ const cartSlice = createSlice({
             state.isLoading = false;
             state.error = action.error;
         });
+
+        builder.addCase(checkDiscount.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(checkDiscount.fulfilled, (state, action) => {
+            state.isLoading = false;
+
+            if (action.payload && state.subtotal === state.totalPrice) {
+                state.discount = action.payload.amount;
+                state.totalPrice -= state.totalPrice * action.payload.amount;
+            }
+        });
+        builder.addCase(checkDiscount.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error;
+        });
     },
 });
 
 export const cartReducer = cartSlice.reducer;
-export const { addDiscount, changeDiscountCode } = cartSlice.actions;
+export const { changeDiscountCode } = cartSlice.actions;

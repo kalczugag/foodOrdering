@@ -11,6 +11,7 @@ const AdminHeader = () => {
         { label: "Dashboard", to: "/admin" },
         { label: "Blog", to: "/admin/blog" },
         { label: "Events", to: "/admin/events" },
+        { label: "Promos", to: "/admin/promos" },
     ];
 
     const renderedLinks = config.map(({ label, to }) => {

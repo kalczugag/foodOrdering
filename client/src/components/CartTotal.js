@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handlePayment, changeDiscountCode } from "../store";
+import { handlePayment, changeDiscountCode, checkDiscount } from "../store";
 import { useThunk } from "../hooks/use-thunk";
 import { useUser } from "../hooks/use-user";
 import { GoSync } from "react-icons/go";
@@ -12,9 +12,11 @@ const CartTotal = () => {
     const [showDiscountInput, setShowDiscountInput] = useState(false);
 
     const [doHandlePayment, paymentLoading] = useThunk(handlePayment);
+    const [doCheckDiscount, isChecking] = useThunk(checkDiscount);
 
     const { items, totalPrice, subtotal, discount, discountCode, itemsCount } =
         useSelector((state) => state.cart);
+    const shownDiscount = discount * subtotal;
 
     const handleCheckoutClick = () => {
         if (
@@ -24,7 +26,7 @@ const CartTotal = () => {
             user.address.street &&
             user.address.postal
         ) {
-            doHandlePayment(items);
+            doHandlePayment({ items, discount });
         } else {
             console.error(
                 "You have to set address in your profile to place an order!"
@@ -42,11 +44,11 @@ const CartTotal = () => {
     };
 
     const handleApplyDiscountCode = () => {
+        doCheckDiscount(discountCode);
+
         dispatch(changeDiscountCode(""));
         setShowDiscountInput(false);
     };
-
-    let shownDiscount = discount * subtotal;
 
     return (
         <div className="flex flex-col space-y-3 p-12 bg-gray-main text-white">
@@ -77,8 +79,18 @@ const CartTotal = () => {
                         className="w-full text-black"
                     />
                     <div className="flex flex-row justify-between text-white text-sm">
-                        <button onClick={handleDiscountShow}>Cancel</button>
-                        <button onClick={handleApplyDiscountCode}>Apply</button>
+                        <button
+                            onClick={handleDiscountShow}
+                            disabled={isChecking}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleApplyDiscountCode}
+                            disabled={isChecking}
+                        >
+                            Apply
+                        </button>
                     </div>
                 </div>
             ) : (

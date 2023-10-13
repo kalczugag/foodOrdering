@@ -122,7 +122,7 @@ const BlogNew = () => {
                         </div>
                         <div className="flex justify-end">
                             <button
-                                onClick={() => onSubmit(getState().values)}
+                                type="submit"
                                 className="color text-white rounded p-1 px-6 mt-4"
                                 disabled={getState().invalid || isPostAdding}
                             >

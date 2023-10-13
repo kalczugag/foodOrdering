@@ -12,6 +12,7 @@ require("./models/Order");
 require("./models/Cart");
 require("./models/Event");
 require("./models/Post");
+require("./models/Discount");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
@@ -40,6 +41,7 @@ require("./routes/ordersRoutes")(app);
 require("./routes/cartRoutes")(app);
 require("./routes/eventRoutes")(app);
 require("./routes/blogRoutes")(app);
+require("./routes/discountRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build", { maxAge: 86400000 * 30 }));

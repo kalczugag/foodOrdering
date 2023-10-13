@@ -1,10 +1,2 @@
-pagination hook for:
-
-const [currentPage, setCurrentPage] = useState(1);
-
-    const data = useSelector((state) => state.products.data) || [];
-    const totalPages = Math.ceil(data.length / itemsPerPage);
-    const paginatedData = data.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+1. add admin prop to useUser thunk
+2. console.error every error at routes

@@ -27,6 +27,7 @@ import InvoiceDocumentWrapper from "./components/InvoiceDocument";
 import AdminMain from "./components/AdminMain";
 import AdminBlog from "./pages/admin/AdminBlog";
 import AdminEvents from "./pages/admin/AdminEvents";
+import AdminPromos from "./pages/admin/AdminPromos";
 import BlogEdit from "./pages/BlogEdit";
 
 const App = () => {
@@ -84,6 +85,7 @@ const App = () => {
                             element={<BlogEdit />}
                         />
                         <Route path="/admin/events" element={<AdminEvents />} />
+                        <Route path="/admin/promos" element={<AdminPromos />} />
                     </Route>
                     <Route
                         path="/products/:productId"
