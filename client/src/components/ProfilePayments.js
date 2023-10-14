@@ -13,7 +13,8 @@ const ProfilePayments = () => {
     const data = useSelector((state) => state.orders.data);
 
     useEffect(() => {
-        if (data.length <= 0 && !isLoadingOrders) doFetchOrders();
+        if ((data.length <= 0 && !isLoadingOrders) || !Array.isArray(data))
+            doFetchOrders();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchOrders, data]);
 

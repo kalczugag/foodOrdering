@@ -17,22 +17,17 @@ const AdminMain = () => {
     const [doFetchAdminOrders, isLoadingOrders] = useThunk(fetchOrders);
     const [doFetchProducts, isLoadingProducts] = useThunk(fetchProducts);
 
-    const ordersData = useSelector((state) => state.orders.data);
+    const ordersData = useSelector((state) => state.orders.dataAdmin);
     const productsData = useSelector((state) => state.products.data);
 
     const { user } = useUser();
     const admin = user && user.admin;
 
     useEffect(() => {
-        if (
-            admin &&
-            ordersData.length <= 0 &&
-            !isLoadingOrders &&
-            productsData.length <= 0 &&
-            !isLoadingProducts
-        ) {
-            doFetchProducts();
+        if (admin && ordersData.length <= 0 && !isLoadingOrders) {
             doFetchAdminOrders(true);
+        } else if (admin && productsData.length <= 0 && !isLoadingProducts) {
+            doFetchProducts();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchAdminOrders, doFetchProducts, admin, ordersData, productsData]);

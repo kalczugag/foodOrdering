@@ -45,6 +45,7 @@ export * from "./thunks/removeProduct";
 export * from "./thunks/removeFromCart";
 export * from "./thunks/removeEvent";
 export * from "./thunks/removePost";
+export * from "./thunks/removeDiscount";
 export * from "./thunks/adminLogin";
 export * from "./thunks/orderStatusChange";
 export * from "./thunks/handlePayment";

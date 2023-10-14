@@ -48,4 +48,16 @@ module.exports = (app) => {
             res.status(422).send(err);
         }
     });
+
+    app.delete("/api/discount/:discountId", async (req, res) => {
+        const { discountId } = req.params;
+
+        try {
+            await Discount.deleteOne({ _id: discountId });
+            res.status(200).send("Successful remove");
+        } catch (err) {
+            console.error(err);
+            res.send(500).send("Internal Server Error");
+        }
+    });
 };

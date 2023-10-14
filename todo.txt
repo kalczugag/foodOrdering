@@ -1,2 +1,7 @@
 1. add admin prop to useUser thunk
 2. console.error every error at routes
+3. orders state problems when going back from other page
+4. admin orders fetching
+
+
+3 and 4 may be only on prod env
