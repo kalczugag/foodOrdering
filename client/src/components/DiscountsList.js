@@ -23,7 +23,11 @@ const DiscountsList = () => {
         return <DiscountsListItem data={discount} />;
     });
 
-    return <div>{renderedDiscountItems}</div>;
+    return (
+        <div className="p-4 grid gap-2 grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
+            {renderedDiscountItems}
+        </div>
+    );
 };
 
 export default DiscountsList;

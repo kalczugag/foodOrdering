@@ -1,0 +1,25 @@
+@keyframes openHamburger {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes closeHamburger {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.open-animation {
+    animation: openHamburger 0.25s ease-in-out;
+}
+
+.close-animation {
+    animation: closeHamburger 0.25s ease-in-out;
+}

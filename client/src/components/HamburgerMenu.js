@@ -1,23 +1,17 @@
+import "../utils/styles/hamburgerMenu.css";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-    AiOutlineMenu,
-    AiOutlineHome,
-    AiOutlineOrderedList,
-    AiFillRead,
-} from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineHome, AiFillRead } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { MdOutlineForum, MdOutlineEvent } from "react-icons/md";
 
 const HamburgerMenu = () => {
     const location = useLocation();
 
-    const [isOpen, setIsOpen] = useState();
+    const [isOpen, setIsOpen] = useState(false);
 
     const config = [
         { label: "Home", icon: <AiOutlineHome />, to: "/" },
-        { label: "Products", icon: <AiOutlineOrderedList />, to: "/products" },
-        { label: "Menu", icon: <AiOutlineMenu />, to: "/menu" },
         { label: "Events", icon: <MdOutlineEvent />, to: "/events" },
         { label: "Blog", icon: <AiFillRead />, to: "/blog" },
         { label: "Contact", icon: <MdOutlineForum />, to: "/contact" },
@@ -63,13 +57,19 @@ const HamburgerMenu = () => {
             >
                 {icon}
             </button>
-            {isOpen && (
-                <div className="absolute w-72 h-screen-plus -left-4 -top-4 bottom-0 pr-2 bg-white text-black opacity-90 z-30">
-                    <ul class="flex flex-col space-y-2 list-none py-16 text-xl">
-                        {renderedList}
-                    </ul>
-                </div>
-            )}
+            <div
+                className={`absolute w-72 h-screen-plus -left-4 -top-4 bottom-0 pr-2 bg-white text-black opacity-90 z-30 ${
+                    isOpen ? "open-animation" : "close-animation"
+                }`}
+                style={{
+                    visibility: isOpen ? "visible" : "hidden",
+                    opacity: isOpen ? 1 : 0,
+                }}
+            >
+                <ul className="flex flex-col space-y-2 list-none py-16 text-xl">
+                    {renderedList}
+                </ul>
+            </div>
         </div>
     );
 };

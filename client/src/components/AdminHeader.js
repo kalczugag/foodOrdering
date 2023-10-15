@@ -32,7 +32,7 @@ const AdminHeader = () => {
     return (
         <>
             {admin && (
-                <div className="fixed flex flex-row justify-center items-center top-20 left-0 right-0 h-7 z-50 space-x-6 bg-red-sub text-white text-sm">
+                <div className="fixed flex flex-row justify-center items-center top-20 left-0 right-0 h-7 z-20 space-x-6 bg-red-sub text-white text-sm">
                     {renderedLinks}
                 </div>
             )}
