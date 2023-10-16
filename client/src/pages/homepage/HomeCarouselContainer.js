@@ -1,41 +1,52 @@
-import { useState } from "react";
+import { useTitle } from "../../hooks/use-title";
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 import CarouselFirst from "../../components/CarouselFirst";
 import CarouselSecond from "../../components/CarouselSecond";
 import CarouselThird from "../../components/CarouselThrid";
-import { useTitle } from "../../hooks/use-title";
+import Slider from "react-slick";
 
 const pages = [<CarouselFirst />, <CarouselSecond />, <CarouselThird />];
 
+const CustomPrevArrow = ({ onClick }) => {
+    return (
+        <div className="custom-arrow" onClick={onClick}>
+            <MdOutlineNavigateBefore className="cursor-pointer text-9xl" />
+        </div>
+    );
+};
+
+const CustomNextArrow = ({ onClick }) => {
+    return (
+        <div className="custom-arrow" onClick={onClick}>
+            <MdOutlineNavigateNext className="cursor-pointer text-9xl" />
+        </div>
+    );
+};
+
 const HomeCarouselContainer = () => {
     useTitle("Home Pizza");
-    const [currentPage, setCurrentPage] = useState(0);
 
-    const handlePageChange = (pageNumber) => {
-        if (pageNumber >= 0 && pageNumber < pages.length) {
-            setCurrentPage(pageNumber);
-        } else if (pageNumber <= 0) {
-            setCurrentPage(pages.length - 1);
-        } else {
-            setCurrentPage(0);
-        }
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        prevArrow: <CustomPrevArrow />,
+        nextArrow: <CustomNextArrow />,
     };
 
     return (
-        <div className="bg-red-main flex flex-col justify-between items-center px-6 h-screen-fit text-white md:flex-row md:w-full xl:px-0">
-            <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                className="hidden xl:flex xl:justify-start"
+        <div className="flex justify-center items-center bg-red-main h-screen-fit text-white md:w-full">
+            <Slider
+                {...settings}
+                className="flex flex-row justify-center items-center w-full px-8"
             >
-                <MdOutlineNavigateBefore className="cursor-pointer text-9xl" />
-            </button>
-            <div>{pages[currentPage]}</div>
-            <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                className="hidden xl:flex xl:justify-end"
-            >
-                <MdOutlineNavigateNext className="cursor-pointer text-9xl" />
-            </button>
+                {pages.map((page, index) => (
+                    <div key={index}>{page}</div>
+                ))}
+            </Slider>
         </div>
     );
 };
