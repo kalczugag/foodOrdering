@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, forwardRef } from "react";
 import { useSelector } from "react-redux";
 import { useThunk } from "../../hooks/use-thunk";
 import { fetchProducts } from "../../store";
 import MainProductItem from "../../components/MainProductsItem";
 
-const HomePizzas = () => {
+const HomePizzas = forwardRef((props, ref) => {
     const [doFetchProducts, isLoadingProducts] = useThunk(fetchProducts);
 
     const data = useSelector((state) => state.products.data) || [];
@@ -19,7 +19,10 @@ const HomePizzas = () => {
     });
 
     return (
-        <div className="relative container flex flex-col items-center mx-auto min-h-screen mt-16 px-6 md:px-10">
+        <div
+            ref={ref}
+            className="relative container flex flex-col items-center mx-auto min-h-screen mt-16 px-6 md:px-10"
+        >
             <h1 className="text-3xl font-bold mb-10 md:text-4xl">
                 THE BEST PIZZA IN TOWN
             </h1>
@@ -34,6 +37,6 @@ const HomePizzas = () => {
             </div>
         </div>
     );
-};
+});
 
 export default HomePizzas;

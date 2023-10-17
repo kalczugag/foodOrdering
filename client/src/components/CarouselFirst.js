@@ -1,7 +1,7 @@
 const CarouselFirst = () => {
     return (
-        <div className="flex flex-col items-center space-y-8 md:flex-row md:space-y-0">
-            <div className="flex flex-col text-3xl font-bold mt-2 md:mr-32 md:mt-0">
+        <div className="grid grid-flow-row items-center justify-center md:grid-cols-2">
+            <div className="flex flex-col text-3xl font-bold mt-2 md:mt-0">
                 <div className="flex flex-col items-center mb-6">
                     <p>HOT & SPICY</p>
                     <h1 className="text-8xl md:text-9xl">PIZZA</h1>
@@ -15,7 +15,7 @@ const CarouselFirst = () => {
                     <p className="text-xl pt-1">{process.env.NODE_ENV}</p>
                 </div>
             </div>
-            <div className="w-1/2 md:w-full">
+            <div className="hidden md:block md:w-full">
                 <img src="/images/1.png" alt="pizza" />
             </div>
         </div>
