@@ -1,5 +1,5 @@
 import "../../utils/styles/carousel.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useTitle } from "../../hooks/use-title";
 import {
     MdOutlineNavigateBefore,

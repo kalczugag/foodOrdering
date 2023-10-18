@@ -11,7 +11,6 @@ import SimpleBar from "simplebar-react";
 import HomeFooter from "./pages/homepage/HomeFooter";
 import HomePage from "./pages/homepage/HomePage";
 import BlogPage from "./pages/BlogPage";
-import ContactPage from "./pages/ContactPage";
 import EventsPage from "./pages/EventsPage";
 import CartPage from "./pages/CartPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -69,7 +68,6 @@ const App = () => {
                     <Route index element={<HomePage />} />
                     <Route path="/events" element={<EventsPage />} />
                     <Route path="/blog" element={<BlogPage />} />
-                    <Route path="/contact" element={<ContactPage />} />
                     <Route path="/cart" element={<CartPage />} />
 
                     <Route path="/profile" element={<ProfilePage />}>

@@ -9,33 +9,34 @@ import { FaRegTrashAlt } from "react-icons/fa";
 const DiscountsListItem = ({ data: { _id, code, amount, expiresAt } }) => {
     const [showCode, setShowCode] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-    const [doRemoveDiscount, isRemovingDiscount] = useThunk(removeDiscount);
+    const [width, setWidth] = useState(window.innerWidth);
+    const [showButtons, setShowButtons] = useState(false);
+
+    const { admin } = useUser();
+    const [doRemove, isRemoving] = useThunk(removeDiscount);
     const amountInPercent = amount * 100;
 
     useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth >= 768);
+        const handleWindowSize = () => {
+            setWidth(window.innerWidth);
         };
 
-        handleResize();
-
-        window.addEventListener("resize", handleResize);
+        window.addEventListener("resize", handleWindowSize);
 
         return () => {
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("resize", handleWindowSize);
         };
     }, []);
 
-    const handleRemoveDiscount = () => {
-        doRemoveDiscount(_id);
+    const handleRemove = () => {
+        doRemove(_id);
     };
 
     const handleShowCode = () => {
         setShowCode(!showCode);
     };
 
-    const handleCopyCode = () => {
+    const handleCopy = () => {
         navigator.clipboard.writeText(code);
         setIsCopied(true);
 
@@ -49,7 +50,7 @@ const DiscountsListItem = ({ data: { _id, code, amount, expiresAt } }) => {
         displayCode = `${code.slice(0, 8)}...`;
     }
 
-    const { admin } = useUser();
+    const isMobile = width <= 768;
 
     return (
         <div className="flex flex-row p-2 max-w-sm rounded shadow-md border-2 border-red-main">
@@ -59,14 +60,28 @@ const DiscountsListItem = ({ data: { _id, code, amount, expiresAt } }) => {
             </div>
             <div className="flex flex-col space-y-2 ml-6">
                 <button
-                    onClick={showCode ? handleCopyCode : handleShowCode}
+                    onClick={showCode && isMobile ? handleCopy : handleShowCode}
                     className={`relative bg-red-main text-white rounded-3xl p-2 px-6 ${
                         showCode && "outline-dotted outline-3 outline-red-main"
-                    } ${isCopied && "copy-animation"} `}
+                    } ${isCopied && "copy-animation"} xl:w-32`}
                 >
                     {showCode ? (
-                        <div className="flex items-center justify-center">
-                            {displayCode}
+                        <div
+                            onMouseEnter={() => setShowButtons(true)}
+                            onMouseLeave={() => setShowButtons(false)}
+                            className="flex items-center justify-center"
+                        >
+                            {showButtons && (
+                                <div className="flex flex-row items-center space-x-2 py-1">
+                                    <button onClick={handleCopy}>
+                                        <AiOutlineCopy />
+                                    </button>
+                                    <button onClick={handleRemove}>
+                                        <FaRegTrashAlt />
+                                    </button>
+                                </div>
+                            )}
+                            {showButtons || displayCode}
                         </div>
                     ) : (
                         "See Code"
