@@ -11,8 +11,7 @@ import PostsSkeleton from "../components/PostsSkeleton";
 
 const Blog = () => {
     const data = useSelector((state) => state.blog.data);
-    const { user } = useUser();
-    const admin = user && user.admin;
+    const { admin } = useUser();
 
     const [doFetchPosts, isLoadingPosts] = useThunk(fetchPosts);
 

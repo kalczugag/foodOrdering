@@ -8,8 +8,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 const NewestBlogItem = ({ data }) => {
     const [doRemovePost, isRemoveLoading] = useThunk(removePost);
 
-    const { user } = useUser();
-    const admin = user && user.admin;
+    const { admin } = useUser();
 
     const handleRemovePost = () => {
         doRemovePost(data);

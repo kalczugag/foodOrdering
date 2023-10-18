@@ -6,8 +6,7 @@ import { Outlet } from "react-router-dom";
 const DashboardAdmin = () => {
     useTitle("Admin Dashboard");
 
-    const { user } = useUser();
-    const admin = user && user.admin;
+    const { admin } = useUser();
 
     if (admin === false) {
         return <div>You are not an admin!</div>;

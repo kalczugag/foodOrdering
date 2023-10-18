@@ -68,6 +68,7 @@ const HomeCarouselContainer = ({ targetRef }) => {
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: true,
+        lazyload: "progressive",
         prevArrow: <CustomPrevArrow isVisible={arrowsVisible} />,
         nextArrow: <CustomNextArrow isVisible={arrowsVisible} />,
     };

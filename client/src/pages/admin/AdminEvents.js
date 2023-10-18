@@ -23,8 +23,7 @@ const AdminEvents = () => {
         currentPage
     );
 
-    const { user } = useUser();
-    const admin = user && user.admin;
+    const { admin } = useUser();
 
     useEffect(() => {
         if (admin && paginatedData.length <= 0 && !isFetchingEvents)

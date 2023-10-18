@@ -8,8 +8,7 @@ import { useSelector } from "react-redux";
 const DiscountsList = () => {
     const [doFetchDiscounts, isFetchingDiscounts] = useThunk(fetchDiscounts);
 
-    const { user } = useUser();
-    const admin = user && user.admin;
+    const { admin } = useUser();
 
     const data = useSelector((state) => state.discount.data);
 
@@ -19,8 +18,8 @@ const DiscountsList = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [admin, doFetchDiscounts, data]);
 
-    const renderedDiscountItems = data.map((discount) => {
-        return <DiscountsListItem data={discount} />;
+    const renderedDiscountItems = data.map((discount, index) => {
+        return <DiscountsListItem key={index} data={discount} />;
     });
 
     return (

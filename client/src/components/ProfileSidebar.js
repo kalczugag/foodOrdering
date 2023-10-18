@@ -6,8 +6,7 @@ import { useUser } from "../hooks/use-user";
 
 const ProfileSidebar = () => {
     const location = useLocation();
-    const { user } = useUser();
-    const admin = user && user.admin;
+    const { admin } = useUser();
 
     const links = [
         {

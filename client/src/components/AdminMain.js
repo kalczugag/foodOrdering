@@ -20,8 +20,7 @@ const AdminMain = () => {
     const ordersData = useSelector((state) => state.orders.dataAdmin);
     const productsData = useSelector((state) => state.products.data);
 
-    const { user } = useUser();
-    const admin = user && user.admin;
+    const { admin } = useUser();
 
     useEffect(() => {
         if (admin && ordersData.length <= 0 && !isLoadingOrders) {
@@ -32,12 +31,12 @@ const AdminMain = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doFetchAdminOrders, doFetchProducts, admin, ordersData, productsData]);
 
-    const handleOpenModal = () => {
-        setShowNewPizzaModal(true);
-    };
-
-    const handleCloseNewPizzaModal = () => {
-        setShowNewPizzaModal(false);
+    const handleToggleModal = () => {
+        if (showNewPizzaModal) {
+            setShowNewPizzaModal(false);
+        } else {
+            setShowNewPizzaModal(true);
+        }
     };
 
     const handleCloseEditPizzaModal = () => {
@@ -54,7 +53,7 @@ const AdminMain = () => {
             {admin ? (
                 <div className="flex flex-col p-10 justify-between space-y-12 xl:space-y-0 xl:flex-row">
                     <AdminProducts
-                        onOpen={handleOpenModal}
+                        onOpen={handleToggleModal}
                         onEdit={handleEditProduct}
                     />
                     <AdminOrders />
@@ -82,9 +81,7 @@ const AdminMain = () => {
                     </div>
                 </div>
             )}
-            {showNewPizzaModal && (
-                <NewPizzaForm onClose={handleCloseNewPizzaModal} />
-            )}
+            {showNewPizzaModal && <NewPizzaForm onClose={handleToggleModal} />}
             {showEditPizzaModal && (
                 <EditPizzaForm
                     onClose={handleCloseEditPizzaModal}

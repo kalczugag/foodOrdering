@@ -8,10 +8,10 @@ import { useTitle } from "../../hooks/use-title";
 const AdminLogin = () => {
     useTitle("Admin login");
     const [doLoginAdmin] = useThunk(adminLogin);
-    const { user } = useUser();
+    const { admin } = useUser();
 
     const onSubmit = (e) => {
-        if (user && user.admin) {
+        if (admin) {
             window.location.href = "/admin";
         } else {
             doLoginAdmin(e);
