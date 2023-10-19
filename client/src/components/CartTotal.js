@@ -60,7 +60,7 @@ const CartTotal = () => {
             </div>
             <button
                 onClick={handleCheckoutClick}
-                className="flex justify-center items-center bg-white w-64 h-10 text-red-main font-bold hover:bg-gray-100"
+                className="flex justify-center items-center bg-white h-10 text-red-main font-bold hover:bg-gray-100 md:w-56"
                 disabled={paymentLoading || itemsCount <= 0}
             >
                 {paymentLoading ? (
